@@ -1,0 +1,17 @@
+# Make a copy of this file, and save to `config.ini`
+# Enter your API and Secret Key for use in the example files; No need to add double quote or single quote. For example:
+#orderly_key=ed25519:4bfaPoJ1R6fiEZsx7GuaCQUnaym6mihrVhtBFNnzYLd1
+#orderly_secret=ed25519:9CRLPAWEGkZHCCiY1ut2wbVAHayjUK14D9t3zdp4W7uG
+#orderly_account_id=0x3c16b3a08ed5cd0b8e3wfa3c082987358bece8e0d558ca4dd259b3e6e050e32f
+#orderly_testnet=True
+#wallet_secret=6a1632ef62448f359c18adb4f42bdaae3eee003090f0b23efc2b34d1516db4ec
+#wss_id=Client15
+# It's a demo key, doesn't work on production :)
+
+[keys]
+orderly_key=
+orderly_secret=
+orderly_account_id=
+orderly_testnet=True
+wallet_secret=
+wss_id=

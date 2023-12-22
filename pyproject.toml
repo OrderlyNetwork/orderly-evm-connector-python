@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "orderly-evm-connector"
+version = "0.1.0"
+description = "This is a lightweight library that works as a connector to Orderly API and Websocket."
+authors = ["Orderly Tech"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+eth_account = "^0.10.0"
+ed25519 = "^1.5"
+web3 = "^6.13.0"
+base58 = "^2.1.1"
+requests = "^2.31.0"
+websocket_client = "^1.7.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  ".", "orderly_evm_connector",
+]
