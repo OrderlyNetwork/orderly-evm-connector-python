@@ -1,93 +1,238 @@
-# orderly-evm-connector-python
+# Orderly Open API Connector Python
+[![PyPI version](https://img.shields.io/pypi/v/binance-connector)](https://pypi.python.org/pypi/binance-connector)
+[![Python version](https://img.shields.io/pypi/pyversions/binance-connector)](https://www.python.org/downloads/)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://binance-connector.readthedocs.io/en/stable/)
+[![Code Style](https://img.shields.io/badge/code_style-black-black)](https://black.readthedocs.io/en/stable/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+Orderly Open API Connector Python is a connector to [Orderly open API](https://docs-api-evm.orderly.network)
 
+- Supported APIs:
+    - Public API Endpoints
+    - Private API Endpoints
+    - Websockets API Endpoints
+- Inclusion of test cases and examples
+- Client for both Mainnet and Testnet
+- Utility methods needed for connecting Orderly Endpoints such as authentication
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/orderlynetwork/orderly-dev-support/orderly-evm-connector-python.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/orderlynetwork/orderly-dev-support/orderly-evm-connector-python/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Note: This connector is for Orderly EVM. It is not compatible with Orderly NEAR.
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```bash
+pip install orderly-evm-connector
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Documentation
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+[https://docs-api-evm.orderly.network](https://docs-api-evm.orderly.network)
+
+## RESTful APIs
+
+Usage examples:
+```python
+import orderly
+
+from orderly.rest import Rest as Client
+from utils.config import get_account_info
+
+(
+    orderly_key,
+    orderly_secret,
+    orderly_account_id,
+    orderly_testnet,
+    wss_id,
+) = get_account_info()
+client = Client(
+    orderly_key=orderly_key,
+    orderly_secret=orderly_secret,
+    orderly_account_id=orderly_account_id,
+    orderly_testnet=True,
+    timeout=5
+)
+
+# Orders APIs
+response = client.create_order(
+    symbol="PERP_NEAR_USDC",
+    order_type="LIMIT",
+    side="BUY",
+    order_price=1.95,
+    order_quantity=1,
+)
+```
+Please find `examples` folder to check for more endpoints.
+- In order to set your Orderly Key and Orderly Secret for use of the examples, create a file `examples/config.ini` with your keys.
+- Eg:
+    ```ini
+    # examples/config.ini
+    [keys]
+    orderly_key=ed25519:xxxx
+    orderly_secret=ed25519:xxxx
+    orderly_account_id=0xaaaa
+    orderly_testnet=False
+    wallet_secret=xxxx
+    wss_id=ClientID
+    debug=False
+    ```
+### Display logs
+
+Setting the `debug=True` will log the request URL, payload and response text.
+
+### Authentication
+
+Requests to Orderly API needs to be signed using `orderly-key` and `orderly-secret`. 
+Orderly Network uses the `ed25519` elliptic curve standard for request authentication. The `lib.utils` class provides methods for signing and generating request signatures.
+
+```python
+from orderly.lib.utils import generate_signature
+
+orderly_secret = "YOUR_ORDERLY_SECRET_HERE"
+
+# A normalized orderly request string, see Authentication section of the Orderly API Doc for details
+request_str = """1649920583000POST/v1/order{"symbol": "SPOT_NEAR_USDC", "order_type": "LIMIT", "order_price": 15.23, "order_quantity": 23.11, "side": "BUY"}"""
+sginature = generate_signature(orderly_secret, request_str)
+```
+
+###  Heartbeat
+
+Once connected, the websocket server sends a ping frame every 10 seconds and is asked to return a response pong frame within 1 minute. This package automatically handles pong responses.
+
+### Reconnect
+
+Once the connection is abnormal, the websocket connection tries a maximum of 30 times every 5s`(WEBSOCKET_RETRY_SLEEP_TIME = 5`,`WEBSOCKET_FAILED_MAX_RETRIES = 30`). After the connection is established, the subscription is completed again
+
+
+### Testnet
+When creating a Rest or Websocket client, set the `orderly_testnet` parameter to true to use Testnet.
+
+```python
+orderly_testnet = True
+
+# Private Websocket Client on Testnet
+wss_client = WebsocketPrivateAPIClient(
+    orderly_testnet=orderly_testnet,
+    orderly_account_id=orderly_account_id,
+    wss_id=wss_id,
+    orderly_key=orderly_key,
+    orderly_secret=orderly_secret,
+    on_message=message_handler,
+    on_close=on_close,
+)
+
+# Private REST API Client
+client = Client(
+    orderly_key=orderly_key,
+    orderly_secret=orderly_secret,
+    orderly_account_id=orderly_account_id,
+    orderly_testnet=orderly_testnet,
+    timeout=5
+)
+```
+
+### Error
+
+There are 2 types of error returned from the library:
+- `orderly.error.ClientError`
+    - This is thrown when server returns `4XX`, it's an issue from client side.
+    - It has 5 properties:
+        - `status_code` - HTTP status code
+        - `error_code` - Server's error code, e.g. `-1102`
+        - `error_message` - Server's error message, e.g. `Unknown order sent.`
+        - `header` - Full response header.
+        - `error_data`* - Additional detailed data which supplements the `error_message`.
+            - **Only applicable on select endpoints, eg. `cancelReplace`*
+- `orderly.error.ServerError`
+    - This is thrown when server returns `5XX`, it's an issue from server side.
+In addition, there are 3 types of Parameter Error:
+- `orderly.error.ParameterRequiredError`
+    - This error is thrown when a required parameter for the endpoint is not present in the request.
+- `orderly.error.ParameterValueError`
+    - This error is thrown when a value passed in for an ENUM type parameter is invalid. For example the `order_type` parameter is an ENUM with a fixed set of values users could pass in. Passing a value out of the ENUM definition will result in this error.
+- `orderly.error.ParameterTypeError`
+    - This error is thrown when a value passed in is not in consistency with the type definition of the parameter.
+Websocket Client has 1 type of Error:
+- `WebsocketClientError`
+    - This error is thrown when there is an exception thrown by the WebsocketClient class.
+
+## Websocket
+
+### Websocket Client
+
+Orderly has two Websocket endpoints, the Market Data Base Endpoint(public endpoint) and the Private User Data Stream Base Endpoint(private endpoint).
+`orderly-connector` supports connecting to both endpoints in both Mainnet and Testnet. See below for example:
+
+```python
+from utils.config import get_account_info
+import time, logging
+from orderly.websocket.websocket_api import WebsocketPublicAPIClient
+
+(
+    orderly_key,
+    orderly_secret,
+    orderly_account_id,
+    orderly_testnet,
+    wss_id,
+) = get_account_info()
+
+
+def on_close(_):
+    logging.info("Do custom stuff when connection is closed")
+
+
+def message_handler(_, message):
+    logging.info(message)
+
+
+# Public websocket does not need to pass orderly_key and orderly_secret arguments
+
+wss_client = WebsocketPublicAPIClient(
+    orderly_testnet=orderly_testnet,
+    orderly_account_id=orderly_account_id,
+    wss_id=wss_id,
+    on_message=message_handler,
+    on_close=on_close,
+)
+
+wss_client.get_24h_tickers()
+time.sleep(1)
+wss_client.close()
+```
+
+For private endpoint, user will need to pass in the `orderly_key` and `orderly_secret` to the `orderly.websocket.WebsocketPrivateAPIClient` class.
+Private endpoint also requires signature of the message sent using `orderly_key` and `orderly_secret`. This function is encapsulated by the `WebsocketPrivateAPIClient` class. See Orderly API Docs for more detai. 
+```python
+wss_client = WebsocketPrivateAPIClient(
+    orderly_testnet=orderly_testnet,
+    orderly_account_id=orderly_account_id,
+    wss_id=wss_id,
+    orderly_key=orderly_key,
+    orderly_secret=orderly_secret,
+    on_message=message_handler,
+    on_close=on_close,
+)
+# wss_client.get_liquidator_liquidations()
+wss_client.get_notifications()
+time.sleep(1)
+wss_client.stop()
+```
+
+
+#### wss_id
+`wss_id` is the request id of included in each of websocket request to orderly. This is defined by user and has a max length of 64 bytes.
+
+## Test Case
+
+```python
+# In case packages are not installed yet
+pip install -r requirements/requirements-test.txt
+
+pytest
+```
+
+## Limitation
 
 ## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Contributions are welcome.<br/>
+If you've found a bug within this project, please open an issue to discuss what you would like to change.<br/>
+If it's an issue with the API, please open a topic at [Orderly Developer Community]()
