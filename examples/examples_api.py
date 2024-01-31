@@ -221,6 +221,8 @@ client_private = Client(
 # client_private.cancel_algo_order("1000067","PERP_APT_USDC")
 # #Cancel order
 # client_private.cancel_order("3268388","PERP_APT_USDC")
+# #Cancel algo order by client_order_id
+# client_private.cancel_algo_order_by_client_order_id(100090,"PERP_APT_USDC")
 # #Cancel order by client_order_id
 # client_private.cancel_order_by_client_order_id(100090,"PERP_NEAR_USDC")
 # #Cancel a list of orders, filtered by symbol optionally

@@ -105,6 +105,7 @@ class Rest(API):
     from orderly_evm_connector.rest._trade import edit_order
     from orderly_evm_connector.rest._trade import cancel_algo_order
     from orderly_evm_connector.rest._trade import cancel_order
+    from orderly_evm_connector.rest._trade import cancel_algo_order_by_client_order_id
     from orderly_evm_connector.rest._trade import cancel_order_by_client_order_id
     from orderly_evm_connector.rest._trade import cancel_orders
     from orderly_evm_connector.rest._trade import batch_cancel_orders
