@@ -191,8 +191,8 @@ client_private = Client(
 # client_private.get_funding_fee_history("PERP_ETH_USDC")
 # #create order
 # client_private.create_order("PERP_NEAR_USDC","LIMIT","BUY",order_price=1.8,order_quantity=100)
-# #create aigo order
-# client_private.create_aigo_order("STOP",100,"BUY","PERP_APT_USDC","MARKET",5.11)
+# #create algo order
+# client_private.create_algo_order("STOP",100,"BUY","PERP_APT_USDC","MARKET",5.11)
 
     
 # #Batch create order
@@ -215,10 +215,12 @@ client_private = Client(
 # client_private.batch_create_order(orders)
 # #Edit order
 # client_private.edit_order("97417030","PERP_NEAR_USDC","LIMIT","BUY",order_price=1.88,order_quantity=100)
-# #Edit AIgo order
-# client_private.edit_aigo_order("1000065",quantity=100,trigger_price=3.4)
+# #Edit algo order
+# client_private.edit_algo_order("1000065",quantity=100,trigger_price=3.4)
+#Cancel algo order
+# client_private.cancel_algo_order("1000067","PERP_APT_USDC")
 # #Cancel order
-# client_private.cancel_order("97417075","PERP_NEAR_USDC")
+# client_private.cancel_order("3268388","PERP_APT_USDC")
 # #Cancel order by client_order_id
 # client_private.cancel_order_by_client_order_id(100090,"PERP_NEAR_USDC")
 # #Cancel a list of orders, filtered by symbol optionally

@@ -88,7 +88,6 @@ class API(object):
                         [f"{k}={v}" for k, v in _payload.items()]
                     )
                     _payload = ""
-
         params = {}
         payload = _payload if _payload else ""
         params["url_path"] = url_path
@@ -101,6 +100,7 @@ class API(object):
             )
         except ValueError:
             _timestamp, _signature = "mock_timestamp", "mock_signature"
+
         self.session.headers.update(
             {
                 "orderly-timestamp": _timestamp,
@@ -159,7 +159,7 @@ class API(object):
             "PUT": self.session.put,
             "POST": self.session.post,
         }.get(http_method, "GET")
-        if http_method == "POST":
+        if http_method == "POST" or http_method == "PUT":
             return method_func(url=params["url"], json=params["params"])
         else:
             return method_func(url=params["url"])

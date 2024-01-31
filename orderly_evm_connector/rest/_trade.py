@@ -52,7 +52,7 @@ def create_order(
     }
     return self._sign_request("POST", "/v1/order", payload=payload)
 
-def create_aigo_order(
+def create_algo_order(
     self,
     algo_type: str,
     quantity: int,
@@ -151,7 +151,7 @@ def batch_create_order(self, orders: list):
     payload = {"orders": orders}
     return self._sign_request("POST", "/v1/batch-order", payload=payload)
 
-def edit_aigo_order(
+def edit_algo_order(
     self,
     order_id: str,
     price: float = None,
@@ -249,6 +249,29 @@ def edit_order(
     }
     return self._sign_request("PUT", "/v1/order", payload=payload)
 
+def cancel_algo_order(self, order_id: int, symbol: str):
+    """[Private] Cancel Algo Order
+
+    Limit: 10 requests per 1 second
+
+    DELETE /v1/algo/order?order_id={order_id}&symbol={symbol}
+
+    Cancel a single algo order by order_id.
+
+    Args:
+        order_id(number)
+        symbol(string)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-algo-order
+    """
+    self.session.headers.update(
+            {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        )
+    check_required_parameters([[order_id, "order_id"], [symbol, "symbol"]])
+    return self._sign_request("DELETE", f"/v1/algo/order?order_id={order_id}&symbol={symbol}")
+
 
 def cancel_order(self, order_id: int, symbol: str, **kwargs):
     """[Private] Cancel order
@@ -265,7 +288,6 @@ def cancel_order(self, order_id: int, symbol: str, **kwargs):
 
     https://docs-api-evm.orderly.network/#restful-api-private-cancel-order
     """
-
     check_required_parameters([[order_id, "order_id"], [symbol, "symbol"]])
     payload = {"order_id": order_id, "symbol": symbol}
     return self._sign_request("DELETE", "/v1/order", payload=payload)
