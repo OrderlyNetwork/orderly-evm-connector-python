@@ -14,6 +14,21 @@ def get_registration_nonce(self):
 
     return self._request("GET", "/v1/registration_nonce")
 
+def get_account_details(self, account_id: str):
+    """[Public] Get Account Details
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/public/account
+
+    Args：
+        account_id(string):  The address of the user wallet
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-account-details
+
+    """
+    check_required_parameters([[account_id, "address"]])
+    payload = {"account_id": account_id}
+    return self._request("GET", "/v1/public/account", payload=payload)
 
 def get_account(self, address: str, broker_id: str):
     """[Public] Get Account

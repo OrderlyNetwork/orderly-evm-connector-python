@@ -37,7 +37,8 @@ client_private = Client(
 #             error.status_code, error.error_code, error.error_message
 #         )
 #     )
-
+# #Get Account Details
+# client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
 # #Get Registration Nonce
 # client_public.get_registration_nonce()
 # #Register Account
@@ -164,9 +165,9 @@ client_private = Client(
 
 # #settlement
 # #Get Settle PnL nonce
-client_private.get_settle_pnl_nonce()
-# #Request PnL Settlement
-client_private.request_pnl_settlement("woofi_pro",421613,1,"0x5aaa")
+# client_private.get_settle_pnl_nonce()
+# # #Request PnL Settlement
+# client_private.request_pnl_settlement("woofi_pro",421613,1,"0x5aaa")
 # #Get PnL settlement history
 # client_private.get_pnl_settlement_history()
 

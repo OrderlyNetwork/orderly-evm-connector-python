@@ -16,6 +16,7 @@ class Rest(API):
 
     # account
     from orderly_evm_connector.rest._account import get_registration_nonce
+    from orderly_evm_connector.rest._account import get_account_details
     from orderly_evm_connector.rest._account import get_account
     from orderly_evm_connector.rest._account import register_account
     from orderly_evm_connector.rest._account import get_orderly_key
