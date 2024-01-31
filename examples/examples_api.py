@@ -64,7 +64,7 @@ client_private = Client(
 # #Set the user config for whether the system should automatically cancel the user's pending orders during maintenance.
 # client_private.set_maintenance_config(True)
 # #Get User Daily Statistics
-# client_private.get_user_daily_statistics(start_date="2023-01-01",end_date="2023-01-02")
+# client_private.get_user_daily_statistics(start_date="2023-01-01",end_date="2024-01-02")
 # #Get the daily historical breakdown of the user trading volume.
 # client_private.get_user_daily_volume(start_date="2023-01-01",end_date="2023-01-02")
 # #Get the latest volume statistics of the user.
@@ -191,6 +191,10 @@ client_private = Client(
 # client_private.get_funding_fee_history("PERP_ETH_USDC")
 # #create order
 # client_private.create_order("PERP_NEAR_USDC","LIMIT","BUY",order_price=1.8,order_quantity=100)
+# #create aigo order
+# client_private.create_aigo_order("STOP",100,"BUY","PERP_APT_USDC","MARKET",5.11)
+
+    
 # #Batch create order
 # orders = [
 #     {
@@ -211,6 +215,8 @@ client_private = Client(
 # client_private.batch_create_order(orders)
 # #Edit order
 # client_private.edit_order("97417030","PERP_NEAR_USDC","LIMIT","BUY",order_price=1.88,order_quantity=100)
+# #Edit AIgo order
+# client_private.edit_aigo_order("1000065",quantity=100,trigger_price=3.4)
 # #Cancel order
 # client_private.cancel_order("97417075","PERP_NEAR_USDC")
 # #Cancel order by client_order_id

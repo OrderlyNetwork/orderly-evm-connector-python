@@ -98,8 +98,10 @@ class Rest(API):
     from orderly_evm_connector.rest._settlement import get_pnl_settlement_history
 
     # trade
+    from orderly_evm_connector.rest._trade import create_aigo_order
     from orderly_evm_connector.rest._trade import create_order
     from orderly_evm_connector.rest._trade import batch_create_order
+    from orderly_evm_connector.rest._trade import edit_aigo_order
     from orderly_evm_connector.rest._trade import edit_order
     from orderly_evm_connector.rest._trade import cancel_order
     from orderly_evm_connector.rest._trade import cancel_order_by_client_order_id

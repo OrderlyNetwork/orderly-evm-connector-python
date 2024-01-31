@@ -52,6 +52,67 @@ def create_order(
     }
     return self._sign_request("POST", "/v1/order", payload=payload)
 
+def create_aigo_order(
+    self,
+    algo_type: str,
+    quantity: int,
+    side: str,
+    symbol: str,
+    type: str,
+    trigger_price: float,
+    client_order_id: str = None,
+    order_tag: str = None,
+    price: float = None,
+    reduce_only: bool = None,
+    visible_quantity: bool = None,
+    trigger_price_type: str = "MARK_PRICE",
+):
+    """[Private] Place maker/taker order that requires an additional trigger for order execution such as stop orders.
+
+STOP type order bahavior: an order to buy or sell at the market price once the asset has traded at or through a specified price (the “stop price”). If the asset reaches the stop price, the order becomes a market order and is filled at the next available market price.
+
+Note: This endpoint requires trading scope in Orderly Key.
+
+    Limit: 10 requests per 1 second
+
+    POST /v1/algo/order
+
+    Args:
+        algo_type(string)：Only STOP is available for now
+        quantity(number): For MARKET/ASK/BID order, if order_amount is given, it is not required.
+        side(string): SELL/BUY
+        symbol(string)
+        type(string):LIMIT/MARKET
+        trigger_price_type(number): Only MARK_PRICE is available for now.
+        trigger_price(number)
+
+    Optional Args:
+        client_order_id(string): 36 length, default: null
+        order_tag(string)
+        price(number)
+        reduce_only(boolean): Default False
+        visible_quantity(boolean): Default false
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/create-algo-order
+    """
+    check_required_parameters(
+        [[algo_type, "algo_type"], [quantity, "quantity"], [side, "side"], [symbol, "symbol"], [type, "type"], [trigger_price, "trigger_price"]]
+    )
+    payload = {
+        "algo_type": algo_type,
+        "client_order_id": client_order_id,
+        "order_tag": order_tag,
+        "price": price,
+        "quantity": quantity,
+        "reduce_only": reduce_only,
+        "side": side,
+        "symbol": symbol,
+        "trigger_price": trigger_price,
+        "trigger_price_type": trigger_price_type,
+        "type": type,
+        "visible_quantity": visible_quantity
+    }
+    return self._sign_request("POST", "/v1/algo/order", payload=payload)
 
 def batch_create_order(self, orders: list):
     """[Private] Batch create order
@@ -90,6 +151,43 @@ def batch_create_order(self, orders: list):
     payload = {"orders": orders}
     return self._sign_request("POST", "/v1/batch-order", payload=payload)
 
+def edit_aigo_order(
+    self,
+    order_id: str,
+    price: float = None,
+    quantity: int = None,
+    trigger_price: float = None
+
+):
+    """[Private] Edit a pending algo order by order_id. Only the price or quantity can be amended.
+    Limit: 10 request per 1 second
+
+    PUT /v1/algo/order
+
+    Edit a pending algo order by order_id. Only the price or quantity can be amended.
+
+    Note: This endpoint requires trading scope in Orderly Key.
+    Args:
+        order_id(string)        
+    Optional Args:
+        price(number)
+        quantity(number)
+        trigger_price(number)
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/edit-algo-order
+    """
+    check_required_parameters(
+        [
+            [order_id, "order_id"],
+        ]
+    )
+
+    payload = {
+        "order_id": order_id,
+        "price": price,
+        "quantity": quantity,
+        "trigger_price": trigger_price
+    }
+    return self._sign_request("PUT", "/v1/algo/order", payload=payload)
 
 def edit_order(
     self,
