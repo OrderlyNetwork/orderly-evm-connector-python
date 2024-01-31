@@ -281,6 +281,26 @@ def set_maintenance_config(self, maintenance_cancel_order_flag: bool):
     _payload = {"maintenance_cancel_order_flag": maintenance_cancel_order_flag}
     return self._sign_request("POST", "/v1/client/maintenance_config", payload=_payload)
 
+def get_user_daily_statistics(self, start_date: str, end_date: str):
+    """Get User Daily Statistics
+    Limit 10 requests per 60 seconds
+
+    GET /v1/client/statistics/daily
+
+    Get user daily statistics of assets/pnl/volume.
+
+    Args:
+        start_date(string): Format YYYY-MM-DD.
+        end_date(string): Format YYYY-MM-DD.
+    Optional Args:
+        page(number)
+        size(number)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-user-daily-statistics
+    """
+    check_required_parameters([[start_date, "start_date"], [end_date, "end_date"]])
+    payload = {"start_date": start_date, "end_date": end_date}
+    return self._sign_request("GET", "/v1/client/statistics/daily", payload=payload)
 
 def get_user_daily_volume(self, start_date: str, end_date: str):
     """Get user daily volume

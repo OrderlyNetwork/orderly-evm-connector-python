@@ -1,5 +1,7 @@
 from orderly_evm_connector.rest import Rest as Client
 from utils.config import get_account_info
+from orderly_evm_connector.error import ClientError
+import logging
 
 (
     orderly_key,
@@ -60,6 +62,8 @@ client_private = Client(
 # client_private.get_account_information()
 # #Set the user config for whether the system should automatically cancel the user's pending orders during maintenance.
 # client_private.set_maintenance_config(True)
+# #Get User Daily Statistics
+# client_private.get_user_daily_statistics(start_date="2023-01-01",end_date="2023-01-02")
 # #Get the daily historical breakdown of the user trading volume.
 # client_private.get_user_daily_volume(start_date="2023-01-01",end_date="2023-01-02")
 # #Get the latest volume statistics of the user.

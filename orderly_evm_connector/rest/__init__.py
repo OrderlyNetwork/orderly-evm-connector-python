@@ -24,6 +24,7 @@ class Rest(API):
     from orderly_evm_connector.rest._account import get_current_holdings
     from orderly_evm_connector.rest._account import get_account_information
     from orderly_evm_connector.rest._account import set_maintenance_config
+    from orderly_evm_connector.rest._account import get_user_daily_statistics
     from orderly_evm_connector.rest._account import get_user_daily_volume
     from orderly_evm_connector.rest._account import get_user_volume_statistics
     from orderly_evm_connector.rest._account import get_current_orderlykey_info
