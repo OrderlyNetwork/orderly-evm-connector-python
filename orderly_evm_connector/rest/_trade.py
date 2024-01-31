@@ -482,6 +482,70 @@ def get_order_by_client_order_id(self, client_order_id: str):
     check_required_parameters([[client_order_id, "client_order_id"]])
     return self._sign_request("GET", f"/v1/client/order/{ client_order_id }")
 
+def get_algo_orders(
+    self,
+    algo_type: str,
+    symbol: str = None,
+    order_type: str = None,
+    status: str = None,
+    start_t: float = None,
+    end_t: float = None,
+    side: str = None,
+    page: int = None,
+    size: int = None,
+    is_triggered: str = None
+    
+):
+    """[Private] Get Algo Orders
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/algo/orders
+
+    Get algo order details by customized filters.
+
+    For filter by status, one can reference special bundled statuses below for ease of access of Open (i.e INCOMPLETE) orders or COMPLETED orders.
+
+    INCOMPLETE = NEW + PARTIAL_FILLED
+
+    COMPLETED = CANCELLED + FILLED
+
+    Optional Args:
+    symbol(string)
+    side(string):	BUY/SELL
+    order_type(string):	LIMIT/MARKET
+    status(enum): NEW/CANCELLED/PARTIAL_FILLED/FILLED/REJECTED/INCOMPLETE/COMPLETED
+    start_t(timestamp): start time range that wish to query, noted the time stamp is 13-digits timestamp.
+    end_t(timestamp): end time range that wish to query, noted the time stamp is 13-digits timestamp.
+    page(number): (default: 1)	the page you wish to query.
+    size(number): (default: 25)	the page size you wish to query (max: 500)
+    algo_type(string)
+    is_triggered(string)
+    
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-algo-orders
+    """
+    if order_type:
+        check_enum_parameter(order_type, OrderType)
+    if side:
+        check_enum_parameter(side, OrderSide)
+    if status:
+        check_enum_parameter(status, OrderStatus)
+
+    check_required_parameters([[algo_type, "algo_type"]])
+
+    payload = {
+        "symbol": symbol,
+        "order_type": order_type,
+        "side": side,
+        "status": status,
+        "start_t": start_t,
+        "end_t": end_t,
+        "page": page,
+        "size": size,
+        "algo_type": algo_type,
+        "is_triggered": is_triggered
+    }
+    return self._sign_request("GET", "/v1/algo/orders", payload=payload)
 
 def get_orders(
     self,
