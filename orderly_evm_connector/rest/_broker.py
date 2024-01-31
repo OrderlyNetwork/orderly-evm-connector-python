@@ -38,3 +38,42 @@ def get_user_fee_tier(self,account_id: str = None,address: str = None,page: int 
     """
     payload = {"account_id": account_id,"address":address,"page":page,"size":size}
     return self._sign_request("GET", "/v1/broker/user_info", payload=payload)
+
+def get_broker_daily_volume(
+    self, 
+    start_date: str,
+    end_date: str,
+    broker_id: str = None,
+    address: str = None,
+    order_tags: str = None,
+    aggregateBy: str = None
+    ):
+    """Get Broker Daily Volume
+    Limit 10 requests per 60 seconds
+
+    GET /v1/volume/broker/daily
+
+    Get the daily historical breakdown of the user trading volume on specified broker.
+    The provided start_date/end_date has to be within a 90-day range.
+
+    Args:
+        start_date(string): Format YYYY-MM-DD.
+        end_date(string): Format YYYY-MM-DD.
+    Optional Args:
+        broker_id(string)
+        address(string)
+        order_tags(string)
+        aggregateBy(string)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-broker-daily-volume
+    """
+    check_required_parameters([[start_date, "start_date"], [end_date, "end_date"]])
+    payload = {
+        "start_date": start_date,
+        "end_date": end_date,
+        "broker_id": broker_id,
+        "address": address,
+        "order_tags": order_tags,
+        "aggregateBy": aggregateBy
+        }
+    return self._sign_request("GET", "/v1/volume/user/daily", payload=payload)

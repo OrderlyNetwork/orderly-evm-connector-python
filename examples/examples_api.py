@@ -84,6 +84,8 @@ client_private = Client(
 # client_public.get_list_of_brokers()
 # #Get the user fee rate information
 # client_private.get_user_fee_tier(account_id="0xdd26e7ec6f9aef279f5988ab0c71c6c8f0845b811d1ccca3d6944846d683460d")
+# #Get Broker Daily Volume
+# client_private.get_broker_daily_volume(start_date="2023-12-01",end_date="2024-02-02")
 # #general
 # #System maintenance status
 # client_public.get_system_maintenance_status()
