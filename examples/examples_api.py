@@ -219,6 +219,8 @@ client_private = Client(
 # client_private.edit_algo_order("1000065",quantity=100,trigger_price=3.4)
 #Cancel algo order
 # client_private.cancel_algo_order("1000067","PERP_APT_USDC")
+## Cancel algo all pending order
+# client_private.cancel_algo_all_pending_order("PERP_APT_USDC")
 # #Cancel order
 # client_private.cancel_order("3268388","PERP_APT_USDC")
 # #Cancel algo order by client_order_id

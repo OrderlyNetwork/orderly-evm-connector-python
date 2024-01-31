@@ -272,6 +272,27 @@ def cancel_algo_order(self, order_id: int, symbol: str):
     check_required_parameters([[order_id, "order_id"], [symbol, "symbol"]])
     return self._sign_request("DELETE", f"/v1/algo/order?order_id={order_id}&symbol={symbol}")
 
+def cancel_algo_all_pending_order(self, symbol: str):
+    """[Private] Cancel All Pending Algo Orders
+
+    Limit: 10 requests per 1 second
+
+    DELETE /v1/algo/orders?symbol={symbol}
+
+    Cancel all pending algo orders.
+
+    Args:
+        symbol(string)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-all-pending-algo-orders
+    """
+    self.session.headers.update(
+            {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        )
+    check_required_parameters([[symbol, "symbol"]])
+    return self._sign_request("DELETE", f"/v1/algo/orders?symbol={symbol}")
 
 def cancel_order(self, order_id: int, symbol: str, **kwargs):
     """[Private] Cancel order
