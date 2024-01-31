@@ -233,8 +233,12 @@ client_private = Client(
 # client_private.batch_cancel_orders("97417075,97417074")
 # #Batch cancel orders by client_order_id
 # client_private.batch_cancel_orders_by_client_order_id("111,112")
-# # #Get order information
+# #Get algo order information
+# client_private.get_algo_order("1000070")
+# #Get order information
 # client_private.get_order("97417075")
+# #Get algo order by client_order_id
+# client_private.get_algo_order_by_client_order_id("100090")
 # #Get order by client_order_id
 # client_private.get_order_by_client_order_id("100090")
 # #Get orders by customized filters

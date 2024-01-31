@@ -415,6 +415,22 @@ def batch_cancel_orders_by_client_order_id(self, client_order_ids: str):
     payload = {"client_order_ids": client_order_ids}
     return self._sign_request("DELETE", "/v1/client/batch-order", payload=payload)
 
+def get_algo_order(self, order_id: str):
+    """[Private] Get order
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/algo/order/{order_id}
+
+    Get details of a single algo order by order_id.
+
+    Args:
+        order_id(string): id of the algo order
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-algo-order
+    """
+    check_required_parameters([[order_id, "order_id"]])
+    return self._sign_request("GET", f"/v1/algo/order/{order_id}")
 
 def get_order(self, order_id: str):
     """[Private] Get order
@@ -432,6 +448,22 @@ def get_order(self, order_id: str):
     """
     check_required_parameters([[order_id, "order_id"]])
     return self._sign_request("GET", f"/v1/order/{ order_id }")
+
+def get_algo_order_by_client_order_id(self, client_order_id: str):
+    """[Private] Get Algo Order by client_order_id
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/algo/client/order/{client_order_id}
+
+    Get details of a single algo order by client_order_id.
+
+    Args:
+        client_order_id(string): client id of the order
+
+    """
+    check_required_parameters([[client_order_id, "client_order_id"]])
+    return self._sign_request("GET", f"/v1/algo/client/order/{client_order_id}")
 
 
 def get_order_by_client_order_id(self, client_order_id: str):
