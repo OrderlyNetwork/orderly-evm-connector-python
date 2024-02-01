@@ -74,14 +74,17 @@ def withdraw_request(
     # verifyingContract: str,
 ):
     """Create Withdraw Request
-
+    
     Limit: 10 requests per 1 second per IP address
 
     POST /v1/withdraw_request
+    
+    This API will throw an error with message 22 - Cross-chain withdrawal required for this withdrawal request. if allow_cross_chain_withdrawal is false while the request is a cross-chain request.
 
-    Args:
+    Args
     message(JSON): Message object containing the message that is signed by the wallet owner
     message.brokerId(string): Broker ID
+    message.allowCrossChainWithdrawal(boolean)
     message.chainId(int): Chain ID of registering chain (within those that are supported by the Network)
     message.receiver(string): Address of the receiver, which should be equal to the address of the account.
     message.token(string): The string representation of the token that is being withdrawn (eg "USDC")
