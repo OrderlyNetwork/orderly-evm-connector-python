@@ -116,8 +116,11 @@ def claim_liquidated_positions(self, liquidation_id: int, ratio_qty_request, **k
         extra_liquidation_ratio(number)
         limit_price(json): Liquidator’s instruction to let the system reject the liquidation claim if the following condition applies: if position_qty > 0, reject if mark_price > limit_price; if position_qty < 0, reject if mark_price < limit_price
         limit_price.{symbol}(number): The limit price for each symbol in the liquidation claim
+        symbols: For high risk tiers only
+            symbols.ratio_qty_request(number, required): Field dedicated to high risk symbols liquidations type only (symbols with liquidation tier = 2), where a liquidator can specific the ratio he wish to liquidates per symbol
+            symbols.symbol(string, required): Only relevant if this is a liquidation of type high tier (symbols with liquidation tier = 2)
 
-    https://docs-api-evm.orderly.network/#restful-api-private-claim-liquidated-positions
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/claim-liquidated-positions
     """
     check_required_parameters(
         [[liquidation_id, "liquidation_id"], [ratio_qty_request, "ratio_qty_request"]]
@@ -128,7 +131,6 @@ def claim_liquidated_positions(self, liquidation_id: int, ratio_qty_request, **k
         **kwargs,
     }
     return self._sign_request("POST", "/v1/liquidation", payload=payload)
-
 
 def claim_from_insurance_fund(
     self, liquidation_id: str, symbol: str, qty_request, **kwargs
