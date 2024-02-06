@@ -29,6 +29,8 @@ def get_asset_history(
         end_t(timestamp):       end time range that wish to query, noted the time stamp is 13-digits timestamp.
         page(number):           (default: 1)	the page you wish to query.
         size(number):           (default: 25)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-asset-history
     """
     if status:
         check_enum_parameter(status, AssetStatus)
@@ -56,7 +58,7 @@ def get_withdraw_nonce(self):
 
     Retrieve a nonce used for requesting a withdrawal on Orderly Network. Each nonce can only be used once.
 
-    https://docs-api-evm.orderly.network/#restful-api-private-get-withdrawal-nonce
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-withdrawal-nonce
     """
 
     return self._sign_request("GET", "/v1/withdraw_nonce")
@@ -95,7 +97,7 @@ def withdraw_request(
     userAddress(string): The address of the wallet signing the message object via EIP-712
     # verifyingContract(string): Address of the Orderly Network ledger contract
 
-    https://docs-api-evm.orderly.network/#restful-api-private-create-withdraw-request
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/create-withdraw-request
 
     """
     check_required_parameters(

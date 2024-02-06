@@ -10,7 +10,7 @@ def get_system_maintenance_status(self):
 
     Retreive the current system maintenance status of Orderly Network. A return value of status = 0 means the system is functioning properly and a return value of status = 2 means the system is under maintenance.
 
-    https://docs-api-evm.orderly.network/#restful-api-public-system-maintenance-status
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-system-maintenance-status
     """
     return self._request("GET", "/v1/public/system_info")
 
@@ -26,7 +26,7 @@ def get_faucet_usdc(self, chain_id: str, user_address: str):
     chain_id(string): The chain ID that the test USDC should be deposited to
     user_address(string): The address of the user account
 
-    https://docs-api-evm.orderly.network/?shell#restful-api-public-get-faucet-usdc-testnet-only
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-faucet-usdctestnet-only
     """
 
     check_required_parameters([[chain_id, "chain_id"], [user_address, "user_address"]])
@@ -75,7 +75,7 @@ def get_exchange_info(self, symbol: str):
     Args:
         symbol(string)
 
-    https://docs-api-evm.orderly.network/#restful-api-public-exchange-information
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-exchange-information
     """
     check_required_parameters([[symbol, "symbol"]])
     return self._request("GET", f"/v1/public/info/{symbol}")
@@ -90,7 +90,7 @@ def get_token_info(self):
 
     Retrives the available tokens to custody within Orderly Network.
 
-    https://docs-api-evm.orderly.network/#restful-api-public-token-info
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-token-info
 
     """
     return self._request("GET", "/v1/public/token")
@@ -105,7 +105,7 @@ def get_available_symbols(self):
 
     Get available symbols that Orderly Network supports, and also send order rules for each symbol. The definition of rules can be found at Exchange Infomation
 
-    https://docs-api-evm.orderly.network/#restful-api-public-exchange-information
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-available-symbols
     """
     return self._request("GET", "/v1/public/info")
 
@@ -131,7 +131,7 @@ def get_leverage_configuration(self):
 
     GET v1/public/config
 
-    https://docs-api-evm.orderly.network/#restful-api-public-get-leverage-configuration
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-leverage-configuration
     """
     return self._request("GET", "/v1/public/config")
 
@@ -144,7 +144,7 @@ def get_user_statistics(self):
 
     Get statistics of the user account
 
-    https://docs-api-evm.orderly.network/#restful-api-private-get-user-statistics
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-user-statistics
 
     """
     return self._sign_request("GET", "/v1/client/statistics")

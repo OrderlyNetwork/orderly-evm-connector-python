@@ -17,7 +17,7 @@ def get_all_notifications(self, **kwargs):
         page(number): (default: 1)  the page you wish to query.
         size(number): (default: 25) the page size you wish to query. (max: 500)
 
-    https://docs-api-evm.orderly.network/?shell#restful-api-private-get-all-notifications
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-all-notifications
 
     """
     payload = {**kwargs}
@@ -35,7 +35,7 @@ def get_unread_notifications(self):
 
     Get the information on unread messages for the user.
 
-    https://docs-api-evm.orderly.network/#restful-api-private-get-unread-notification-information
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-unread-notifications
     """
     return self._sign_request("GET", "/v1/notification/inbox/unread")
 
@@ -53,7 +53,7 @@ def set_read_status_notifications(self, flag: int, ids: list):
         flag(number): The value of the read flag, where 1 = READ and 0 = UNREAD
         ids(list): The list of notification ids to flag as read/unread.
 
-    https://docs-api-evm.orderly.network/#restful-api-private-set-read-status-of-notifications
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/set-read-status-of-notifications
     """
     check_required_parameters([[flag, "flag"], [ids, "ids"]])
     payload = {"flag": flag, "ids": ids}
@@ -74,7 +74,7 @@ def set_read_status_all_notifications(self, flag: int):
     Args:
         flag(number): The value of the read flag, where 1 = READ and 0 = UNREAD
 
-    https://docs-api-evm.orderly.network/#restful-api-private-set-read-status-of-all-notifications
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/set-read-status-of-all-notifications
     """
     payload = {"flag": flag}
     check_required_parameters([[flag, "flag"]])

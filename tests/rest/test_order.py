@@ -16,11 +16,25 @@ create_order_params = {
     "order_amount": 2
 }
 
+create_algo_order_params = {
+    "algo_type" : "STOP",
+    "quantity" : 1,
+    "side": "BUY",
+    "symbol": "PERP_NEAR_USDC",
+    "type": "LIMIT",
+    "trigger_price": 1
+}
+
 get_orders_params = {
     "symbol": "PERP_NEAR_USDC",
     "order_type": "LIMIT",
     "side": "BUY",
     "status": "FILLED"
+}
+
+get_algo_orders_params = {
+    "algo_type": "STOP",
+    "symbol": "PERP_NEAR_USDC"
 }
 
 get_trades_params = {
@@ -60,6 +74,22 @@ def test_create_order():
 
 @mock_http_response(
     responses.POST,
+    f"/v1/algo/order",
+    mock_data,
+    200
+)
+def test_create_algo_order():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.create_algo_order(**create_algo_order_params)
+    response.should.equal(mock_data)
+
+
+
+@mock_http_response(
+    responses.POST,
     f"/v1/batch-order",
     mock_data,
     200
@@ -84,7 +114,21 @@ def test_edit_order():
         orderly_key=orderly_key,
         orderly_secret=orderly_secret,
     )
-    response = client.edit_order(order_id="test_order_id", **create_order_params)
+    response = client.edit_order(order_id="test_order_id")
+    response.should.equal(mock_data)
+
+@mock_http_response(
+    responses.PUT,
+    f"/v1/algo/order",
+    mock_data,
+    200
+)
+def test_edit_order():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.edit_algo_order(order_id="test_order_id")
     response.should.equal(mock_data)
 
 
@@ -105,7 +149,52 @@ def test_cancel_order():
 
 @mock_http_response(
     responses.DELETE,
+    f"/v1/algo/order\\?{urlencode(delete_order_params)}",
+    mock_data,
+    200
+)
+def test_cancel_algo_order():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.cancel_algo_order(**delete_order_params)
+    response.should.equal(mock_data)
+
+
+@mock_http_response(
+    responses.DELETE,
     f"/v1/client/order\\?{urlencode(delete_order_client_params)}",
+    mock_data,
+    200
+)
+def test_cancel_algo_order_client():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.cancel_order_by_client_order_id(**delete_order_client_params)
+    response.should.equal(mock_data)
+
+
+@mock_http_response(
+    responses.DELETE,
+    f"/v1/client/order\\?symbol='PERP_NEAR_USDC'",
+    mock_data,
+    200
+)
+def test_cancel_algo_all_pending_order():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.cancel_algo_all_pending_order(symbol='PERP_NEAR_USDC')
+    response.should.equal(mock_data)
+
+
+@mock_http_response(
+    responses.DELETE,
+    f"/v1/algo/client/order\\?{urlencode(delete_order_client_params)}",
     mock_data,
     200
 )
@@ -114,7 +203,7 @@ def test_cancel_order_client():
         orderly_key=orderly_key,
         orderly_secret=orderly_secret,
     )
-    response = client.cancel_order_by_client_order_id(**delete_order_client_params)
+    response = client.cancel_algo_order_by_client_order_id(**delete_order_client_params)
     response.should.equal(mock_data)
 
 
@@ -180,16 +269,45 @@ def test_get_order():
 
 @mock_http_response(
     responses.GET,
+    f"/v1/algo/order/{order_id_param}",
+    mock_data,
+    200
+)
+def test_get_algo_order():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret
+    )
+    response = client.get_algo_order(order_id_param)
+    response.should.equal(mock_data)
+
+@mock_http_response(
+    responses.GET,
     f"/v1/client/order/{order_id_param}",
     mock_data,
     200
 )
-def test_get_order():
+def test_get_client_order():
     client = Client(
         orderly_key=orderly_key,
         orderly_secret=orderly_secret
     )
     response = client.get_order_by_client_order_id(order_id_param)
+    response.should.equal(mock_data)
+
+
+@mock_http_response(
+    responses.GET,
+    f"/v1/algo/client/order/{order_id_param}",
+    mock_data,
+    200
+)
+def test_get_client_algo_order():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret
+    )
+    response = client.get_algo_order_by_client_order_id(order_id_param)
     response.should.equal(mock_data)
 
 
@@ -205,6 +323,21 @@ def test_get_orders():
         orderly_secret=orderly_secret
     )
     response = client.get_orders(**get_orders_params)
+    response.should.equal(mock_data)
+
+
+@mock_http_response(
+    responses.GET,
+    f"/v1/algo/orders\\?{urlencode(get_algo_orders_params)}",
+    mock_data,
+    200
+)
+def test_get_algo_orders():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret
+    )
+    response = client.get_algo_orders(**get_algo_orders_params)
     response.should.equal(mock_data)
 
 
@@ -266,3 +399,4 @@ def test_get_trade():
     )
     response = client.get_trade(trade_id_param)
     response.should.equal(mock_data)
+

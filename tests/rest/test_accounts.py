@@ -99,6 +99,21 @@ def test_get_user_daily_volume():
     response = client.get_user_daily_volume(**get_user_daily_mock_params)
     response.should.equal(mock_data)
 
+
+@mock_http_response(
+    responses.GET,
+    f"/v1/client/statistics/daily\\?{urlencode(get_user_daily_mock_params)}",
+    mock_data,
+    200
+)
+def test_get_user_daily_statistics():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.get_user_daily_statistics(**get_user_daily_mock_params)
+    response.should.equal(mock_data)
+
 @mock_http_response(
     responses.GET,
     f"/v1/volume/user/stats",
@@ -127,6 +142,20 @@ def test_get_asset_history():
     response = client.get_asset_history(**get_asset_hist_mock_data)
     response.should.equal(mock_data)
 
+
+@mock_http_response(
+    responses.GET,
+    f"/v1/public/account",
+    mock_data,
+    200
+)
+def test_get_account_details():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.get_account_details(account_id = 'test_account_id')
+    response.should.equal(mock_data)
 
 @mock_http_response(
     responses.GET,

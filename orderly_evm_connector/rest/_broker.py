@@ -13,7 +13,7 @@ def get_list_of_brokers(self, broker_id: str = None):
     Args:
         broker_id(string): If provided, it will only output details for the particular broker.
 
-    https://docs-api-evm.orderly.network/#restful-api-public-get-list-of-brokers
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-broker-list
     """
     payload = {"broker_id": broker_id}
     return self._request("GET", "/v1/public/broker/name", payload=payload)
@@ -77,3 +77,53 @@ def get_broker_daily_volume(
         "aggregateBy": aggregateBy
         }
     return self._sign_request("GET", "/v1/volume/user/daily", payload=payload)
+
+
+def get_user_fee_rates(self, account_id: str = None, address: str = None, page: int = None, size: int = None):
+    payload = {
+        "account_id": account_id,
+        "address": address,
+        "page": page,
+        "size": size
+    }
+    return self._sign_request("GET", "/v1/broker/user_info", payload=payload)
+
+
+def update_user_fee_rate(self, account_ids: str, maker_fee_rate: float, taker_fee_rate: float):
+    check_required_parameters(
+        [[account_ids, "account_ids"],
+         [maker_fee_rate, "maker_fee_rate"],
+         [taker_fee_rate, "taker_fee_rate"]]
+    )
+    payload = {
+        "account_ids": account_ids,
+        "maker_fee_rate": maker_fee_rate,
+        "taker_fee_rate": taker_fee_rate
+    }
+    return self._sign_request("POST", "/v1/broker/fee_rate/set", payload=payload)
+
+
+def reset_user_fee_rate(self, account_ids: str):
+    check_required_parameters(
+        [[account_ids, "account_ids"]]
+    )
+    payload = {
+        "account_ids": account_ids
+    }
+    return self._sign_request("POST", "/v1/broker/fee_rate/set_default", payload=payload)
+
+
+def update_default_broker_fee(self, maker_fee_rate: float, taker_fee_rate: float):
+    check_required_parameters(
+        [[maker_fee_rate, "maker_fee_rate"],
+         [taker_fee_rate, "taker_fee_rate"]]
+    )
+    payload = {
+        "maker_fee_rate": maker_fee_rate,
+        "taker_fee_rate": taker_fee_rate
+    }
+    return self._sign_request("POST", "/v1/broker/fee_rate/default", payload=payload)
+
+
+def get_default_broker_fee(self):
+    return self._sign_request("GET", "/v1/broker/fee_rate/default")

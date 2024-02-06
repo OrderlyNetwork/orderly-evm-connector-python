@@ -14,7 +14,7 @@ def get_positions_under_liquidation(self, **kwargs):
         page(number):  (default: 1)	the page you wish to query.
         size(number):  Default: 60
 
-    https://docs-api-evm.orderly.network/#restful-api-public-get-positions-under-liquidation
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-positions-under-liquidation
     """
     payload = {**kwargs}
 
@@ -37,7 +37,7 @@ def get_liquidated_positions_info(self, symbol: str, **kwargs):
         size(number):  Default: 60
 
 
-    https://docs-api-evm.orderly.network/#restful-api-public-get-liquidated-positions-info
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-liquidated-positions-info
     """
     check_required_parameters([[symbol, "symbol"]])
     payload = {"symbol": symbol, **kwargs}
@@ -52,7 +52,7 @@ def get_insurance_fund_info(self):
 
     GET /v1/public/insurancefund
 
-    https://docs-api-evm.orderly.network/#restful-api-public-get-insurance-fund-info
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-insurance-fund-info
 
     """
     return self._request("GET", "/v1/public/insurancefund")
@@ -73,8 +73,7 @@ def get_liquidated_positions_by_liquidator(self, symbol: str, **kwargs):
         page(number):  (default: 1)	the page you wish to query.
         size(number):  Default: 60
 
-    https://docs-api-evm.orderly.network/#restful-api-private-get-liquidated-positions-by-liquidator
-
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-liquidated-positions-by-liquidator
     """
     check_required_parameters([[symbol, "symbol"]])
     payload = {"symbol": symbol, **kwargs}
@@ -96,7 +95,7 @@ def get_liquidated_positions_of_account(self, **kwargs):
         end_t(timestamp)
         page(number)
         size(number)
-    https://docs-api-evm.orderly.network/#restful-api-private-get-liquidated-positions-of-account
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-liquidated-positions-of-account
     """
     payload = {**kwargs}
     return self._sign_request("GET", "/v1/liquidations", payload=payload)
@@ -147,7 +146,7 @@ def claim_from_insurance_fund(
     Optional Args:
         limit_price(number)
 
-    https://docs-api-evm.orderly.network/#restful-api-private-claim-from-insurance-fund
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/claim-insurance-fund
     """
     check_required_parameters(
         [
