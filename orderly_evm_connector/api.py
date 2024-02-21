@@ -162,13 +162,18 @@ class API(object):
         if http_method == "POST" or http_method == "PUT":
             return method_func(url=params["url"], json=params["params"])
         else:
+            self.session.headers.update(
+                {
+                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                }
+            )
             return method_func(url=params["url"])
 
     def _handle_rest_exception(self, response):
         status_code = response.status_code
-        if status_code < 400:
+        if status_code <= 400:
             return
-        if 400 <= status_code < 500:
+        if 400 < status_code < 500:
             try:
                 err = json.loads(response.text)
             except JSONDecodeError:
