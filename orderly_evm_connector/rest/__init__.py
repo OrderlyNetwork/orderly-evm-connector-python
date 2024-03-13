@@ -132,3 +132,4 @@ class Rest(API):
     from orderly_evm_connector.rest._wallet import withdraw_request
     #campaign
     from orderly_evm_connector.rest._campaign import get_points_epoch
+    from orderly_evm_connector.rest._campaign import get_points_epochdates

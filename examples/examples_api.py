@@ -256,4 +256,6 @@ client_private = Client(
 
 # #campaign
 # #Get Number of Points for Distribution
-# client_public.get_points_epoch()
+# # client_public.get_points_epoch()
+# #Get Start and End Date of All Epochs
+# client_public.get_points_epochdates()

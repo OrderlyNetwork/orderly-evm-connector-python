@@ -13,3 +13,16 @@ def get_points_epoch(self):
     """
 
     return self._request("GET", "/v1/public/points/epoch")
+
+def get_points_epochdates(self):
+    """[Public] Get Start and End Date of All Epochs
+
+    Limit: 10 requests per 1 second per user
+
+    GET /v1/public/points/epoch_dates
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-start-and-end-date-of-all-epochs#openapi-evmopenapi-get-v1publicpointsepoch_dates
+
+    """
+
+    return self._request("GET", "/v1/public/points/epoch_dates")
