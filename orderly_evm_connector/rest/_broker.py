@@ -76,7 +76,7 @@ def get_broker_daily_volume(
         "order_tags": order_tags,
         "aggregateBy": aggregateBy
         }
-    return self._sign_request("GET", "/v1/volume/user/daily", payload=payload)
+    return self._sign_request("GET", "/v1/volume/broker/daily", payload=payload)
 
 
 def get_user_fee_rates(self, account_id: str = None, address: str = None, page: int = None, size: int = None):
