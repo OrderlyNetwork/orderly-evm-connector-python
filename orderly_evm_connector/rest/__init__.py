@@ -32,6 +32,7 @@ class Rest(API):
     from orderly_evm_connector.rest._account import get_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
+    
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
@@ -129,3 +130,5 @@ class Rest(API):
     from orderly_evm_connector.rest._wallet import get_asset_history
     from orderly_evm_connector.rest._wallet import get_withdraw_nonce
     from orderly_evm_connector.rest._wallet import withdraw_request
+    #campaign
+    from orderly_evm_connector.rest._campaign import get_points_epoch

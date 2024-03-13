@@ -253,3 +253,7 @@ client_private = Client(
 # client_private.get_trades("PERP_NEAR_USDC")
 # #Get specific transaction details by trade_id
 # client_private.get_trade("21570")
+
+# #campaign
+# #Get Number of Points for Distribution
+# client_public.get_points_epoch()
