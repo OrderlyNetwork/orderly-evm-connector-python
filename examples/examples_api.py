@@ -260,5 +260,7 @@ client_private = Client(
 # #Get Start and End Date of All Epochs
 # client_public.get_points_epochdates()
 
-#Get User's Points
-client_public.get_user_points('0x53c9f2733d6003b201e1d91a745cbc98c4cd4fcb')
+# #Get User's Points
+# client_public.get_user_points('0x53c9f2733d6003b201e1d91a745cbc98c4cd4fcb')
+# #Get Points Leaderboard
+# client_public.get_points_leaderboard()

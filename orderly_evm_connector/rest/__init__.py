@@ -134,3 +134,4 @@ class Rest(API):
     from orderly_evm_connector.rest._campaign import get_points_epoch
     from orderly_evm_connector.rest._campaign import get_points_epochdates
     from orderly_evm_connector.rest._campaign import get_user_points
+    from orderly_evm_connector.rest._campaign import get_points_leaderboard

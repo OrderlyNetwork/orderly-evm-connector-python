@@ -40,3 +40,23 @@ def get_user_points(self,address):
     """
 
     return self._request("GET", f"/v1/client/points?address={address}")
+
+def get_points_leaderboard(self,start_r: int = None,end_r: int = None,epoch_id: int = None,page: int = None,size: int = None):
+    """[Public] Get Points Leaderboard
+    Limit: 10 requests per 1 second per IP address  
+
+    GET /v1/public/points/leaderboard
+    Args:
+        address(string)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-number-of-points#openapi-evmopenapi-get-v1clientpoints
+    """
+    payload = {
+        "start_r": start_r,
+        "end_r": end_r,
+        "epoch_id": epoch_id,
+        "page": page,
+        "size": size
+
+    }
+    return self._request("GET", "/v1/public/points/leaderboard",payload=payload)
