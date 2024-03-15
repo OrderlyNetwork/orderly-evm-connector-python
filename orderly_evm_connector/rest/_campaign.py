@@ -26,3 +26,17 @@ def get_points_epochdates(self):
     """
 
     return self._request("GET", "/v1/public/points/epoch_dates")
+
+def get_user_points(self,address):
+    """[Public] Get User's Points
+
+    Limit: 10 requests per 1 second per user
+
+    GET /v1/client/points
+    Args:
+        address(string)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-number-of-points#openapi-evmopenapi-get-v1clientpoints
+    """
+
+    return self._request("GET", f"/v1/client/points?address={address}")
