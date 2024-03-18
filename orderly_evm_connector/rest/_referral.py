@@ -76,9 +76,12 @@ def bind_referral_code(self, referral_code: str):
     return self._sign_request("POST", "/v1/referral/bind", payload=payload)
 
 
-def get_referral_code_info(self, page: int = None, size: int = None):
+def get_referral_code_info(self, page: int = None, size: int = None, user_address: str = None, account_id : str = None):
     """
-    Get Referral Code Info
+    [Private]Get Referral Code Info
+    
+    Scope: Only each broker_id’s admin wallet can call this endpoint.
+
 
     Limit: 10 requests per 1 second
 
