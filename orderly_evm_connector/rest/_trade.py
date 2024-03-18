@@ -495,7 +495,8 @@ def get_algo_orders(
     side: str = None,
     page: int = None,
     size: int = None,
-    is_triggered: str = None
+    is_triggered: str = None,
+    order_tag: str = None
     
 ):
     """[Private] Get Algo Orders
@@ -523,8 +524,9 @@ def get_algo_orders(
     size(number): (default: 25)	the page size you wish to query (max: 500)
     algo_type(string)
     is_triggered(string)
-    
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-algo-orders
+    order_tag(string)
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-algo-orders#openapi-evmopenapi-get-v1algoorders
     """
     if order_type:
         check_enum_parameter(order_type, OrderType)
@@ -545,7 +547,8 @@ def get_algo_orders(
         "page": page,
         "size": size,
         "algo_type": algo_type,
-        "is_triggered": is_triggered
+        "is_triggered": is_triggered,
+        "order_tag": order_tag
     }
     return self._sign_request("GET", "/v1/algo/orders", payload=payload)
 
