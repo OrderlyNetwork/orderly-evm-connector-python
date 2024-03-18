@@ -559,6 +559,7 @@ def get_orders(
     end_t: float = None,
     page: int = None,
     size: int = None,
+    order_tag: str = None
 ):
     """[Private] Get orders
 
@@ -582,8 +583,8 @@ def get_orders(
     end_t(timestamp): end time range that wish to query, noted the time stamp is 13-digits timestamp.
     page(number): (default: 1)	the page you wish to query.
     size(number): (default: 25)	the page size you wish to query (max: 500)
-
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-orders
+    order_tag(string)
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-orders#openapi-evmopenapi-get-v1orders
     """
     if order_type:
         check_enum_parameter(order_type, OrderType)
@@ -601,6 +602,7 @@ def get_orders(
         "end_t": end_t,
         "page": page,
         "size": size,
+        "order_tag": order_tag
     }
     return self._sign_request("GET", "/v1/orders", payload=payload)
 
