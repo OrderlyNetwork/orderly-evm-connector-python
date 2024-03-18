@@ -29,3 +29,18 @@ def get_valut_chain_config(self):
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-vault-chain-config
     """
     return self._request("GET", "/v1/public/chain_info")
+
+def get_supported_chains_broker(self,broker_id):
+    """
+    Get Supported Chains per Broker
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/public/chain_info/{broker_id}
+
+    Get chains specified broker is available on.
+    """
+    check_required_parameters(
+        [[broker_id, "broker_id"]]
+    )
+    payload = {"broker_id":broker_id}
+    return self._request("GET", "/v1/public/chain_info",payload=payload)

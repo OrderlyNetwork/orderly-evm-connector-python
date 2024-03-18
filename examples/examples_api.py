@@ -159,11 +159,13 @@ client_private = Client(
 # client_private.set_read_status_all_notifications(1)
 
 
-# #onchain
+# #system
 # #Get Vault Balances
 # client_public.get_valut_balances()
 # #Get vault chain config
 # client_public.get_valut_chain_config()
+# #Get Supported Chains per Broker
+# client_public.get_supported_chains_broker('woofi_pro')
 
 
 # #settlement

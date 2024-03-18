@@ -90,9 +90,10 @@ class Rest(API):
         set_read_status_all_notifications,
     )
 
-    # onchain
-    from orderly_evm_connector.rest._onchain import get_valut_balances
-    from orderly_evm_connector.rest._onchain import get_valut_chain_config
+    # system
+    from orderly_evm_connector.rest._system import get_valut_balances
+    from orderly_evm_connector.rest._system import get_valut_chain_config
+    from orderly_evm_connector.rest._system import get_supported_chains_broker
 
     # settlement
     from orderly_evm_connector.rest._settlement import get_settle_pnl_nonce
@@ -135,3 +136,5 @@ class Rest(API):
     from orderly_evm_connector.rest._campaign import get_points_epochdates
     from orderly_evm_connector.rest._campaign import get_user_points
     from orderly_evm_connector.rest._campaign import get_points_leaderboard
+    #referral
+    from orderly_evm_connector.rest._referral import get_referral_code_info
