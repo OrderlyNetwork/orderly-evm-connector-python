@@ -271,3 +271,6 @@ client_private = Client(
 # #Get Referral Code Info
 # #Only one of user_address and account_id can be provided
 # client_private.get_referral_code_info(user_address='0x53c9f2733d6003b201e1d91a745cbc98c44d4fcb')
+
+# #Edit Referral Code Split
+# client_private.edit_referral_code_split(123,'AAA',23)

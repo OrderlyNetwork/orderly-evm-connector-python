@@ -200,3 +200,26 @@ def get_distribution_history(self, start_date: str = None, end_date: str = None,
         "size": size,
     }
     return self._sign_request("GET", "/v1/client/distribution_history", payload=payload)
+
+
+def edit_referral_code_split(self, referee_rebate_rate: int, referral_code: str, referrer_rebate_rate: int):
+    """ Edit Referral Code Split
+    
+        Limit: 1 requests per second
+
+        POST /v1/referral/edit_split
+
+    https://docs.orderly.network/build-on-evm/evm-api/restful-api/private/create-referral-code
+    """
+    check_required_parameters(
+        [[referee_rebate_rate, "referee_rebate_rate"],
+         [referral_code, "referral_code"],
+         [referrer_rebate_rate, "referrer_rebate_rate"],
+       ]
+    )
+    payload = {
+        "referral_code": referral_code,
+        "referrer_rebate_rate": referrer_rebate_rate,
+        "referee_rebate_rate": referee_rebate_rate
+    }
+    return self._sign_request("POST", "/v1/referral/edit_split", payload=payload)
