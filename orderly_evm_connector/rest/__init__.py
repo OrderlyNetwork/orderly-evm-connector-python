@@ -32,6 +32,7 @@ class Rest(API):
     from orderly_evm_connector.rest._account import get_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
+    
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
@@ -89,9 +90,10 @@ class Rest(API):
         set_read_status_all_notifications,
     )
 
-    # onchain
-    from orderly_evm_connector.rest._onchain import get_valut_balances
-    from orderly_evm_connector.rest._onchain import get_valut_chain_config
+    # system
+    from orderly_evm_connector.rest._system import get_valut_balances
+    from orderly_evm_connector.rest._system import get_valut_chain_config
+    from orderly_evm_connector.rest._system import get_supported_chains_broker
 
     # settlement
     from orderly_evm_connector.rest._settlement import get_settle_pnl_nonce
@@ -129,3 +131,11 @@ class Rest(API):
     from orderly_evm_connector.rest._wallet import get_asset_history
     from orderly_evm_connector.rest._wallet import get_withdraw_nonce
     from orderly_evm_connector.rest._wallet import withdraw_request
+    #campaign
+    from orderly_evm_connector.rest._campaign import get_points_epoch
+    from orderly_evm_connector.rest._campaign import get_points_epochdates
+    from orderly_evm_connector.rest._campaign import get_user_points
+    from orderly_evm_connector.rest._campaign import get_points_leaderboard
+    #referral
+    from orderly_evm_connector.rest._referral import get_referral_code_info
+    from orderly_evm_connector.rest._referral import edit_referral_code_split

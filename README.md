@@ -229,10 +229,12 @@ pip install -r requirements/requirements-test.txt
 pytest
 ```
 
-## Limitation
-
 ## Contributing
 
 Contributions are welcome.<br/>
 If you've found a bug within this project, please open an issue to discuss what you would like to change.<br/>
 If it's an issue with the API, please open a topic at [Orderly Developer Community]()
+
+## Changelog
+
+[ChangeLog](https://github.com/OrderlyNetwork/orderly-evm-connector-python/CHANGELOG.md)

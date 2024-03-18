@@ -159,11 +159,13 @@ client_private = Client(
 # client_private.set_read_status_all_notifications(1)
 
 
-# #onchain
+# #system
 # #Get Vault Balances
 # client_public.get_valut_balances()
 # #Get vault chain config
 # client_public.get_valut_chain_config()
+# #Get Supported Chains per Broker
+# client_public.get_supported_chains_broker('woofi_pro')
 
 
 # #settlement
@@ -253,3 +255,22 @@ client_private = Client(
 # client_private.get_trades("PERP_NEAR_USDC")
 # #Get specific transaction details by trade_id
 # client_private.get_trade("21570")
+
+# #campaign
+# #Get Number of Points for Distribution
+# # client_public.get_points_epoch()
+# #Get Start and End Date of All Epochs
+# client_public.get_points_epochdates()
+# #Get User's Points
+# client_public.get_user_points('0x53c9f2733d6003b201e1d91a745cbc98c4cd4fcb')
+# #Get Points Leaderboard
+# client_public.get_points_leaderboard()
+
+
+# #referral
+# #Get Referral Code Info
+# #Only one of user_address and account_id can be provided
+# client_private.get_referral_code_info(user_address='0x53c9f2733d6003b201e1d91a745cbc98c44d4fcb')
+
+# #Edit Referral Code Split
+# client_private.edit_referral_code_split(123,'AAA',23)
