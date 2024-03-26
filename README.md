@@ -237,4 +237,4 @@ If it's an issue with the API, please open a topic at [Orderly Developer Communi
 
 ## Changelog
 
-[ChangeLog](https://github.com/OrderlyNetwork/orderly-evm-connector-python/CHANGELOG.md)
+[ChangeLog](https://github.com/OrderlyNetwork/orderly-evm-connector-python/blob/main/CHANGELOG.md)
