@@ -20,7 +20,8 @@ Note: This connector is for Orderly EVM. It is not compatible with Orderly NEAR.
 ## Installation
 
 ```bash
-pip install orderly-evm-connector
+git clone git@github.com:OrderlyNetwork/orderly-evm-connector-python.git
+export PYTHONPATH=./orderly-evm-connector-python/
 ```
 
 ## Documentation
