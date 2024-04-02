@@ -38,7 +38,9 @@ wss_client.get_account()
 # wss_client.get_wallet_transactions()
 # wss_client.get_pnl_settlement()
 # wss_client.get_notifications()
-
+# wss_client.get_execution_report()
+# wss_client.get_algo_execution_report()
+# wss_client.get_execution_report_for_single_broker()
 # time.sleep(10000)
 
 logging.info("closing ws connection")
