@@ -265,7 +265,8 @@ client_private = Client(
 # client_public.get_user_points('0x53c9f2733d6003b201e1d91a745cbc98c4cd4fcb')
 # #Get Points Leaderboard
 # client_public.get_points_leaderboard()
-
+# #Get epoch data
+# client_public.get_tradingrewards_epoch()
 
 # #referral
 # #Get Referral Code Info
