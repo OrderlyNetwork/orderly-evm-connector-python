@@ -563,7 +563,8 @@ def get_orders(
     end_t: float = None,
     page: int = None,
     size: int = None,
-    order_tag: str = None
+    order_tag: str = None,
+    sort_by: str = None
 ):
     """[Private] Get orders
 
@@ -588,6 +589,22 @@ def get_orders(
     page(number): (default: 1)	the page you wish to query.
     size(number): (default: 25)	the page size you wish to query (max: 500)
     order_tag(string)
+    sort_by(string)
+    If empty:
+
+    Descending order by updated_time if user passed update_start_t or update_end_t; descending order by order_id if updated_time are the same;
+
+    Otherwise descending order by created_time; descending order by order_id if created_time are the same;
+
+    If not empty:
+
+    If sort_by == CREATED_TIME_DESC, descending order by created_time. Descending order by order_id if created_time are same;
+
+    If sort_by == CREATED_TIME_ASC, ascending order by created_time. Ascending order by order_id if created_time are same;
+
+    If sort_by == UPDATED_TIME_DESC, descending order by updated_time. Descending order by order_id if updated_time are same;
+
+    If sort_by == UPDATED_TIME_ASC, ascending order by updated_time. Ascending order by order_id if updated_time are same;
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-orders#openapi-evmopenapi-get-v1orders
     """
     if order_type:
@@ -606,7 +623,8 @@ def get_orders(
         "end_t": end_t,
         "page": page,
         "size": size,
-        "order_tag": order_tag
+        "order_tag": order_tag,
+        "sort_by":sort_by
     }
     return self._sign_request("GET", "/v1/orders", payload=payload)
 
