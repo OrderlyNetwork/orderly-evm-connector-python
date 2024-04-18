@@ -215,3 +215,14 @@ def check_ref_code(self, account_id:str = None ):
     """
     check_required_parameters([[account_id,'account_id']])
     return self._request("GET", f"/v1/public/referral/check_ref_code?account_id={account_id}")
+
+def verify_ref_code(self, referral_code:str = None ):
+    """
+    Verify Referral Code
+
+    Limit: 10 requests per second 
+    GET /v1/public/referral/verify_ref_code
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/verify-referral-code#openapi-evmopenapi-get-v1publicreferralverify_ref_code
+    """
+    check_required_parameters([[referral_code,'referral_code']])
+    return self._request("GET", f"/v1/public/referral/verify_ref_code?referral_code={referral_code}")
