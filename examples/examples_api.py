@@ -278,3 +278,5 @@ client_private = Client(
 # client_public.check_ref_code(account_id='0x53c9f2733d6003b201e1d91a745cbc98c44d4fcb')
 # #Verify Referral Code
 # client_public.verify_ref_code(referral_code='1111')
+## Get Referral Rebate Summary
+#client_private.get_referral_rebate_summary(start_date='2024-04-10 11:00',end_date='2024-04-10 11:00')

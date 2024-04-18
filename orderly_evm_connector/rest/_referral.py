@@ -135,9 +135,11 @@ def get_referral_rebate_summary(self, start_date: str = None, end_date: str = No
     Limit: 10 requests per 1 second
 
     GET /v1/referral/rebate_summary
-
-    https://docs.orderly.network/build-on-evm/evm-api/restful-api/private/get-referral-rebate-summary
+    
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-referral-rebate-summary#openapi-evmopenapi-get-v1referralrebate_summary
     """
+    print(start_date,end_date)
+    check_required_parameters([[start_date,"start_date"],[end_date,"end_date"]])
     payload = {
         "start_date": start_date,
         "end_date": end_date,
