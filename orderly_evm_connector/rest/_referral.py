@@ -183,9 +183,9 @@ def get_referee_info(self, page: int = None, size: int = None):
     return self._sign_request("GET", "/v1/referral/referee_info", payload=payload)
 
 
-def get_distribution_history(self, start_date: str = None, end_date: str = None, page: int = None, size: int = None):
+def get_distribution_history(self, start_date: str = None, end_date: str = None, page: int = None, size: int = None,type: str = None, status: str = None):
     """
-    Get Referral Info
+    Get Distribution History
 
     Limit: 1 requests per 1 second
 
@@ -198,5 +198,7 @@ def get_distribution_history(self, start_date: str = None, end_date: str = None,
         "end_date": end_date,
         "page": page,
         "size": size,
+        "type": type,
+        "status": status
     }
     return self._sign_request("GET", "/v1/client/distribution_history", payload=payload)
