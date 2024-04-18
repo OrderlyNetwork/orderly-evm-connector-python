@@ -140,3 +140,4 @@ class Rest(API):
     #referral
     from orderly_evm_connector.rest._referral import get_referral_code_info
     from orderly_evm_connector.rest._referral import get_distribution_history
+    from orderly_evm_connector.rest._referral import check_ref_code

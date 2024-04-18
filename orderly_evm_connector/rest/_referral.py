@@ -202,3 +202,16 @@ def get_distribution_history(self, start_date: str = None, end_date: str = None,
         "status": status
     }
     return self._sign_request("GET", "/v1/client/distribution_history", payload=payload)
+
+
+def check_ref_code(self, account_id:str = None ):
+    """
+    Check Referral Code
+
+    Limit: 10 requests per second 
+    GET /v1/public/referral/check_ref_code
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/check-referral-code#openapi-evmopenapi-get-v1publicreferralcheck_ref_code
+    """
+    check_required_parameters([[account_id,'account_id']])
+    return self._request("GET", f"/v1/public/referral/check_ref_code?account_id={account_id}")

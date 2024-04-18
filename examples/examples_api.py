@@ -274,3 +274,5 @@ client_private = Client(
 # client_private.get_referral_code_info(user_address='0x53c9f2733d6003b201e1d91a745cbc98c44d4fcb')
 # #Get Distribution History
 #client_private.get_distribution_history()
+# #Check Referral Code
+# client_public.check_ref_code(account_id='0x53c9f2733d6003b201e1d91a745cbc98c44d4fcb')
