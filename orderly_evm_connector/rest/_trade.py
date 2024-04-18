@@ -1,7 +1,6 @@
 from orderly_evm_connector.lib.utils import check_required_parameters
 from orderly_evm_connector.lib.utils import check_enum_parameter
-from orderly_evm_connector.lib.enums import OrderType, OrderStatus, OrderSide
-
+from orderly_evm_connector.lib.enums import OrderType, OrderStatus, OrderSide,AlgoType
 
 def create_order(
     self,
@@ -272,7 +271,7 @@ def cancel_algo_order(self, order_id: int, symbol: str):
     check_required_parameters([[order_id, "order_id"], [symbol, "symbol"]])
     return self._sign_request("DELETE", f"/v1/algo/order?order_id={order_id}&symbol={symbol}")
 
-def cancel_algo_all_pending_order(self, symbol: str):
+def cancel_algo_all_pending_order(self, symbol: str, algo_type: str):
     """[Private] Cancel All Pending Algo Orders
 
     Limit: 10 requests per 1 second
@@ -283,6 +282,7 @@ def cancel_algo_all_pending_order(self, symbol: str):
 
     Args:
         symbol(string)
+        algo_type(string): STOP, TAKE_PROFIT, STOP_LOSS, TP_SL, POSITIONAL_TP_SL, BRACKET
 
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-all-pending-algo-orders
     """
@@ -291,6 +291,7 @@ def cancel_algo_all_pending_order(self, symbol: str):
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         )
+    check_enum_parameter(algo_type, AlgoType)
     check_required_parameters([[symbol, "symbol"]])
     return self._sign_request("DELETE", f"/v1/algo/orders?symbol={symbol}")
 
