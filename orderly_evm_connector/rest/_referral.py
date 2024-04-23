@@ -87,7 +87,7 @@ def get_referral_code_info(self, page: int = None, size: int = None, user_addres
 
     GET /v1/referral/admin_info
 
-    https://staging-docs.orderly.network/build-on-evm/evm-api/restful-api/private/get-referral-code-info
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-referral-code-info
     """
     payload = {
         "page": page,
