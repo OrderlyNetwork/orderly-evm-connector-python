@@ -7,3 +7,4 @@ web3==6.13.0
 base58==2.1.1
 requests==2.31.0
 websocket_client==1.7.0
+cryptography==40.0.2
