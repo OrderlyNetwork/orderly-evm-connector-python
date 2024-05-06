@@ -224,7 +224,7 @@ client_private = Client(
 #Cancel algo order
 # client_private.cancel_algo_order("1000067","PERP_APT_USDC")
 ## Cancel algo all pending order
-# client_private.cancel_algo_all_pending_order("PERP_APT_USDC")
+# client_private.cancel_algo_all_pending_order("PERP_APT_USDC",'STOP')
 # #Cancel order
 # client_private.cancel_order("3268388","PERP_APT_USDC")
 # #Cancel algo order by client_order_id
@@ -265,9 +265,18 @@ client_private = Client(
 # client_public.get_user_points('0x53c9f2733d6003b201e1d91a745cbc98c4cd4fcb')
 # #Get Points Leaderboard
 # client_public.get_points_leaderboard()
-
+# #Get epoch data
+# client_public.get_tradingrewards_epoch()
 
 # #referral
 # #Get Referral Code Info
 # #Only one of user_address and account_id can be provided
 # client_private.get_referral_code_info(user_address='0x53c9f2733d6003b201e1d91a745cbc98c44d4fcb')
+# #Get Distribution History
+#client_private.get_distribution_history()
+# #Check Referral Code
+# client_public.check_ref_code(account_id='0x53c9f2733d6003b201e1d91a745cbc98c44d4fcb')
+# #Verify Referral Code
+# client_public.verify_ref_code(referral_code='1111')
+## Get Referral Rebate Summary
+#client_private.get_referral_rebate_summary(start_date='2024-04-10 11:00',end_date='2024-04-10 11:00')

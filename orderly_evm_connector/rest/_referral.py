@@ -87,7 +87,7 @@ def get_referral_code_info(self, page: int = None, size: int = None, user_addres
 
     GET /v1/referral/admin_info
 
-    https://staging-docs.orderly.network/build-on-evm/evm-api/restful-api/private/get-referral-code-info
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-referral-code-info
     """
     payload = {
         "page": page,
@@ -135,9 +135,11 @@ def get_referral_rebate_summary(self, start_date: str = None, end_date: str = No
     Limit: 10 requests per 1 second
 
     GET /v1/referral/rebate_summary
-
-    https://docs.orderly.network/build-on-evm/evm-api/restful-api/private/get-referral-rebate-summary
+    
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-referral-rebate-summary#openapi-evmopenapi-get-v1referralrebate_summary
     """
+    print(start_date,end_date)
+    check_required_parameters([[start_date,"start_date"],[end_date,"end_date"]])
     payload = {
         "start_date": start_date,
         "end_date": end_date,
@@ -183,9 +185,9 @@ def get_referee_info(self, page: int = None, size: int = None):
     return self._sign_request("GET", "/v1/referral/referee_info", payload=payload)
 
 
-def get_distribution_history(self, start_date: str = None, end_date: str = None, page: int = None, size: int = None):
+def get_distribution_history(self, start_date: str = None, end_date: str = None, page: int = None, size: int = None,type: str = None, status: str = None):
     """
-    Get Referral Info
+    Get Distribution History
 
     Limit: 1 requests per 1 second
 
@@ -198,5 +200,31 @@ def get_distribution_history(self, start_date: str = None, end_date: str = None,
         "end_date": end_date,
         "page": page,
         "size": size,
+        "type": type,
+        "status": status
     }
     return self._sign_request("GET", "/v1/client/distribution_history", payload=payload)
+
+
+def check_ref_code(self, account_id:str = None ):
+    """
+    Check Referral Code
+
+    Limit: 10 requests per second 
+    GET /v1/public/referral/check_ref_code
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/check-referral-code#openapi-evmopenapi-get-v1publicreferralcheck_ref_code
+    """
+    check_required_parameters([[account_id,'account_id']])
+    return self._request("GET", f"/v1/public/referral/check_ref_code?account_id={account_id}")
+
+def verify_ref_code(self, referral_code:str = None ):
+    """
+    Verify Referral Code
+
+    Limit: 10 requests per second 
+    GET /v1/public/referral/verify_ref_code
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/verify-referral-code#openapi-evmopenapi-get-v1publicreferralverify_ref_code
+    """
+    check_required_parameters([[referral_code,'referral_code']])
+    return self._request("GET", f"/v1/public/referral/verify_ref_code?referral_code={referral_code}")

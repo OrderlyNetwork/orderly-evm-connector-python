@@ -54,3 +54,11 @@ class AssetStatus(AutoName):
     PROCESSING = auto()
     COMPLETED = auto()
     FAILED = auto()
+
+class AlgoType(AutoName):
+    STOP = auto()
+    TAKE_PROFIT = auto()
+    STOP_LOSS = auto()
+    TP_SL = auto()
+    POSITIONAL_TP_SL = auto()
+    BRACKET = auto()

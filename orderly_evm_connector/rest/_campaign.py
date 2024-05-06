@@ -60,3 +60,12 @@ def get_points_leaderboard(self,start_r: int = None,end_r: int = None,epoch_id: 
 
     }
     return self._request("GET", "/v1/public/points/leaderboard",payload=payload)
+
+def get_tradingrewards_epoch(self):
+    """[Public] Get epochs data – return data of each epoch from epoch 1 to the current epoch
+    Limit: 10 per second per IP address  
+
+    GET /v1/public/tradingrewards/epoch_data
+
+    """
+    return self._request("GET", "/v1/public/tradingrewards/epoch_data")
