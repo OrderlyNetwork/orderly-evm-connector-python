@@ -46,7 +46,8 @@ def get_broker_daily_volume(
     broker_id: str = None,
     address: str = None,
     order_tags: str = None,
-    aggregateBy: str = None
+    aggregateBy: str = None,
+    sort: str = None
     ):
     """Get Broker Daily Volume
     Limit 10 requests per 60 seconds
@@ -64,6 +65,7 @@ def get_broker_daily_volume(
         address(string)
         order_tags(string)
         aggregateBy(string)
+        sort(string)
 
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-broker-daily-volume
     """
@@ -74,7 +76,8 @@ def get_broker_daily_volume(
         "broker_id": broker_id,
         "address": address,
         "order_tags": order_tags,
-        "aggregateBy": aggregateBy
+        "aggregateBy": aggregateBy,
+        "sort": sort
         }
     return self._sign_request("GET", "/v1/volume/broker/daily", payload=payload)
 

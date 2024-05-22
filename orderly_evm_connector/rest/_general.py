@@ -81,7 +81,7 @@ def get_exchange_info(self, symbol: str):
     return self._request("GET", f"/v1/public/info/{symbol}")
 
 
-def get_token_info(self):
+def get_token_info(self, chain_id: str = None):
     """[Public] Token info
 
     Limit: 10 requests per 1 second per IP address
@@ -90,10 +90,17 @@ def get_token_info(self):
 
     Retrives the available tokens to custody within Orderly Network.
 
+    Args:
+        chain_id: str
+
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-token-info
 
     """
-    return self._request("GET", "/v1/public/token")
+
+    payload = {
+        "chain_id": chain_id
+    }
+    return self._request("GET", "/v1/public/token", payload=payload)
 
 
 def get_available_symbols(self):

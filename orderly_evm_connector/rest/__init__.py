@@ -137,6 +137,7 @@ class Rest(API):
     from orderly_evm_connector.rest._campaign import get_user_points
     from orderly_evm_connector.rest._campaign import get_points_leaderboard
     from orderly_evm_connector.rest._campaign import get_tradingrewards_epoch
+    from orderly_evm_connector.rest._campaign import get_campaign_user_info
     #referral
     from orderly_evm_connector.rest._referral import get_referral_code_info
     from orderly_evm_connector.rest._referral import get_distribution_history
