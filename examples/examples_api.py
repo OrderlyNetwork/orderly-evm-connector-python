@@ -23,8 +23,6 @@ client_private = Client(
     debug=True
 )
 
-response = client_public.get_campaign_user_info(campaign_id=10, account_id="test")
-print(response)
 
 # #account
 # #Check whether a particular account is registered on Orderly Network
