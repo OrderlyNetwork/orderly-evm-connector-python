@@ -92,7 +92,7 @@ class Rest(API):
 
     # system
     from orderly_evm_connector.rest._system import get_valut_balances
-    from orderly_evm_connector.rest._system import get_valut_chain_config
+    # from orderly_evm_connector.rest._system import get_valut_chain_config
     from orderly_evm_connector.rest._system import get_supported_chains_broker
 
     # settlement
