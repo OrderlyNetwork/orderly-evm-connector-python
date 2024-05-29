@@ -93,7 +93,7 @@ def get_token_info(self, chain_id: str = None):
     Args:
         chain_id: str
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-token-info
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-supported-collateral-info
 
     """
 

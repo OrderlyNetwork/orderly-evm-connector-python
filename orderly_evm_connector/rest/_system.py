@@ -37,7 +37,7 @@ def get_valut_balances(self, chain_id: int = None, token: str = None):
 #     }
 #     return self._request("GET", "/v1/public/chain_info", payload=payload)
 
-def get_supported_chains_broker(self,broker_id):
+def get_supported_chains_broker(self,broker_id: str = None):
     """
     Get Supported Chains per Broker
     Limit: 10 requests per 1 second per IP address
@@ -46,8 +46,8 @@ def get_supported_chains_broker(self,broker_id):
 
     Get chains specified broker is available on.
     """
-    check_required_parameters(
-        [[broker_id, "broker_id"]]
-    )
+    # check_required_parameters(
+    #     [[broker_id, "broker_id"]]
+    # )
     payload = {"broker_id":broker_id}
     return self._request("GET", "/v1/public/chain_info",payload=payload)
