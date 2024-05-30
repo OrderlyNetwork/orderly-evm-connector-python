@@ -19,28 +19,35 @@ def get_valut_balances(self, chain_id: int = None, token: str = None):
     return self._request("GET", "/v1/public/vault_balance", payload=payload)
 
 
-def get_valut_chain_config(self):
-    """Get vault chain config
+# def get_valut_chain_config(self, broker_id: str = None):
+#     """Get vault chain config
+#
+#     Limit: 10 requests per 1 second per IP address
+#
+#     GET /v1/public/chain_info
+#
+#     Args:
+#         broker_id: str
+#
+#     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-vault-chain-config
+#     """
+#
+#     payload = {
+#         "broker_id": broker_id
+#     }
+#     return self._request("GET", "/v1/public/chain_info", payload=payload)
 
-    Limit: 10 requests per 1 second per IP address
-
-    GET /v1/public/chain_info
-
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-vault-chain-config
-    """
-    return self._request("GET", "/v1/public/chain_info")
-
-def get_supported_chains_broker(self,broker_id):
+def get_supported_chains_broker(self,broker_id: str = None):
     """
     Get Supported Chains per Broker
     Limit: 10 requests per 1 second per IP address
 
-    GET /v1/public/chain_info/{broker_id}
+    GET /v1/public/chain_info
 
     Get chains specified broker is available on.
     """
-    check_required_parameters(
-        [[broker_id, "broker_id"]]
-    )
+    # check_required_parameters(
+    #     [[broker_id, "broker_id"]]
+    # )
     payload = {"broker_id":broker_id}
     return self._request("GET", "/v1/public/chain_info",payload=payload)

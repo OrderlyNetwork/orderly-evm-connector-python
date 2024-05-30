@@ -168,7 +168,7 @@ def get_referee_history(self, start_date: str = None, end_date: str = None, page
     return self._sign_request("GET", "/v1/referral/referee_history", payload=payload)
 
 
-def get_referee_info(self, page: int = None, size: int = None):
+def get_referee_info(self, sort: str = None, page: int = None, size: int = None):
     """
     Get Referee Info
 
@@ -179,6 +179,7 @@ def get_referee_info(self, page: int = None, size: int = None):
     https://docs.orderly.network/build-on-evm/evm-api/restful-api/private/get-referee-info
     """
     payload = {
+        "sort": sort,
         "page": page,
         "size": size,
     }

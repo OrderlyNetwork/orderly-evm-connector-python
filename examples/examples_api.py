@@ -23,6 +23,7 @@ client_private = Client(
     debug=True
 )
 
+
 # #account
 # #Check whether a particular account is registered on Orderly Network
 # #You can catch exceptions in the following ways

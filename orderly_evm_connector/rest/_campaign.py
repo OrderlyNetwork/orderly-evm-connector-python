@@ -69,3 +69,32 @@ def get_tradingrewards_epoch(self):
 
     """
     return self._request("GET", "/v1/public/tradingrewards/epoch_data")
+
+
+def get_campaign_user_info(self, campaign_id: int, account_id: str = None, user_address: str = None, broker_id: str = None,
+                           symbol: str = None, order_tag: str = None):
+    """
+    [Public] Get Campaign User Info
+    Limit: 10 requests per second
+
+    GET /v1/public/campaign/user
+
+    Args:
+        campaign_id: int
+        account_id: str
+        user_address: str
+        broker_id: str
+        symbol: str
+        order_tag: str
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-campaign-user-info
+    """
+    payload = {
+        "campaign_id": campaign_id,
+        "account_id": account_id,
+        "user_address": user_address,
+        "broker_id": broker_id,
+        "symbol": symbol,
+        "order_tag": order_tag
+    }
+    return self._request("GET", "/v1/public/campaign/user",payload=payload)
