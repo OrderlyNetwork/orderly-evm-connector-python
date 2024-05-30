@@ -46,7 +46,7 @@ class OrderlyWebsocketClient:
         self.subscriptions = []
         self._proxy_params = parse_proxies(proxies) if proxies else {}
         self.auth_params = self._auth_params() if self.private else None
-        self.socket_manager = self._initialize_socket(
+        self._initialize_socket(
             self.websocket_url,
             self.wss_id,
             orderly_key,
@@ -59,7 +59,6 @@ class OrderlyWebsocketClient:
             debug,
             proxies,
         )
-        self.socket_manager.start()
         self.logger.debug("Orderly WebSocket Client started.")
 
     def _auth_params(self):
@@ -100,7 +99,9 @@ class OrderlyWebsocketClient:
 
     def on_socket_open(self, socket_manager):
         self.logger.debug("Orderly WebSocket Connection opened. Subscribing...")
-
+        if not hasattr(self, "socket_manager"):
+            self.socket_manager = socket_manager
+            self.socket_manager.start()
         if self.private:
             self.auth_login()
         for message in self.subscriptions:
