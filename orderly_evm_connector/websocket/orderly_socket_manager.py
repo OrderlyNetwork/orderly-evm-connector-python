@@ -8,12 +8,13 @@ from websocket import (
     WebSocketConnectionClosedException,
     WebSocketTimeoutException,
 )
-from orderly_evm_connector.lib.utils import orderlyLog, parse_proxies
+from orderly_evm_connector.lib.utils import orderlyLog, parse_proxies, decode_ws_error_code
 from orderly_evm_connector.lib.constants import (
     WEBSOCKET_TIMEOUT_IN_SECONDS,
     WEBSOCKET_FAILED_MAX_RETRIES,
     WEBSOCKET_RETRY_SLEEP_TIME,
 )
+
 
 class OrderlySocketManager(threading.Thread):
     def __init__(
@@ -58,7 +59,7 @@ class OrderlySocketManager(threading.Thread):
                 self.logger.debug(
                     f"WebSocket connection has been established: {self.websocket_url}, proxies: {self._proxy_params}"
                 )
-                self._callback(self.on_open)
+                self.on_open(self)
                 break
             except Exception as e:
                 self.logger.error(f"Failed to create WebSocket connection: {e}")
@@ -109,7 +110,11 @@ class OrderlySocketManager(threading.Thread):
         while True:
             try:
                 op_code, frame = self.ws.recv_data_frame(True)
-                _message = json.loads(frame.data)
+                try:
+                    _message = json.loads(frame.data)
+                except:
+                    err_code = decode_ws_error_code(frame.data)
+                    self.logger.warning(f"Websocket error code received: {err_code}")
                 if "event" in _message:
                     if _message["event"] == "ping":
                         self._handle_heartbeat()
@@ -138,7 +143,7 @@ class OrderlySocketManager(threading.Thread):
 
     def _handle_data(self, op_code, frame, data):
         if op_code == ABNF.OPCODE_TEXT:
-            data = frame.data.decode("utf-8")
+            data = frame.data.decode()
             self._callback(self.on_message, data)
 
     def close(self):
