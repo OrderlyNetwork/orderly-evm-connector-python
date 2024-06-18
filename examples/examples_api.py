@@ -1,3 +1,5 @@
+import pprint
+
 from orderly_evm_connector.rest import Rest as Client
 from utils.config import get_account_info
 from orderly_evm_connector.error import ClientError
@@ -281,3 +283,7 @@ client_private = Client(
 # client_public.verify_ref_code(referral_code='1111')
 ## Get Referral Rebate Summary
 #client_private.get_referral_rebate_summary(start_date='2024-04-10 11:00',end_date='2024-04-10 11:00')
+
+# # #Trading Rewards
+# response = client_public.get_broker('0xB62e18BdFCCC80E0F47F859cf79647fe10935213')
+# pprint.pprint(response)
