@@ -87,7 +87,7 @@ def get_current_epoch_estimate(self, address: str):
     return self._request("GET", "/v1/public/trading_rewards/current_epoch_estimate", payload=payload)
 
 
-def get_current_epoch_estimate_broker(self, address: str):
+def get_current_epoch_estimate_broker(self):
     """
     Get Current Epoch Estimate by Broker
 
@@ -97,9 +97,7 @@ def get_current_epoch_estimate_broker(self, address: str):
 
     https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/get-current-epoch-estimate-by-broker
     """
-    check_required_parameters([[address, "address"]])
-    payload = {"address": address}
-    return self._request("GET", "/v1/public/trading_rewards/current_epoch_broker_estimate", payload=payload)
+    return self._request("GET", "/v1/public/trading_rewards/current_epoch_broker_estimate")
 
 
 
@@ -204,13 +202,13 @@ def get_valor_batch_info(self):
     return self._request("GET", "/v1/staking/valor/batch_info")
 
 
-def get_valor_batch_info(self):
+def get_valor_pool_info(self):
     """
-    Get Valor Batch Info
+    Get Valor Pool Info
 
     Limit: 10 requests per 1 second
 
-    GET /v1/staking/valor/batch_info
+    GET /v1/staking/valor/pool_info
 
     https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/get-valor-pool-info
     """

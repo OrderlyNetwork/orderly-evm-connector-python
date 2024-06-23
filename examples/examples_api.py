@@ -284,6 +284,6 @@ client_private = Client(
 ## Get Referral Rebate Summary
 #client_private.get_referral_rebate_summary(start_date='2024-04-10 11:00',end_date='2024-04-10 11:00')
 
-# # #Trading Rewards
-# response = client_public.get_broker('0xB62e18BdFCCC80E0F47F859cf79647fe10935213')
+# #Trading Rewards
+# response = client_public.get_valor_redeem_info(address="0x000")
 # pprint.pprint(response)
