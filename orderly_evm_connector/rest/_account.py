@@ -50,6 +50,25 @@ def get_account(self, address: str, broker_id: str):
     return self._request("GET", "/v1/get_account", payload=payload)
 
 
+def get_broker(self, address: str):
+    """[Public] Get Address Registered
+    Limit: 10 requests per 1 second per IP address
+
+    Check whether a particular address is registered on Orderly Network.
+
+    GET /v1/get_broker
+
+    Args：
+        address(string):  The address of the user wallet
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-broker
+
+    """
+    check_required_parameters([[address, "address"]])
+    payload = {"address": address}
+    return self._request("GET", "/v1/get_broker", payload=payload)
+
+
 def register_account(
     self, brokerId: str, chainId: int, registrationNonce: str, userAddress: str
 ):

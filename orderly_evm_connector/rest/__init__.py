@@ -18,6 +18,7 @@ class Rest(API):
     from orderly_evm_connector.rest._account import get_registration_nonce
     from orderly_evm_connector.rest._account import get_account_details
     from orderly_evm_connector.rest._account import get_account
+    from orderly_evm_connector.rest._account import get_broker
     from orderly_evm_connector.rest._account import register_account
     from orderly_evm_connector.rest._account import get_orderly_key
     from orderly_evm_connector.rest._account import add_orderly_key
@@ -144,3 +145,21 @@ class Rest(API):
     from orderly_evm_connector.rest._referral import check_ref_code
     from orderly_evm_connector.rest._referral import verify_ref_code
     from orderly_evm_connector.rest._referral import get_referral_rebate_summary
+
+    # rewards
+    from orderly_evm_connector.rest._rewards import get_parameters_of_each_epoch
+    from orderly_evm_connector.rest._rewards import get_broker_allocation_history
+    from orderly_evm_connector.rest._rewards import get_account_trading_rewards_history
+    from orderly_evm_connector.rest._rewards import get_wallet_trading_rewards_history
+    from orderly_evm_connector.rest._rewards import get_epochs_data
+    from orderly_evm_connector.rest._rewards import get_current_epoch_estimate
+    from orderly_evm_connector.rest._rewards import get_current_epoch_estimate_broker
+    from orderly_evm_connector.rest._rewards import get_parameters_of_each_mm_epoch
+    from orderly_evm_connector.rest._rewards import get_wallet_group_mm_rewards_history
+    from orderly_evm_connector.rest._rewards import get_market_maker_current_epoch_estimate
+    from orderly_evm_connector.rest._rewards import get_wallet_staked_balance
+    from orderly_evm_connector.rest._rewards import get_staking_overview
+    from orderly_evm_connector.rest._rewards import get_unstake_details
+    from orderly_evm_connector.rest._rewards import get_valor_batch_info
+    from orderly_evm_connector.rest._rewards import get_valor_pool_info
+    from orderly_evm_connector.rest._rewards import get_valor_redeem_info
