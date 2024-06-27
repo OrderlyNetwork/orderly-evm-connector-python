@@ -109,7 +109,7 @@ class OrderlyWebsocketClient:
 
     def auth_login(self):
         if not self.socket_manager._login:
-            self.auth_params['timestamp'] = int(self.auth_params['timestamp'])
+            self.auth_params['params']['timestamp'] = int(self.auth_params['params']['timestamp'])
             self.socket_manager.send_message(json.dumps(self.auth_params))
             self.socket_manager._login = True
 
