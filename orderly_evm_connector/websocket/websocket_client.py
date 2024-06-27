@@ -128,7 +128,6 @@ class OrderlyWebsocketClient:
     def subscribe(self, message):
         if str(message) not in self.subscriptions:
             self.subscriptions.append(message)
-        print(message)
         self.socket_manager.send_message(json.dumps(message))
 
     def unsubscribe(self, message):
