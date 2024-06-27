@@ -68,3 +68,30 @@ def get_notifications(self):
     """
     _message = {"id": self.wss_id, "topic": "notifications", "event": "subscribe"}
     self.send_message_to_server(_message)
+
+def get_execution_report(self):
+    """Push interval: real-time push
+    https://orderly.network/docs/build-on-evm/evm-api/introduction#websocket-api-private-notifications
+    """
+    _message = {"id": self.wss_id, "topic": "executionreport", "event": "subscribe"}
+    self.send_message_to_server(_message)
+
+def get_algo_execution_report(self):
+    """Push interval: real-time push
+    https://orderly.network/docs/build-on-evm/evm-api/introduction#websocket-api-private-notifications
+    """
+    _message = {"id": self.wss_id, "topic": "algoexecutionreportv2", "event": "subscribe"}
+    self.send_message_to_server(_message)
+
+def get_execution_report_for_single_broker(self, broker_id):
+    """Push interval: real-time push
+    https://orderly.network/docs/build-on-evm/evm-api/introduction#websocket-api-private-notifications
+    """
+    check_required_parameters([[broker_id, "broker_id"]])
+    _message = {
+        "id": self.wss_id,
+        "topic": f"executionreport@{broker_id}",
+        "event": "subscribe",
+        "broker_id": broker_id,
+    }
+    self.send_message_to_server(_message)

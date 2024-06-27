@@ -109,7 +109,7 @@ class OrderlyWebsocketClient:
 
     def auth_login(self):
         if not self.socket_manager._login:
-            self.auth_params['timestamp'] = int(self.auth_params['timestamp'])
+            self.auth_params['params']['timestamp'] = int(self.auth_params['params']['timestamp'])
             self.socket_manager.send_message(json.dumps(self.auth_params))
             self.socket_manager._login = True
 
@@ -128,6 +128,7 @@ class OrderlyWebsocketClient:
     def subscribe(self, message):
         if str(message) not in self.subscriptions:
             self.subscriptions.append(message)
+        print(message)
         self.socket_manager.send_message(json.dumps(message))
 
     def unsubscribe(self, message):
