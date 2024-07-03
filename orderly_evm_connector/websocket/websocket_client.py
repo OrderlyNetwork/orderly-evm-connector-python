@@ -10,13 +10,14 @@ from orderly_evm_connector.lib.utils import (
     generate_signature,
 )
 from orderly_evm_connector.websocket.orderly_socket_manager import OrderlySocketManager
-
+from orderly_evm_connector.websocket.async_websocket_manager import AsyncWebsocketManager
 
 
 class OrderlyWebsocketClient:
     def __init__(
         self,
         websocket_url,
+        async_mode = False,
         orderly_account_id=None,
         orderly_key=None,
         orderly_secret=None,
@@ -46,20 +47,38 @@ class OrderlyWebsocketClient:
         self.subscriptions = []
         self._proxy_params = parse_proxies(proxies) if proxies else {}
         self.auth_params = self._auth_params() if self.private else None
-        self._initialize_socket(
-            self.websocket_url,
-            self.wss_id,
-            orderly_key,
-            orderly_secret,
-            on_message,
-            on_open,
-            on_close,
-            on_error,
-            timeout,
-            debug,
-            proxies,
-        )
+        self.on_message = on_message
+        self.on_open = on_open
+        self.on_close = on_close
+        self.on_error = on_error
+        if not async_mode:
+            self._initialize_socket(
+                self.websocket_url,
+                self.wss_id,
+                orderly_key,
+                orderly_secret,
+                on_message,
+                on_open,
+                on_close,
+                on_error,
+                timeout,
+                debug,
+                proxies,
+            )
         self.logger.debug("Orderly WebSocket Client started.")
+
+
+    async def run(self):
+        manager = AsyncWebsocketManager(
+            websocket_url=self.websocket_url,
+            on_message=self.on_message,
+            on_open=self.on_socket_open,
+            on_close=self.on_close,
+            on_error=self.on_error,
+            debug=True
+        )
+        await manager.create_ws_connection()
+        await manager.run()
 
     def _auth_params(self):
         return {

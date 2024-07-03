@@ -1,7 +1,9 @@
 # from orderly_evm_connector.websocket.websocket_api import WebsocketAPIClient as WebsocketClients
+import asyncio
+
 from utils.config import get_account_info
 import time, logging
-from orderly_evm_connector.websocket.websocket_api import WebsocketPublicAPIClient
+from orderly_evm_connector.websocket.websocket_api import WebsocketPublicAPIClient, WebsocketPublicAPIClientAsync
 
 (
     orderly_key,
@@ -31,6 +33,20 @@ wss_client = WebsocketPublicAPIClient(
     on_close=on_close,
     debug=True,
 )
+
+wss_client_async = WebsocketPublicAPIClientAsync(
+    orderly_testnet=orderly_testnet,
+    orderly_account_id=orderly_account_id,
+    wss_id=wss_id,
+    on_message=message_handler,
+    on_close=on_close,
+    debug=True,
+)
+async def request_orderbook():
+    await wss_client_async.run()
+    wss_client_async.request_orderbook('orderbook','PERP_BTC_USDC')
+
+asyncio.run(request_orderbook())
 
 # #Request orderbook data
 # wss_client.request_orderbook('orderbook','PERP_BTC_USDC')

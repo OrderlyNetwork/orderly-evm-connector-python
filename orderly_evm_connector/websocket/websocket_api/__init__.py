@@ -58,6 +58,63 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
         get_liquidation_push,
     )
 
+class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
+    def __init__(
+        self,
+        orderly_testnet=False,
+        orderly_account_id=None,
+        orderly_key=None,
+        orderly_secret=None,
+        private=False,
+        wss_id=None,
+        timeout=None,
+        debug=False,
+        proxies: Optional[dict] = None,
+        on_message=None,
+        on_open=None,
+        on_close=None,
+        on_error=None,
+    ):
+        _, self.orderly_websocket_public_endpoint, _ = get_endpoints(orderly_testnet)
+        super().__init__(
+            self.orderly_websocket_public_endpoint,
+            wss_id=wss_id,
+            async_mode=True,
+            private=private,
+            orderly_account_id=orderly_account_id,
+            on_message=on_message,
+            on_open=on_open,
+            on_close=on_close,
+            on_error=on_error,
+            timeout=timeout,
+            debug=debug,
+            proxies=proxies,
+        )
+
+    # public websocket
+    from orderly_evm_connector.websocket.websocket_api._stream import request_orderbook
+    from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
+    from orderly_evm_connector.websocket.websocket_api._stream import (
+        get_orderbookupdate,
+    )
+    from orderly_evm_connector.websocket.websocket_api._stream import get_trade
+    from orderly_evm_connector.websocket.websocket_api._stream import get_24h_ticker
+    from orderly_evm_connector.websocket.websocket_api._stream import get_24h_tickers
+    from orderly_evm_connector.websocket.websocket_api._stream import get_bbo
+    from orderly_evm_connector.websocket.websocket_api._stream import get_bbos
+    from orderly_evm_connector.websocket.websocket_api._stream import get_kline
+    from orderly_evm_connector.websocket.websocket_api._stream import get_index_price
+    from orderly_evm_connector.websocket.websocket_api._stream import get_index_prices
+    from orderly_evm_connector.websocket.websocket_api._stream import get_mark_price
+    from orderly_evm_connector.websocket.websocket_api._stream import get_mark_prices
+    from orderly_evm_connector.websocket.websocket_api._stream import get_open_interest
+    from orderly_evm_connector.websocket.websocket_api._stream import (
+        get_estimated_funding_rate,
+    )
+    from orderly_evm_connector.websocket.websocket_api._stream import (
+        get_liquidation_push,
+    )
+
 
 class WebsocketPrivateAPIClient(OrderlyWebsocketClient):
     def __init__(
