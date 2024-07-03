@@ -1,6 +1,8 @@
 from typing import Optional
 from orderly_evm_connector.websocket.websocket_client import OrderlyWebsocketClient
 from orderly_evm_connector.lib.utils import get_endpoints
+from orderly_evm_connector.websocket.websocket_client_async import OrderlyWebsocketClientAsync
+
 
 class WebsocketPublicAPIClient(OrderlyWebsocketClient):
     def __init__(
@@ -58,7 +60,7 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
         get_liquidation_push,
     )
 
-class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
+class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
     def __init__(
         self,
         orderly_testnet=False,
@@ -79,7 +81,6 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
         super().__init__(
             self.orderly_websocket_public_endpoint,
             wss_id=wss_id,
-            async_mode=True,
             private=private,
             orderly_account_id=orderly_account_id,
             on_message=on_message,
