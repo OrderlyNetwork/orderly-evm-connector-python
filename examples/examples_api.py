@@ -1,6 +1,8 @@
+import asyncio
 import pprint
 
 from orderly_evm_connector.rest import Rest as Client
+from orderly_evm_connector.rest import RestAsync as AsyncClient
 from utils.config import get_account_info
 from orderly_evm_connector.error import ClientError
 import logging
@@ -25,6 +27,16 @@ client_private = Client(
     debug=True
 )
 
+client_async_public = AsyncClient(
+    orderly_key=orderly_key,
+    orderly_secret=orderly_secret,
+    orderly_account_id=orderly_account_id,
+    wallet_secret=wallet_secret,
+    orderly_testnet=orderly_testnet,
+    debug=True
+)
+
+# asyncio.run(client_async_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b"))
 
 # #account
 # #Check whether a particular account is registered on Orderly Network
@@ -41,7 +53,7 @@ client_private = Client(
 #         )
 #     )
 # #Get Account Details
-# client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
+client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
 # #Get Registration Nonce
 # client_public.get_registration_nonce()
 # #Register Account
