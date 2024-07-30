@@ -155,3 +155,22 @@ def get_user_statistics(self):
 
     """
     return self._sign_request("GET", "/v1/client/statistics")
+
+
+def get_market_volume_by_broker(self, symbol: str = None, broker_id: str = None):
+    """[Public] Get market volume by broker
+    Limit: 10 requests per 60 seconds
+
+    GET /v1/public/futures_market
+
+    Get market volume filtered by broker
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-market-volume-by-broker
+
+    """
+
+    payload = {
+        "symbol": symbol,
+        "broker_id": broker_id
+    }
+    return self._request("GET", "/v1/public/futures_market", payload=payload)

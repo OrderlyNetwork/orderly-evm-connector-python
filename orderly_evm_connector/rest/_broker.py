@@ -130,3 +130,10 @@ def update_default_broker_fee(self, maker_fee_rate: float, taker_fee_rate: float
 
 def get_default_broker_fee(self):
     return self._sign_request("GET", "/v1/broker/fee_rate/default")
+
+
+def get_tvl_by_broker(self, broker_id: str = None):
+    payload = {
+        "broker_id": broker_id
+    }
+    return self._sign_request("GET", "/v1/public/balance/stats", payload=payload)
