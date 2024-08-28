@@ -120,7 +120,7 @@ class API(object):
         params = cleanNoneValue(
             {
                 "url": url,
-                "params": payload,
+                "json": payload,
                 "timeout": self.timeout,
                 "proxies": self.proxies,
             }
@@ -160,7 +160,8 @@ class API(object):
             "POST": self.session.post,
         }.get(http_method, "GET")
         if http_method == "POST" or http_method == "PUT":
-            return method_func(url=params["url"], json=params["params"])
+            self.session.headers.update({"Content-Type": "application/json"})
+            return method_func(url=params["url"], json=params["json"])
         else:
             self.session.headers.update(
                 {
