@@ -105,7 +105,7 @@ def parse_proxies(proxies: dict):
 def generate_signature(orderly_secret, message=None):
     if not orderly_secret:
         raise "Please configure orderly secret in the configuration file config.ini"
-    _orderly_secret = orderly_secret.split(":")[1]
+    _orderly_secret = orderly_secret
     _orderly_private_key = Ed25519PrivateKey.from_private_bytes(
         base58.b58decode(_orderly_secret)[0:32]
     )
@@ -133,7 +133,7 @@ def generate_wallet_signature(wallet_secret, message=None):
 
 def get_endpoints(orderly_testnet):
     # True: Testnet, False: Mainnet
-    if orderly_testnet == 'True':
+    if orderly_testnet == True:
         orderly_endpoint = "https://testnet-api-evm.orderly.org"
         orderly_websocket_public_endpoint = "wss://testnet-ws-evm.orderly.org/ws/stream"
         orderly_websocket_private_endpoint = (
@@ -155,13 +155,16 @@ def get_endpoints(orderly_testnet):
             orderly_websocket_public_endpoint,
             orderly_websocket_private_endpoint,
         )
-        
+
+
 def get_withdraw_settle_verifyingcontract(orderly_testnet):
     verifyingcontract  = '0x1826B75e2ef249173FC735149AE4B8e9ea10abff' if orderly_testnet else '0x6F7a338F2aA472838dEFD3283eB360d4Dff5D203'
     return verifyingcontract
+
 
 def decode_ws_error_code(data):
     try:
         return str(int.from_bytes(data, byteorder='big'))
     except:
         return ""
+
