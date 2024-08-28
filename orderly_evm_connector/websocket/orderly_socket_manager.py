@@ -112,12 +112,13 @@ class OrderlySocketManager(threading.Thread):
                 op_code, frame = self.ws.recv_data_frame(True)
                 try:
                     _message = json.loads(frame.data)
+                    if "event" in _message:
+                        if _message["event"] == "ping":
+                            self._handle_heartbeat()
                 except:
                     err_code = decode_ws_error_code(frame.data)
                     self.logger.warning(f"Websocket error code received: {err_code}")
-                if "event" in _message:
-                    if _message["event"] == "ping":
-                        self._handle_heartbeat()
+
             except WebSocketConnectionClosedException:
                 self.logger.warning("WebSocket connection closed. Reconnecting...")
                 self.reconnect()
