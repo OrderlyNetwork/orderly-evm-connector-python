@@ -93,6 +93,10 @@ def get_referral_code_info(self, page: int = None, size: int = None, user_addres
         "page": page,
         "size": size,
     }
+    if user_address:
+        payload["user_address"] = user_address
+    if account_id:
+        payload["account_id"] = account_id
     return self._sign_request("GET", "/v1/referral/admin_info", payload=payload)
 
 
@@ -186,7 +190,7 @@ def get_referee_info(self, sort: str = None, page: int = None, size: int = None)
     return self._sign_request("GET", "/v1/referral/referee_info", payload=payload)
 
 
-def get_distribution_history(self, start_date: str = None, end_date: str = None, page: int = None, size: int = None,type: str = None, status: str = None):
+def get_distribution_history(self, start_t: str = None, end_t: str = None, page: int = None, size: int = None,type: str = None, status: str = None):
     """
     Get Distribution History
 
@@ -197,8 +201,8 @@ def get_distribution_history(self, start_date: str = None, end_date: str = None,
     https://docs.orderly.network/build-on-evm/evm-api/restful-api/private/get-distribution-history
     """
     payload = {
-        "start_date": start_date,
-        "end_date": end_date,
+        "start_t": start_t,
+        "end_t": end_t,
         "page": page,
         "size": size,
         "type": type,
@@ -229,3 +233,20 @@ def verify_ref_code(self, referral_code:str = None ):
     """
     check_required_parameters([[referral_code,'referral_code']])
     return self._request("GET", f"/v1/public/referral/verify_ref_code?referral_code={referral_code}")
+
+def edit_referral_split(self, referral_code: str, referrer_rebate_rate: float, referee_rebate_rate: float):
+    """
+    Edit Split
+
+    Limit: 10 requests per 1 second
+
+    POST /v1/referral/edit_split
+
+    https://docs.orderly.network/build-on-evm/evm-api/restful-api/private/edit-split
+    """
+    check_required_parameters([[referral_code,'referral_code'], [referrer_rebate_rate,'referrer_rebate_rate'], [referee_rebate_rate,'referee_rebate_rate']])
+    return self._sign_request("POST", "/v1/referral/edit_split", payload={
+        "referral_code": referral_code,
+        "referrer_rebate_rate": referrer_rebate_rate,
+        "referee_rebate_rate": referee_rebate_rate
+    })

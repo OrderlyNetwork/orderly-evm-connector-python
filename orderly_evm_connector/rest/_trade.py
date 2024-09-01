@@ -564,6 +564,7 @@ def get_orders(
     page: int = None,
     size: int = None,
     order_tag: str = None,
+    source_type: str = None,
     sort_by: str = None
 ):
     """[Private] Get orders
@@ -624,7 +625,8 @@ def get_orders(
         "page": page,
         "size": size,
         "order_tag": order_tag,
-        "sort_by":sort_by
+        "sort_by":sort_by,
+        "source_type": source_type
     }
     return self._sign_request("GET", "/v1/orders", payload=payload)
 
