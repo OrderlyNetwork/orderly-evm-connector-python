@@ -17,11 +17,10 @@ def get_positions_under_liquidation(self, **kwargs):
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-positions-under-liquidation
     """
     payload = {**kwargs}
-
     return self._request("GET", "/v1/public/liquidation", payload=payload)
 
 
-def get_liquidated_positions_info(self, symbol: str, **kwargs):
+def get_liquidated_positions_info(self, symbol: str = None, start_t: int = None, end_t: int = None, page: int = None, size: int = None):
     """Get liquidated positions info
 
     Limit: 10 requests per 1 second per IP address
@@ -39,9 +38,17 @@ def get_liquidated_positions_info(self, symbol: str, **kwargs):
 
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-liquidated-positions-info
     """
-    check_required_parameters([[symbol, "symbol"]])
-    payload = {"symbol": symbol, **kwargs}
-
+    payload = {}
+    if start_t:
+        payload["start_t"] = start_t
+    if end_t:
+        payload["end_t"] = end_t
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    if symbol:
+        payload["symbol"] = symbol
     return self._request("GET", "/v1/public/liquidated_positions", payload=payload)
 
 

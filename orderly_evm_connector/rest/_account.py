@@ -244,6 +244,22 @@ def add_orderly_key(
     )
     return self._request("POST", "/v1/orderly_key", payload=payload)
 
+def remove_orderly_key(self, orderly_key: str):
+    """Remove Orderly Key
+    Limit: 10 requests per 1 second per IP address
+
+    POST /v1/remove_orderly_key
+
+    Remove an Orderly access key from the account.
+
+    Args:
+        orderly_key(string): The public key of the Orderly access key
+
+    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/remove-orderly-key
+    """
+    check_required_parameters([[orderly_key, "orderly_key"]])
+    payload = {"orderly_key": orderly_key}
+    return self._sign_request("POST", "/v1/client/remove_orderly_key", payload=payload)
 
 def update_leverage_configuration(self, leverage: int):
     """Update leverage setting
