@@ -59,6 +59,7 @@ def create_algo_order(
     symbol: str,
     type: str,
     trigger_price: float,
+    child_orders: list = [],
     client_order_id: str = None,
     order_tag: str = None,
     price: float = None,
@@ -109,6 +110,7 @@ Note: This endpoint requires trading scope in Orderly Key.
         "trigger_price": trigger_price,
         "trigger_price_type": trigger_price_type,
         "type": type,
+        "child_orders": child_orders,
         "visible_quantity": visible_quantity
     }
     return self._sign_request("POST", "/v1/algo/order", payload=payload)
@@ -293,7 +295,16 @@ def cancel_algo_all_pending_order(self, symbol: str, algo_type: str):
         )
     check_enum_parameter(algo_type, AlgoType)
     check_required_parameters([[symbol, "symbol"]])
-    return self._sign_request("DELETE", f"/v1/algo/orders?symbol={symbol}")
+    # add symbol and algo type if they are not None
+    url = f"/v1/algo/orders"
+    if symbol and algo_type:
+        url += f"?symbol={symbol}&algo_type={algo_type}"
+    elif symbol:
+        url += f"?symbol={symbol}"
+    elif algo_type:
+        url += f"?algo_type={algo_type}"
+
+    return self._sign_request("DELETE", url)
 
 def cancel_order(self, order_id: int, symbol: str, **kwargs):
     """[Private] Cancel order
@@ -564,6 +575,7 @@ def get_orders(
     page: int = None,
     size: int = None,
     order_tag: str = None,
+    source_type: str = None,
     sort_by: str = None
 ):
     """[Private] Get orders
@@ -624,7 +636,8 @@ def get_orders(
         "page": page,
         "size": size,
         "order_tag": order_tag,
-        "sort_by":sort_by
+        "sort_by":sort_by,
+        "source_type": source_type
     }
     return self._sign_request("GET", "/v1/orders", payload=payload)
 

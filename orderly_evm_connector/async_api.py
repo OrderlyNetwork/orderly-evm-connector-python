@@ -123,7 +123,7 @@ class AsyncAPI(API):
             if http_method == "POST" or http_method == "PUT":
                 response = await method_func(url=params["url"], json=params["params"])
             else:
-                self.headers.update(
+                session.headers.update(
                     {
                         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
                     }
@@ -135,11 +135,7 @@ class AsyncAPI(API):
                 data = await response.json()
             except ValueError:
                 data = await response.text()
-            result = {}
-            if self.show_header:
-                result["header"] = response.headers
-            if len(data) != 0:
-                result["data"] = data
+            result = data
             response.close()
             return result
 
