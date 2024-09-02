@@ -55,6 +55,7 @@ class Rest(API):
     from orderly_evm_connector.rest._broker import update_user_fee_rate
     from orderly_evm_connector.rest._broker import reset_user_fee_rate
     from orderly_evm_connector.rest._broker import update_default_broker_fee
+    from orderly_evm_connector.rest._broker import get_tvl_by_broker
 
     # general
     from orderly_evm_connector.rest._general import get_system_maintenance_status
@@ -65,6 +66,7 @@ class Rest(API):
     from orderly_evm_connector.rest._general import get_fee_futures_information
     from orderly_evm_connector.rest._general import get_leverage_configuration
     from orderly_evm_connector.rest._general import get_user_statistics
+    from orderly_evm_connector.rest._general import get_market_volume_by_broker
 
     # liquidation
     from orderly_evm_connector.rest._liquidation import get_positions_under_liquidation
