@@ -23,6 +23,7 @@ class Rest(API):
 
     # account
     from orderly_evm_connector.rest._account import remove_orderly_key
+    from orderly_evm_connector.rest._account import remove_orderly_key
     from orderly_evm_connector.rest._account import get_registration_nonce
     from orderly_evm_connector.rest._account import get_account_details
     from orderly_evm_connector.rest._account import get_account
@@ -41,7 +42,10 @@ class Rest(API):
     from orderly_evm_connector.rest._account import get_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
-    
+    from orderly_evm_connector.rest._broker import get_default_broker_fee
+    from orderly_evm_connector.rest._broker import update_user_fee_rate
+    from orderly_evm_connector.rest._broker import reset_user_fee_rate
+    from orderly_evm_connector.rest._broker import update_default_broker_fee
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
@@ -154,6 +158,8 @@ class Rest(API):
     #referral
     from orderly_evm_connector.rest._referral import bind_referral_code
     from orderly_evm_connector.rest._referral import get_referral_history
+    from orderly_evm_connector.rest._referral import bind_referral_code
+    from orderly_evm_connector.rest._referral import get_referral_history
     from orderly_evm_connector.rest._referral import get_referral_code_info
     from orderly_evm_connector.rest._referral import get_distribution_history
     from orderly_evm_connector.rest._referral import check_ref_code
@@ -165,7 +171,11 @@ class Rest(API):
     from orderly_evm_connector.rest._referral import edit_referral_split
     from orderly_evm_connector.rest._referral import create_referral_code
     from orderly_evm_connector.rest._referral import update_referral_code
-
+    from orderly_evm_connector.rest._referral import get_referral_info
+    from orderly_evm_connector.rest._referral import get_referee_info
+    from orderly_evm_connector.rest._referral import get_referee_history
+    from orderly_evm_connector.rest._referral import create_referral_code
+    from orderly_evm_connector.rest._referral import update_referral_code
     # rewards
     from orderly_evm_connector.rest._rewards import get_parameters_of_each_epoch
     from orderly_evm_connector.rest._rewards import get_broker_allocation_history
@@ -218,6 +228,11 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._account import get_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
+    from orderly_evm_connector.rest._broker import get_default_broker_fee
+    from orderly_evm_connector.rest._broker import update_user_fee_rate
+    from orderly_evm_connector.rest._broker import reset_user_fee_rate
+    from orderly_evm_connector.rest._broker import update_default_broker_fee
+    from orderly_evm_connector.rest._account import remove_orderly_key
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
@@ -323,11 +338,19 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._campaign import get_tradingrewards_epoch
     from orderly_evm_connector.rest._campaign import get_campaign_user_info
     # referral
+    from orderly_evm_connector.rest._referral import bind_referral_code
+    from orderly_evm_connector.rest._referral import get_referral_history
     from orderly_evm_connector.rest._referral import get_referral_code_info
     from orderly_evm_connector.rest._referral import get_distribution_history
     from orderly_evm_connector.rest._referral import check_ref_code
     from orderly_evm_connector.rest._referral import verify_ref_code
     from orderly_evm_connector.rest._referral import get_referral_rebate_summary
+    from orderly_evm_connector.rest._referral import get_referral_info
+    from orderly_evm_connector.rest._referral import get_referee_info
+    from orderly_evm_connector.rest._referral import get_referee_history
+    from orderly_evm_connector.rest._referral import edit_referral_split
+    from orderly_evm_connector.rest._referral import create_referral_code
+    from orderly_evm_connector.rest._referral import update_referral_code
 
     # rewards
     from orderly_evm_connector.rest._rewards import get_parameters_of_each_epoch
