@@ -13,6 +13,9 @@ web3 = "^6.13.0"
 base58 = "^2.1.1"
 requests = "^2.31.0"
 websocket_client = "^1.7.0"
+aiohttp = "^3.9.5"
+asgiref = "^3.8.1"
+cryptography = "^42.0.8"
 
 [tool.poetry.dev-dependencies]
 
