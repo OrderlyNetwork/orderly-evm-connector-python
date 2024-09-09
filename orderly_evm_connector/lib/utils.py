@@ -1,4 +1,5 @@
 import json
+import os
 import time
 import uuid
 
@@ -19,7 +20,8 @@ from orderly_evm_connector.error import (
 
 import logging
 initialized = False
-
+disable_validation = os.environ.get("DISABLE_VALIDATION", False)
+test_url = os.environ.get("ORDERLY_TEST_URL", False)
 def orderlyLog(debug=False):
     
     logger = logging.getLogger("orderly_log")
@@ -52,13 +54,15 @@ def check_required_parameters(params):
         [10, 'price']
     ]
     """
-    for p in params:
-        check_required_parameter(p[0], p[1])
+    if not disable_validation:
+        for p in params:
+            check_required_parameter(p[0], p[1])
 
 
 def check_enum_parameter(value, enum_class):
-    if value not in set(item.value for item in enum_class):
-        raise ParameterValueError([value])
+    if not disable_validation:
+        if value not in set(item.value for item in enum_class):
+            raise ParameterValueError([value])
 
 
 def check_type_parameter(value, name, data_type):
@@ -133,8 +137,8 @@ def generate_wallet_signature(wallet_secret, message=None):
 
 def get_endpoints(orderly_testnet):
     # True: Testnet, False: Mainnet
-    if orderly_testnet == 'True':
-        orderly_endpoint = "https://testnet-api-evm.orderly.org"
+    if orderly_testnet:
+        orderly_endpoint = test_url or "https://testnet-api-evm.orderly.org"
         orderly_websocket_public_endpoint = "wss://testnet-ws-evm.orderly.org/ws/stream"
         orderly_websocket_private_endpoint = (
             "wss://testnet-ws-private-evm.orderly.org/v2/ws/private/stream"

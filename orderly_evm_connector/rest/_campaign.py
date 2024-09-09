@@ -38,8 +38,10 @@ def get_user_points(self,address):
 
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-number-of-points#openapi-evmopenapi-get-v1clientpoints
     """
-
-    return self._request("GET", f"/v1/client/points?address={address}")
+    endpoint = "/v1/client/points"
+    if address:
+        endpoint = endpoint + f"?address={address}"
+    return self._request("GET", endpoint)
 
 def get_points_leaderboard(self,start_r: int = None,end_r: int = None,epoch_id: int = None,page: int = None,size: int = None):
     """[Public] Get Points Leaderboard

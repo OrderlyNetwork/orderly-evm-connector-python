@@ -1,20 +1,16 @@
 import asyncio
 from typing import Optional
-
 import json
-import logging
 from orderly_evm_connector.lib.utils import (
-    get_timestamp,
     orderlyLog,
     get_uuid,
     parse_proxies,
     generate_signature,
 )
-from orderly_evm_connector.websocket.orderly_socket_manager import OrderlySocketManager
-from orderly_evm_connector.websocket.websocket_api import AsyncWebsocketManager
+from orderly_evm_connector.websocket.async_websocket_manager import AsyncWebsocketManager
 
 
-class OrderlyWebsocketClient:
+class OrderlyWebsocketClientAsync:
     def __init__(
         self,
         websocket_url,
@@ -23,7 +19,6 @@ class OrderlyWebsocketClient:
         orderly_secret=None,
         private=False,
         wss_id=None,
-        async_mode=False,
         timeout=None,
         debug=False,
         proxies: Optional[dict] = None,
@@ -38,7 +33,8 @@ class OrderlyWebsocketClient:
             else "OqdphuyCtYWxwzhxyLLjOWNdFP7sQt8RPWzmb5xY"
         )
         self.websocket_url = f"{websocket_url}/{orderly_account_id}"
-        self.orderly_secret = orderly_secret
+        if orderly_secret:
+            self._timestamp, self._signature = generate_signature(orderly_secret)
         self.wss_id = wss_id if wss_id else get_uuid()
         self.orderly_key = orderly_key
         self.private = private
@@ -46,38 +42,13 @@ class OrderlyWebsocketClient:
         self.logger = orderlyLog(debug=debug)
         self.subscriptions = []
         self._proxy_params = parse_proxies(proxies) if proxies else {}
+        self.auth_params = self._auth_params() if self.private else None
         self.on_message = on_message
         self.on_open = on_open
         self.on_close = on_close
         self.on_error = on_error
-        if not async_mode:
-            self._initialize_socket(
-                self.websocket_url,
-                self.wss_id,
-                orderly_key,
-                orderly_secret,
-                on_message,
-                on_open,
-                on_close,
-                on_error,
-                timeout,
-                debug,
-                proxies,
-            )
+        self.socket_manager = None
         self.logger.debug("Orderly WebSocket Client started.")
-
-
-    async def run(self):
-        manager = AsyncWebsocketManager(
-            websocket_url=self.websocket_url,
-            on_message=self.on_message,
-            on_open=self.on_socket_open,
-            on_close=self.on_close,
-            on_error=self.on_error,
-            debug=True
-        )
-        asyncio.create_task(manager.run())
-        await manager.ensure_init()
 
     def _auth_params(self):
         return {
@@ -90,7 +61,7 @@ class OrderlyWebsocketClient:
             },
         }
 
-    def _initialize_socket(
+    async def _initialize_socket(
         self,
         websocket_url,
         wss_id,
@@ -104,7 +75,7 @@ class OrderlyWebsocketClient:
         debug,
         proxies,
     ):
-        return OrderlySocketManager(
+        self.socket_manager = AsyncWebsocketManager(
             websocket_url,
             on_message=on_message,
             on_open=self.on_socket_open,
@@ -114,46 +85,42 @@ class OrderlyWebsocketClient:
             debug=debug,
             proxies=proxies,
         )
+        await self.socket_manager.run()
 
-    def on_socket_open(self, socket_manager):
+    async def on_socket_open(self, socket_manager):
         self.logger.debug("Orderly WebSocket Connection opened. Subscribing...")
         if not hasattr(self, "socket_manager"):
             self.socket_manager = socket_manager
-            self.socket_manager.start()
         if self.private:
-            self.auth_login()
+            await self.auth_login()
         for message in self.subscriptions:
-            self.socket_manager.send_message(json.dumps(message))
+            await self.socket_manager.send_message(json.dumps(message))
 
-    def auth_login(self):
+    async def auth_login(self):
         if not self.socket_manager._login:
-            if self.orderly_secret:
-                self._timestamp, self._signature = generate_signature(self.orderly_secret)
-                self.auth_params = self._auth_params()
-                self.auth_params['params']['timestamp'] = int(self.auth_params['params']['timestamp'])
-            self.socket_manager.send_message(json.dumps(self.auth_params))
+            self.auth_params['params']['timestamp'] = int(self.auth_params['params']['timestamp'])
+            await self.socket_manager.send_message(json.dumps(self.auth_params))
             self.socket_manager._login = True
 
-    def send(self, message: dict):
-        self.socket_manager.send_message(json.dumps(message))
+    async def send(self, message: dict):
+        await self.socket_manager.send_message(json.dumps(message))
 
-    def send_message_to_server(self, message: dict):
+    async def send_message_to_server(self, message: dict):
         if self.private:
-            self.auth_login()
+            await self.auth_login()
         action = message["event"]
         if action and action != "unsubscribe":
-            return self.subscribe(message)
+            return await self.subscribe(message)
         else:
-            return self.unsubscribe(message)
+            return await self.unsubscribe(message)
 
-    def subscribe(self, message):
+    async def subscribe(self, message):
         if str(message) not in self.subscriptions:
             self.subscriptions.append(message)
-        self.socket_manager.send_message(json.dumps(message))
+        await self.socket_manager.send_message(json.dumps(message))
 
-    def unsubscribe(self, message):
-        self.socket_manager.send_message(json.dumps(message))
+    async def unsubscribe(self, message):
+        await self.socket_manager.send_message(json.dumps(message))
 
-    def stop(self, id=None):
-        self.socket_manager.close()
-        self.socket_manager.join()
+    async def stop(self, id=None):
+        await self.socket_manager.close()
