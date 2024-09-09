@@ -160,6 +160,11 @@ class API(object):
             "POST": self.session.post,
         }.get(http_method, "GET")
         if http_method == "POST" or http_method == "PUT":
+            self.session.headers.update(
+                {
+                    "Content-Type": "application/json;charset=utf-8"
+                }
+            )
             return method_func(url=params["url"], json=params["params"])
         else:
             self.session.headers.update(

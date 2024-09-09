@@ -32,6 +32,7 @@ class AsyncWebsocketManager:
         self.on_message = on_message
         self.on_open = on_open
         self.on_close = on_close
+        self.init = False
         self.on_error = on_error
         self.on_ping = on_ping
         self.on_pong = on_pong
@@ -43,6 +44,9 @@ class AsyncWebsocketManager:
         self.max_retries = max_retries
         self.ws = None
         self.loop = asyncio.get_event_loop()
+
+    def start(self):
+        pass
 
     async def create_ws_connection(self):
         retries = 0
@@ -58,7 +62,7 @@ class AsyncWebsocketManager:
                     f"WebSocket connection has been established: {self.websocket_url}, proxies: {self._proxy_params}"
                 )
                 if self.on_open:
-                    await self.on_open(self)
+                    self.on_open(self)
                 return
             except Exception as e:
                 self.logger.error(f"Failed to create WebSocket connection: {e}")
@@ -76,19 +80,19 @@ class AsyncWebsocketManager:
         await self.close()
         await self.create_ws_connection()
 
-    async def send_message(self, message):
+    def send_message(self, message):
         self.logger.debug("Sending message to Orderly WebSocket Server: %s", message)
-        await self.ws.send(message)
+        asyncio.create_task(self.ws.send(message))
 
     async def run(self):
+        await self.create_ws_connection()
+        await self.read_data()
+
+    async def ensure_init(self):
         while True:
-            try:
-                await self.create_ws_connection()
-                await self.read_data()
-            except Exception as e:
-                self.logger.error(f"Exception in WebSocket run loop: {e}")
-                await self.reconnect()
-                continue
+            if self.init:
+                break
+            await asyncio.sleep(1)
 
     async def _handle_heartbeat(self):
         try:
@@ -100,9 +104,11 @@ class AsyncWebsocketManager:
 
     async def read_data(self):
         try:
-            async for message in self.ws:
+            while True:
                 try:
+                    message = await self.ws.recv()
                     _message = json.loads(message)
+                    self.init = True
                 except json.JSONDecodeError:
                     err_code = decode_ws_error_code(message)
                     self.logger.warning(f"Websocket error code received: {err_code}")

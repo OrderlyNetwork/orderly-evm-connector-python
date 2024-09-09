@@ -117,9 +117,9 @@ def generate_signature(orderly_secret, message=None):
     if message and isinstance(message, dict):
         message["timestamp"] = _timestamp
     else:
-        message = f"{_timestamp}{message}" if message else _timestamp
+        message = f"{_timestamp}{message or ''}" 
     _signature = base64.b64encode(
-        _orderly_private_key.sign(bytes(str(message), "utf-8"))
+        _orderly_private_key.sign(bytes(message, "utf-8"))
     ).decode("utf-8")
     return str(_timestamp), _signature
 
