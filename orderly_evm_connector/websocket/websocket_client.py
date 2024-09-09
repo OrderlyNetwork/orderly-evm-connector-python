@@ -1,3 +1,4 @@
+import asyncio
 from typing import Optional
 
 import json
@@ -37,8 +38,7 @@ class OrderlyWebsocketClient:
             else "OqdphuyCtYWxwzhxyLLjOWNdFP7sQt8RPWzmb5xY"
         )
         self.websocket_url = f"{websocket_url}/{orderly_account_id}"
-        if orderly_secret:
-            self._timestamp, self._signature = generate_signature(orderly_secret)
+        self.orderly_secret = orderly_secret
         self.wss_id = wss_id if wss_id else get_uuid()
         self.orderly_key = orderly_key
         self.private = private
@@ -46,7 +46,6 @@ class OrderlyWebsocketClient:
         self.logger = orderlyLog(debug=debug)
         self.subscriptions = []
         self._proxy_params = parse_proxies(proxies) if proxies else {}
-        self.auth_params = self._auth_params() if self.private else None
         self.on_message = on_message
         self.on_open = on_open
         self.on_close = on_close
@@ -77,8 +76,8 @@ class OrderlyWebsocketClient:
             on_error=self.on_error,
             debug=True
         )
-        await manager.create_ws_connection()
-        await manager.run()
+        asyncio.create_task(manager.run())
+        await manager.ensure_init()
 
     def _auth_params(self):
         return {
@@ -128,7 +127,10 @@ class OrderlyWebsocketClient:
 
     def auth_login(self):
         if not self.socket_manager._login:
-            self.auth_params['params']['timestamp'] = int(self.auth_params['params']['timestamp'])
+            if self.orderly_secret:
+                self._timestamp, self._signature = generate_signature(self.orderly_secret)
+                self.auth_params = self._auth_params()
+                self.auth_params['params']['timestamp'] = int(self.auth_params['params']['timestamp'])
             self.socket_manager.send_message(json.dumps(self.auth_params))
             self.socket_manager._login = True
 

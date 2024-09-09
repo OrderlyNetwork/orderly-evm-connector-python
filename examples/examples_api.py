@@ -299,3 +299,7 @@ client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
 # #Trading Rewards
 # response = client_public.get_valor_redeem_info(address="0x000")
 # pprint.pprint(response)
+client_private.get_withdraw_nonce()
+client_private.withdraw_request(
+    brokerId="woofi_pro",
+    chainId=421614,receiver="0x6CBe925762348413fc2cfDD7bC9A8D04CB8E249e",token="USDC",amount=3000000,withdrawNonce=1,userAddress="0x6CBe925762348413fc2cfDD7bC9A8D04CB8E249e")

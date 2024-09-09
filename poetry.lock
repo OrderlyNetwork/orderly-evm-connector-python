@@ -1545,6 +1545,16 @@ files = [
 ]
 
 [[package]]
+name = "sync-to-async"
+version = "0.1.1"
+description = "Simple python decorator that will convert your sync function into async function"
+optional = false
+python-versions = "*"
+files = [
+    {file = "sync_to_async-0.1.1.tar.gz", hash = "sha256:f72cdb31a1307ca210168eb97d881aff3acd86e8c2799d7afe872ef82a1c3033"},
+]
+
+[[package]]
 name = "toolz"
 version = "0.12.1"
 description = "List processing tools and functional utilities"
@@ -1820,4 +1830,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3397bc9e37675f28d9181fee57acd7546c4f83aa423639a8b26b3eeb5a607e18"
+content-hash = "e7c9f83ac040adef9cd54ec1be79a5ffb7c3ecd939bf3a7f0952b9a5a1a2ff9e"
