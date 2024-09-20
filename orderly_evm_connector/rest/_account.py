@@ -474,3 +474,14 @@ def reset_orderlykey_ip_restriction(self, orderly_key: str, reset_mode: str):
     return self._sign_request(
         "POST", "/v1/client/reset_orderly_key_ip_restriction", payload=payload
     )
+
+
+def get_position_history(self, symbol: str = None, limit: int  = None):
+    payload = {
+        "symbol": symbol,
+        "limit": limit
+    }
+
+    return self._sign_request(
+        "GET", "/v1/position_history", payload=payload
+    )
