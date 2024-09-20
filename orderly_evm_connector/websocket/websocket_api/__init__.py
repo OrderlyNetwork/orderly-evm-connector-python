@@ -84,7 +84,6 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
             orderly_account_id=orderly_account_id,
             on_message=on_message,
             on_open=on_open,
-            async_mode=True,
             on_close=on_close,
             on_error=on_error,
             timeout=timeout,
@@ -256,7 +255,7 @@ class WebsocketPrivateAPIClient(OrderlyWebsocketClient):
             get_execution_report_for_single_broker,
     )
 
-class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClient):
+class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClientAsync):
   def __init__(
         self,
         orderly_testnet=False,
@@ -283,7 +282,6 @@ class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClient):
             wss_id=wss_id,
             timeout=timeout,
             debug=debug,
-            async_mode=True,
             proxies=proxies,
             on_message=on_message,
             on_open=on_open,

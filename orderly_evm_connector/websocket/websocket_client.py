@@ -11,7 +11,7 @@ from orderly_evm_connector.lib.utils import (
     generate_signature,
 )
 from orderly_evm_connector.websocket.orderly_socket_manager import OrderlySocketManager
-from orderly_evm_connector.websocket.websocket_api import AsyncWebsocketManager
+from orderly_evm_connector.websocket.async_websocket_manager import AsyncWebsocketManager
 
 
 class OrderlyWebsocketClient:
