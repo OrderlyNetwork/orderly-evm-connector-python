@@ -37,6 +37,7 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
         )
 
     from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
+    from orderly_evm_connector.websocket.websocket_api._stream import request_orderbook
     from orderly_evm_connector.websocket.websocket_api._stream import (
         get_orderbookupdate,
     )
