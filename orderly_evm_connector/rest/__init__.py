@@ -46,6 +46,7 @@ class Rest(API):
     from orderly_evm_connector.rest._broker import update_user_fee_rate
     from orderly_evm_connector.rest._broker import reset_user_fee_rate
     from orderly_evm_connector.rest._broker import update_default_broker_fee
+    from orderly_evm_connector.rest._account import get_position_history
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
