@@ -50,6 +50,7 @@ class OrderlyWebsocketClient:
         self.on_open = on_open
         self.on_close = on_close
         self.on_error = on_error
+        self.debug = debug
         if not async_mode:
             self._initialize_socket(
                 self.websocket_url,
@@ -74,7 +75,7 @@ class OrderlyWebsocketClient:
             on_open=self.on_socket_open,
             on_close=self.on_close,
             on_error=self.on_error,
-            debug=True
+            debug=self.debug
         )
         asyncio.create_task(manager.run())
         await manager.ensure_init()

@@ -116,6 +116,8 @@ class AsyncWebsocketManager:
                     if "event" in _message and _message["event"] == "ping":
                         await self._handle_heartbeat()
                     else:
+                        print("++=")
+                        print(_message)
                         await self._callback(self.on_message, _message)
         except (ConnectionClosedError, ConnectionClosedOK):
             self.logger.warning("WebSocket connection closed. Reconnecting...")

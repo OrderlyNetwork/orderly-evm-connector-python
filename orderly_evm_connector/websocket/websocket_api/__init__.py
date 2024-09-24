@@ -2,7 +2,6 @@ import asyncio
 from typing import Optional
 from orderly_evm_connector.websocket.websocket_client import OrderlyWebsocketClient
 from orderly_evm_connector.lib.utils import get_endpoints
-from orderly_evm_connector.websocket.websocket_client_async import OrderlyWebsocketClientAsync
 
 
 class WebsocketPublicAPIClient(OrderlyWebsocketClient):
@@ -59,7 +58,7 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
         get_liquidation_push,
     )
 
-class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
+class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
     def __init__(
         self,
         orderly_testnet=False,
@@ -81,6 +80,7 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
             self.orderly_websocket_public_endpoint,
             wss_id=wss_id,
             private=private,
+            async_mode=True,
             orderly_account_id=orderly_account_id,
             on_message=on_message,
             on_open=on_open,
@@ -102,6 +102,11 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
             get_orderbookupdate,
         )
         get_orderbookupdate(self, *args, **kwargs)
+        await asyncio.sleep(0)
+    
+    async def get_orderbook(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
+        get_orderbook(self, *args, **kwargs)
         await asyncio.sleep(0)
 
     async def get_trade(self, *args, **kwargs):
@@ -255,7 +260,7 @@ class WebsocketPrivateAPIClient(OrderlyWebsocketClient):
             get_execution_report_for_single_broker,
     )
 
-class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClientAsync):
+class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClient):
   def __init__(
         self,
         orderly_testnet=False,
@@ -281,6 +286,7 @@ class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClientAsync):
             private=private,
             wss_id=wss_id,
             timeout=timeout,
+            async_mode=True,
             debug=debug,
             proxies=proxies,
             on_message=on_message,
