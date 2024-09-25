@@ -196,6 +196,7 @@ class Rest(API):
     from orderly_evm_connector.rest._rewards import get_valor_batch_info
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
+    from orderly_evm_connector.rest._rewards import get_wallet_trading_rewards_history
 
 
 class RestAsync(AsyncAPI):
@@ -231,6 +232,8 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._account import get_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
+    from orderly_evm_connector.rest._account import get_position_history
+
     from orderly_evm_connector.rest._broker import get_default_broker_fee
     from orderly_evm_connector.rest._broker import update_user_fee_rate
     from orderly_evm_connector.rest._broker import reset_user_fee_rate
@@ -372,3 +375,4 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._rewards import get_valor_batch_info
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
+    from orderly_evm_connector.rest._rewards import get_wallet_trading_rewards_history
