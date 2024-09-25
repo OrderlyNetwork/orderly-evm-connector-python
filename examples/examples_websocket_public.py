@@ -46,6 +46,7 @@ wss_client_async = WebsocketPublicAPIClientAsync(
 async def request_orderbook():
     await wss_client_async.run()
     await wss_client_async.request_orderbook('orderbook','PERP_BTC_USDC')
+    await asyncio.sleep(100)
     
 
 # #Request orderbook data

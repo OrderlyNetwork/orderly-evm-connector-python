@@ -11,7 +11,7 @@ from orderly_evm_connector.lib.utils import (
     generate_signature,
 )
 from orderly_evm_connector.websocket.orderly_socket_manager import OrderlySocketManager
-from orderly_evm_connector.websocket.websocket_api import AsyncWebsocketManager
+from orderly_evm_connector.websocket.async_websocket_manager import AsyncWebsocketManager
 
 
 class OrderlyWebsocketClient:
@@ -50,6 +50,7 @@ class OrderlyWebsocketClient:
         self.on_open = on_open
         self.on_close = on_close
         self.on_error = on_error
+        self.debug = debug
         if not async_mode:
             self._initialize_socket(
                 self.websocket_url,
@@ -74,7 +75,7 @@ class OrderlyWebsocketClient:
             on_open=self.on_socket_open,
             on_close=self.on_close,
             on_error=self.on_error,
-            debug=True
+            debug=self.debug
         )
         asyncio.create_task(manager.run())
         await manager.ensure_init()

@@ -4,6 +4,7 @@ version = "0.1.4"
 description = "This is a lightweight library that works as a connector to Orderly API and Websocket."
 authors = ["Orderly Tech"]
 license = "MIT"
+readme = "README.md"  
 
 [tool.poetry.dependencies]
 python = "^3.10"

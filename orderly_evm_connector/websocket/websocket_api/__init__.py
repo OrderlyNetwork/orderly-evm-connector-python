@@ -2,7 +2,6 @@ import asyncio
 from typing import Optional
 from orderly_evm_connector.websocket.websocket_client import OrderlyWebsocketClient
 from orderly_evm_connector.lib.utils import get_endpoints
-from orderly_evm_connector.websocket.websocket_client_async import OrderlyWebsocketClientAsync
 
 
 class WebsocketPublicAPIClient(OrderlyWebsocketClient):
@@ -38,6 +37,7 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
         )
 
     from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
+    from orderly_evm_connector.websocket.websocket_api._stream import request_orderbook
     from orderly_evm_connector.websocket.websocket_api._stream import (
         get_orderbookupdate,
     )
@@ -59,7 +59,7 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
         get_liquidation_push,
     )
 
-class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
+class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
     def __init__(
         self,
         orderly_testnet=False,
@@ -81,10 +81,10 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
             self.orderly_websocket_public_endpoint,
             wss_id=wss_id,
             private=private,
+            async_mode=True,
             orderly_account_id=orderly_account_id,
             on_message=on_message,
             on_open=on_open,
-            async_mode=True,
             on_close=on_close,
             on_error=on_error,
             timeout=timeout,
@@ -103,6 +103,11 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClientAsync):
             get_orderbookupdate,
         )
         get_orderbookupdate(self, *args, **kwargs)
+        await asyncio.sleep(0)
+    
+    async def get_orderbook(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
+        get_orderbook(self, *args, **kwargs)
         await asyncio.sleep(0)
 
     async def get_trade(self, *args, **kwargs):
@@ -282,8 +287,8 @@ class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClient):
             private=private,
             wss_id=wss_id,
             timeout=timeout,
-            debug=debug,
             async_mode=True,
+            debug=debug,
             proxies=proxies,
             on_message=on_message,
             on_open=on_open,
