@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orderly-evm-connector"
-version = "0.1.4"
+version = "0.1.5"
 description = "This is a lightweight library that works as a connector to Orderly API and Websocket."
 authors = ["Orderly Tech"]
 license = "MIT"
