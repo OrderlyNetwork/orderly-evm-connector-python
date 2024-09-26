@@ -137,7 +137,7 @@ def generate_wallet_signature(wallet_secret, message=None):
 
 def get_endpoints(orderly_testnet):
     # True: Testnet, False: Mainnet
-    if orderly_testnet and orderly_testnet.lower() == 'true':
+    if orderly_testnet is True or orderly_testnet.lower() == 'true':
         orderly_endpoint = test_url or "https://testnet-api-evm.orderly.org"
         orderly_websocket_public_endpoint = "wss://testnet-ws-evm.orderly.org/ws/stream"
         orderly_websocket_private_endpoint = (
