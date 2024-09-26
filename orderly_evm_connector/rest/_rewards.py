@@ -42,7 +42,7 @@ def get_broker_allocation_history(self):
     return self._request("GET", "/v1/public/trading_rewards/broker_allocation_history")
 
 
-def get_wallet_trading_rewards_history(self, address: str, wallet_pending_trading_rewards_order: float, wallet_pending_trading_rewards_escrow: float):
+def get_wallet_trading_rewards_history(self, address: str):
     """
     Get Wallet Trading Rewards History
 
@@ -54,13 +54,9 @@ def get_wallet_trading_rewards_history(self, address: str, wallet_pending_tradin
     """
     check_required_parameters([
         [address, "address"],
-        [wallet_pending_trading_rewards_order, "wallet_pending_trading_rewards_order"],
-        [wallet_pending_trading_rewards_escrow, "wallet_pending_trading_rewards_escrow"]
     ])
     payload = {
         "address": address,
-        "wallet_pending_trading_rewards_order": wallet_pending_trading_rewards_order,
-        "wallet_pending_trading_rewards_escrow": wallet_pending_trading_rewards_escrow
     }
     return self._request("GET", "/v1/public/trading_rewards/wallet_rewards_history", payload=payload)
 
