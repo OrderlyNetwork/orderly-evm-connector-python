@@ -31,10 +31,8 @@ pip install orderly-evm-connector
 
 Usage examples:
 ```python
-import orderly
-
-from orderly.rest import Rest as Client
-from utils.config import get_account_info
+from orderly_evm_connector.rest import Rest as Client
+from orderly_evm_connector.lib.utils import get_account_info
 
 (
     orderly_key,
@@ -84,7 +82,7 @@ Requests to Orderly API needs to be signed using `orderly-key` and `orderly-secr
 Orderly Network uses the `ed25519` elliptic curve standard for request authentication. The `lib.utils` class provides methods for signing and generating request signatures.
 
 ```python
-from orderly.lib.utils import generate_signature
+from orderly_evm_connector.lib.utils import generate_signature
 
 orderly_secret = "YOUR_ORDERLY_SECRET_HERE"
 
@@ -132,7 +130,7 @@ client = Client(
 ### Error
 
 There are 2 types of error returned from the library:
-- `orderly.error.ClientError`
+- `orderly_evm_connector.error.ClientError`
     - This is thrown when server returns `4XX`, it's an issue from client side.
     - It has 5 properties:
         - `status_code` - HTTP status code
@@ -141,14 +139,14 @@ There are 2 types of error returned from the library:
         - `header` - Full response header.
         - `error_data`* - Additional detailed data which supplements the `error_message`.
             - **Only applicable on select endpoints, eg. `cancelReplace`*
-- `orderly.error.ServerError`
+- `orderly_evm_connector.error.ServerError`
     - This is thrown when server returns `5XX`, it's an issue from server side.
 In addition, there are 3 types of Parameter Error:
-- `orderly.error.ParameterRequiredError`
+- `orderly_evm_connector.error.ParameterRequiredError`
     - This error is thrown when a required parameter for the endpoint is not present in the request.
-- `orderly.error.ParameterValueError`
+- `orderly_evm_connector.error.ParameterValueError`
     - This error is thrown when a value passed in for an ENUM type parameter is invalid. For example the `order_type` parameter is an ENUM with a fixed set of values users could pass in. Passing a value out of the ENUM definition will result in this error.
-- `orderly.error.ParameterTypeError`
+- `orderly_evm_connector.error.ParameterTypeError`
     - This error is thrown when a value passed in is not in consistency with the type definition of the parameter.
 Websocket Client has 1 type of Error:
 - `WebsocketClientError`
@@ -162,9 +160,9 @@ Orderly has two Websocket endpoints, the Market Data Base Endpoint(public endpoi
 `orderly-connector` supports connecting to both endpoints in both Mainnet and Testnet. See below for example:
 
 ```python
-from utils.config import get_account_info
+from orderly_evm_connector.lib.utils import get_account_info
 import time, logging
-from orderly.websocket.websocket_api import WebsocketPublicAPIClient
+from orderly_evm_connector.websocket.websocket_api import WebsocketPublicAPIClient
 
 (
     orderly_key,
@@ -220,14 +218,6 @@ wss_client.stop()
 #### wss_id
 `wss_id` is the request id of included in each of websocket request to orderly. This is defined by user and has a max length of 64 bytes.
 
-## Test Case
-
-```python
-# In case packages are not installed yet
-pip install -r requirements/requirements-test.txt
-
-pytest
-```
 
 ## Limitation
 
