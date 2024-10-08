@@ -39,8 +39,9 @@ from orderly_evm_connector.lib.utils import get_account_info
     orderly_secret,
     orderly_account_id,
     orderly_testnet,
+    wallet_secret,
     wss_id,
-) = get_account_info()
+) = get_account_info('config.ini')
 client = Client(
     orderly_key=orderly_key,
     orderly_secret=orderly_secret,
@@ -58,8 +59,8 @@ response = client.create_order(
     order_quantity=1,
 )
 ```
-Please find `examples` folder to check for more endpoints.
-- In order to set your Orderly Key and Orderly Secret for use of the examples, create a file `examples/config.ini` with your keys.
+Please find `examples` folder in github to check for more endpoints.
+- In order to set your Orderly Key and Orderly Secret for use of the examples, create a file `config.ini` with your keys.
 - Eg:
     ```ini
     # examples/config.ini
@@ -169,8 +170,9 @@ from orderly_evm_connector.websocket.websocket_api import WebsocketPublicAPIClie
     orderly_secret,
     orderly_account_id,
     orderly_testnet,
+    wallet_secret,
     wss_id,
-) = get_account_info()
+) = get_account_info('config.ini')
 
 
 def on_close(_):
@@ -189,16 +191,19 @@ wss_client = WebsocketPublicAPIClient(
     wss_id=wss_id,
     on_message=message_handler,
     on_close=on_close,
+    debug=True,
 )
 
 wss_client.get_24h_tickers()
-time.sleep(1)
-wss_client.close()
+time.sleep(1000)
+wss_client.stop()
 ```
 
 For private endpoint, user will need to pass in the `orderly_key` and `orderly_secret` to the `orderly.websocket.WebsocketPrivateAPIClient` class.
 Private endpoint also requires signature of the message sent using `orderly_key` and `orderly_secret`. This function is encapsulated by the `WebsocketPrivateAPIClient` class. See Orderly API Docs for more detai. 
 ```python
+from orderly_evm_connector.websocket.websocket_api import WebsocketPrivateAPIClient
+
 wss_client = WebsocketPrivateAPIClient(
     orderly_testnet=orderly_testnet,
     orderly_account_id=orderly_account_id,
@@ -207,10 +212,11 @@ wss_client = WebsocketPrivateAPIClient(
     orderly_secret=orderly_secret,
     on_message=message_handler,
     on_close=on_close,
+    debug=True,
 )
 # wss_client.get_liquidator_liquidations()
 wss_client.get_notifications()
-time.sleep(1)
+time.sleep(1000)
 wss_client.stop()
 ```
 
