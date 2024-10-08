@@ -138,7 +138,7 @@ def generate_wallet_signature(wallet_secret, message=None):
 
 def get_endpoints(orderly_testnet):
     # True: Testnet, False: Mainnet
-    if orderly_testnet and orderly_testnet.lower() == 'true':
+    if orderly_testnet and str(orderly_testnet).lower() == 'true':
         orderly_endpoint = test_url or "https://testnet-api-evm.orderly.org"
         orderly_websocket_public_endpoint = "wss://testnet-ws-evm.orderly.org/ws/stream"
         orderly_websocket_private_endpoint = (
@@ -172,12 +172,9 @@ def decode_ws_error_code(data):
         return ""
 
 
-def get_account_info():
+def get_account_info(path: str):
     config = ConfigParser()
-    config_file_path = os.path.join(
-        pathlib.Path(__file__).parent.resolve(), "..", "config.ini"
-    )
-    config.read(config_file_path)
+    config.read(path)
     return (
         config["keys"]["orderly_key"],
         config["keys"]["orderly_secret"],
