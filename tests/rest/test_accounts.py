@@ -49,7 +49,6 @@ orderly_secret = "ed25519:" + random_str()
     200
 )
 def test_get_account():
-
     client = Client(
         orderly_key=orderly_key,
         orderly_secret=orderly_secret,
