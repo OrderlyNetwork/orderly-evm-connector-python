@@ -176,3 +176,23 @@ def get_liquidation_push(self):
     """
     _message = {"id": self.wss_id, "event": "subscribe", "topic": "liquidation"}
     self.send_message_to_server(_message)
+
+
+def get_price_changes(self):
+    _message = {"id": self.wss_id, "event": "subscribe", "topic": "price_changes"}
+    self.send_message_to_server(_message)
+
+
+def get_history_charts_1m(self):
+    _message = {"id": self.wss_id, "event": "subscribe", "topic": "history_charts_1m"}
+    self.send_message_to_server(_message)
+
+
+def get_maintenance_status(self):
+    _message = {"id": self.wss_id, "event": "subscribe", "topic": "maintenance_status"}
+    self.send_message_to_server(_message)
+
+
+def get_announcements(self):
+    _message = {"id": self.wss_id, "event": "subscribe", "topic": "announcement"}
+    self.send_message_to_server(_message)

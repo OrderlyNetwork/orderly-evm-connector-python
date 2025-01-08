@@ -26,7 +26,7 @@ def get_account_details(self, account_id: str):
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-account-details
 
     """
-    check_required_parameters([[account_id, "address"]])
+    check_required_parameters([[account_id, "account_id"]])
     payload = {"account_id": account_id}
     return self._request("GET", "/v1/public/account", payload=payload)
 
