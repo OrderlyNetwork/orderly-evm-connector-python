@@ -158,3 +158,45 @@ def withdraw_request(
         "verifyingContract": verifyingContract,
     }
     return self._sign_request("POST", "/v1/withdraw_request", payload=payload)
+
+
+def internal_transfer(
+    self,
+    token: str,
+    receiver_list: list,
+):
+    """Create Internal Transfer
+
+    POST /v1/internal_transfer
+
+    This API creates an internal transfer between accounts.
+
+    Args:
+    token(string): The string representation of the token to be transferred (e.g., "USDC")
+    receiver_list(list): A list of dictionaries, each containing:
+        - account_id (str): The account ID of the receiver
+        - amount (float): The amount to be transferred to the receiver
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-internal-transfer
+    """
+    check_required_parameters(
+        [
+            [token, "token"],
+            [receiver_list, "receiver_list"],
+        ]
+    )
+    
+    for receiver in receiver_list:
+        check_required_parameters(
+            [
+                [receiver.get("account_id"), "account_id"],
+                [receiver.get("amount"), "amount"],
+            ]
+        )
+
+    payload = {
+        "token": token,
+        "receiver_list": receiver_list,
+    }
+
+    return self._sign_request("POST", "/v1/internal_transfer", payload=payload)

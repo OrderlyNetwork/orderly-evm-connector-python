@@ -53,7 +53,7 @@ client_async_public = AsyncClient(
 #         )
 #     )
 # #Get Account Details
-client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
+# client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
 # #Get Registration Nonce
 # client_public.get_registration_nonce()
 # #Register Account
@@ -199,6 +199,8 @@ client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
 # client_private.get_withdraw_nonce()
 # #Create Withdraw Request
 # client_private.withdraw_request("woofi_pro",421613,"0x5aaa","USDC",100000000,3,"0x5aaa")
+# #Create Internal Transfer
+# client_private.internal_transfer("USDC", [{ "amount": 5, "account_id": "0xdb1bf6fbbcde15d46c86c5f25b728fc7bf1ba0d094feca317cf6f66624e80de3"}])
 
 
 # #trade
@@ -299,7 +301,7 @@ client_public.get_account_details("0x036Cb579025d3535a0ADcD929D05481a3189714b")
 # #Trading Rewards
 # response = client_public.get_valor_redeem_info(address="0x000")
 # pprint.pprint(response)
-client_private.get_withdraw_nonce()
-client_private.withdraw_request(
-    brokerId="woofi_pro",
-    chainId=421614,receiver="0x6CBe925762348413fc2cfDD7bC9A8D04CB8E249e",token="USDC",amount=3000000,withdrawNonce=1,userAddress="0x6CBe925762348413fc2cfDD7bC9A8D04CB8E249e")
+# client_private.get_withdraw_nonce()
+# client_private.withdraw_request(
+#     brokerId="woofi_pro",
+#     chainId=421614,receiver="0x6CBe925762348413fc2cfDD7bC9A8D04CB8E249e",token="USDC",amount=3000000,withdrawNonce=1,userAddress="0x6CBe925762348413fc2cfDD7bC9A8D04CB8E249e")
