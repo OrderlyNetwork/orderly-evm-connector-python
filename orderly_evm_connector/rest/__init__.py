@@ -151,6 +151,8 @@ class Rest(API):
     from orderly_evm_connector.rest._wallet import get_asset_history
     from orderly_evm_connector.rest._wallet import get_withdraw_nonce
     from orderly_evm_connector.rest._wallet import withdraw_request
+    from orderly_evm_connector.rest._wallet import internal_transfer
+
     #campaign
     from orderly_evm_connector.rest._campaign import get_points_epoch
     from orderly_evm_connector.rest._campaign import get_points_epochdates
@@ -336,6 +338,8 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._wallet import get_asset_history
     from orderly_evm_connector.rest._wallet import get_withdraw_nonce
     from orderly_evm_connector.rest._wallet import withdraw_request
+    from orderly_evm_connector.rest._wallet import internal_transfer
+
     # campaign
     from orderly_evm_connector.rest._campaign import get_points_epoch
     from orderly_evm_connector.rest._campaign import get_points_epochdates

@@ -7,9 +7,13 @@ from configparser import ConfigParser
 
 def get_account_info():
     config = ConfigParser()
-    config_file_path = os.path.join(
+    local_config_path = os.path.join(
+        pathlib.Path(__file__).parent.resolve(), "..", "config_local.ini"
+    )
+    default_config_path = os.path.join(
         pathlib.Path(__file__).parent.resolve(), "..", "config.ini"
     )
+    config_file_path = local_config_path if os.path.exists(local_config_path) else default_config_path
     config.read(config_file_path)
     return (
         config["keys"]["orderly_key"],
