@@ -1,4 +1,4 @@
-from orderly_evm_connector.lib.utils import check_required_parameters, get_timestamp
+from orderly_evm_connector.lib.utils import check_required_parameters
 
 
 def get_positions_under_liquidation(self, **kwargs):

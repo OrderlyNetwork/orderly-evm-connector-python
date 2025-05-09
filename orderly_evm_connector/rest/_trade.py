@@ -296,7 +296,7 @@ def cancel_algo_all_pending_order(self, symbol: str, algo_type: str):
     check_enum_parameter(algo_type, AlgoType)
     check_required_parameters([[symbol, "symbol"]])
     # add symbol and algo type if they are not None
-    url = f"/v1/algo/orders"
+    url = "/v1/algo/orders"
     if symbol and algo_type:
         url += f"?symbol={symbol}&algo_type={algo_type}"
     elif symbol:

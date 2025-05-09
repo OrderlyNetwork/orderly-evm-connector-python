@@ -1,6 +1,5 @@
-from orderly_evm_connector.lib.utils import check_required_parameters, get_timestamp
-from orderly_evm_connector.lib.utils import check_enum_parameter,get_withdraw_settle_verifyingcontract
-from orderly_evm_connector.lib.enums import WalletSide, AssetStatus
+from orderly_evm_connector.lib.utils import check_required_parameters
+from orderly_evm_connector.lib.utils import get_withdraw_settle_verifyingcontract
 
 
 def delegate_signer(

@@ -32,6 +32,7 @@ class OrderStatus(AutoName):
 
 
 class TimeType(AutoName):
+    _1m = auto()
     _5m = auto()
     _15m = auto()
     _30m = auto()

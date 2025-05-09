@@ -1,4 +1,6 @@
 **/__pycache__/*
+.vscode
 .idea
 dist
 config_local.ini
+.ruff_cache

@@ -1,17 +1,15 @@
 import asyncio
+import json
 from typing import Optional
 
-import json
-import logging
 from orderly_evm_connector.lib.utils import (
-    get_timestamp,
     orderlyLog,
     get_uuid,
     parse_proxies,
     generate_signature,
 )
-from orderly_evm_connector.websocket.orderly_socket_manager import OrderlySocketManager
 from orderly_evm_connector.websocket.async_websocket_manager import AsyncWebsocketManager
+from orderly_evm_connector.websocket.orderly_socket_manager import OrderlySocketManager
 
 
 class OrderlyWebsocketClient:

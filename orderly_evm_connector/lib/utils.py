@@ -1,25 +1,23 @@
 import json
+import logging
 import os
 import time
 import uuid
-import pathlib
 from configparser import ConfigParser
 from urllib.parse import urlparse
-from collections import OrderedDict
-from urllib.parse import urlencode
+
+import base58
+import base64
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from eth_account.messages import encode_structured_data
 from web3 import Web3
-import base58,base64
-import logging
+
 from orderly_evm_connector.error import (
     ParameterRequiredError,
     ParameterValueError,
     ParameterTypeError,
 )
 
-
-import logging
 initialized = False
 disable_validation = os.environ.get("DISABLE_VALIDATION", False)
 test_url = os.environ.get("ORDERLY_TEST_URL", False)

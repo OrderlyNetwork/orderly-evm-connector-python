@@ -1,6 +1,3 @@
-from orderly_evm_connector.lib.utils import check_required_parameters
-
-
 def request_orderbook(self, type: str, symbol: str):
     """Request orderbook data
     https://docs-api-evm.orderly.network/?shell#websocket-api-public-request-orderbook

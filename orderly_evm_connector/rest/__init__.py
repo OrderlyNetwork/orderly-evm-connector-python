@@ -1,8 +1,3 @@
-import types
-
-import aiohttp
-from asgiref.sync import sync_to_async
-
 from orderly_evm_connector.api import API
 from orderly_evm_connector.async_api import AsyncAPI
 
@@ -23,7 +18,6 @@ class Rest(API):
 
     # account
     from orderly_evm_connector.rest._account import remove_orderly_key
-    from orderly_evm_connector.rest._account import remove_orderly_key
     from orderly_evm_connector.rest._account import get_registration_nonce
     from orderly_evm_connector.rest._account import get_account_details
     from orderly_evm_connector.rest._account import get_account
@@ -42,10 +36,6 @@ class Rest(API):
     from orderly_evm_connector.rest._account import get_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
-    from orderly_evm_connector.rest._broker import get_default_broker_fee
-    from orderly_evm_connector.rest._broker import update_user_fee_rate
-    from orderly_evm_connector.rest._broker import reset_user_fee_rate
-    from orderly_evm_connector.rest._broker import update_default_broker_fee
     from orderly_evm_connector.rest._account import get_position_history
 
     # broker
@@ -163,8 +153,6 @@ class Rest(API):
     #referral
     from orderly_evm_connector.rest._referral import bind_referral_code
     from orderly_evm_connector.rest._referral import get_referral_history
-    from orderly_evm_connector.rest._referral import bind_referral_code
-    from orderly_evm_connector.rest._referral import get_referral_history
     from orderly_evm_connector.rest._referral import get_referral_code_info
     from orderly_evm_connector.rest._referral import get_distribution_history
     from orderly_evm_connector.rest._referral import check_ref_code
@@ -174,11 +162,6 @@ class Rest(API):
     from orderly_evm_connector.rest._referral import get_referee_info
     from orderly_evm_connector.rest._referral import get_referee_history
     from orderly_evm_connector.rest._referral import edit_referral_split
-    from orderly_evm_connector.rest._referral import create_referral_code
-    from orderly_evm_connector.rest._referral import update_referral_code
-    from orderly_evm_connector.rest._referral import get_referral_info
-    from orderly_evm_connector.rest._referral import get_referee_info
-    from orderly_evm_connector.rest._referral import get_referee_history
     from orderly_evm_connector.rest._referral import create_referral_code
     from orderly_evm_connector.rest._referral import update_referral_code
     # rewards
@@ -198,7 +181,6 @@ class Rest(API):
     from orderly_evm_connector.rest._rewards import get_valor_batch_info
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
-    from orderly_evm_connector.rest._rewards import get_wallet_trading_rewards_history
 
 
 class RestAsync(AsyncAPI):
@@ -379,4 +361,3 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._rewards import get_valor_batch_info
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
-    from orderly_evm_connector.rest._rewards import get_wallet_trading_rewards_history

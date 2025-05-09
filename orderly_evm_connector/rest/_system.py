@@ -1,6 +1,3 @@
-from orderly_evm_connector.lib.utils import check_required_parameters
-
-
 def get_valut_balances(self, chain_id: int = None, token: str = None):
     """Get Vault Balances
 

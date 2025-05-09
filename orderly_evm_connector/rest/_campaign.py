@@ -1,6 +1,3 @@
-from orderly_evm_connector.lib.utils import check_required_parameters, get_timestamp
-
-
 def get_points_epoch(self):
     """[Public] Get Number of Points for Distribution
 
