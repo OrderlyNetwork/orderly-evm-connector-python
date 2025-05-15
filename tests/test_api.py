@@ -1,8 +1,8 @@
-from orderly.api import API
-from orderly.error import ClientError, ServerError
-from orderly.rest import Rest as Client
-from orderly.lib.utils import orderlyLog, get_endpoints
-from orderly.__version__ import __version__
+from orderly_evm_connector.api import API
+from orderly_evm_connector.error import ClientError, ServerError
+from orderly_evm_connector.rest import Rest as Client
+from orderly_evm_connector.lib.utils import orderlyLog, get_endpoints
+from orderly_evm_connector.__version__ import __version__
 import requests, responses
 from tests.utils import random_str, mock_http_response
 
