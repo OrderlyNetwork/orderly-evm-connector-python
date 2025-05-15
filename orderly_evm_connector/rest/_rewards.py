@@ -105,7 +105,7 @@ def get_current_epoch_estimate_broker(self):
 
 
 
-def get_parameters_of_each_mm_epoch(self):
+def get_parameters_of_each_mm_epoch(self, epoch: str, market: str):
     """
     Get Parameters of Each MM Epoch of All MM Epochs
 
@@ -116,7 +116,24 @@ def get_parameters_of_each_mm_epoch(self):
     https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/get-parameters-of-each-mm-epoch-for-all-mm-epochs
     """
 
-    return self._request("GET", "/v1/public/market_making_rewards/epoch_info")
+    check_required_parameters([[epoch, "epoch"], [market, "market"]])
+    payload = {"epoch": epoch, "market": market}
+    return self._request("GET", "/v1/public/market_making_rewards/leaderboard", payload=payload)
+
+
+
+def get_market_making_rewards_leaderboard(self):
+    """
+    Get Market Making Rewards Leaderboard
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/public/market_making_rewards/market_making_rewards/leaderboard
+
+    https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/get-market-making-rewards-leaderboard
+    """
+
+    return self._request("GET", "/v1/market_making_rewards/market_making_rewards/leaderboard")
 
 
 def get_wallet_group_mm_rewards_history(self, address: str, symbol: str = None):

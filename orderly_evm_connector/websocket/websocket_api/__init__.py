@@ -59,6 +59,11 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
         get_liquidation_push,
     )
 
+    from orderly_evm_connector.websocket.websocket_api._stream import get_price_changes
+    from orderly_evm_connector.websocket.websocket_api._stream import get_history_charts_1m
+    from orderly_evm_connector.websocket.websocket_api._stream import get_maintenance_status
+    from orderly_evm_connector.websocket.websocket_api._stream import get_announcements
+
 class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
     def __init__(
         self,
@@ -178,6 +183,41 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
         )
         get_liquidation_push(self, *args, **kwargs)
         await asyncio.sleep(0)
+
+
+    async def get_price_changes(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import (
+            get_price_changes,
+        )
+        get_price_changes(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+
+    async def get_history_charts_1m(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import (
+            get_history_charts_1m,
+        )
+        get_history_charts_1m(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+
+    async def get_maintenance_status(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import (
+            get_maintenance_status,
+        )
+        get_maintenance_status(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+
+    async def get_announcements(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import (
+            get_announcements,
+        )
+        get_announcements(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+
+
 
 
 class WebsocketPrivateAPIClient(OrderlyWebsocketClient):

@@ -199,6 +199,7 @@ class Rest(API):
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
     from orderly_evm_connector.rest._rewards import get_wallet_trading_rewards_history
+    from orderly_evm_connector.rest._rewards import get_market_making_rewards_leaderboard
 
 
 class RestAsync(AsyncAPI):

@@ -102,6 +102,8 @@ def get_liquidated_positions_of_account(self, **kwargs):
         end_t(timestamp)
         page(number)
         size(number)
+        sort_by(string)
+        liquidation_id(number)
     https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-liquidated-positions-of-account
     """
     payload = {**kwargs}
