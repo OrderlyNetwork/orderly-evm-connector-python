@@ -49,6 +49,7 @@ class OrderlyWebsocketClient:
         self.on_close = on_close
         self.on_error = on_error
         self.debug = debug
+        self.is_connected = False
         if not async_mode:
             self._initialize_socket(
                 self.websocket_url,
@@ -119,6 +120,7 @@ class OrderlyWebsocketClient:
         if not hasattr(self, "socket_manager"):
             self.socket_manager = socket_manager
             self.socket_manager.start()
+        self.is_connected = True
         if self.private:
             self.auth_login()
         for message in self.subscriptions:
@@ -156,3 +158,11 @@ class OrderlyWebsocketClient:
     def stop(self, id=None):
         self.socket_manager.close()
         self.socket_manager.join()
+
+    async def stop_async(self, id=None):
+            if self.is_connected:
+                await self.socket_manager.close()
+                self.is_connected = False  # Mark as disconnected
+                self.logger.info("WebSocket connection closed asynchronously.")
+            else:
+                self.logger.warning("WebSocket is already closed or was never opened.")
