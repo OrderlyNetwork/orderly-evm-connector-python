@@ -815,17 +815,6 @@ toolz = ">=0.8.0"
 cython = ["cython"]
 
 [[package]]
-name = "ed25519"
-version = "1.5"
-description = "Ed25519 public-key signatures"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "ed25519-1.5.tar.gz", hash = "sha256:02053ee019ceef0df97294be2d4d5a8fc120fc86e81e08bec1245fc0f9403358"},
-]
-
-[[package]]
 name = "eth-abi"
 version = "5.2.0"
 description = "eth_abi: Python utilities for working with Ethereum ABI definitions, especially encoding and decoding"
@@ -2474,4 +2463,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4"
-content-hash = "3559a718824531224d4fa0953ab8ae452e722a19c0b4ccbd574993226802c3a0"
+content-hash = "0007a0d546d09beb1b7af751fc8154243f3c13daffb98d8a25fb4e6c460e8f30"
