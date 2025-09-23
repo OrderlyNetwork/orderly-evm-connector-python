@@ -152,7 +152,7 @@ def get_tradingview_configuration(self, locale: str):
     """
     check_required_parameters([[locale, "locale"]])
     payload = {"locale": locale}
-    self._request("GET", "/v1/tv/config", payload=payload)
+    return self._request("GET", "/v1/tv/config", payload=payload)
 
 
 def get_tradingview_history_basrs(
@@ -188,7 +188,7 @@ def get_tradingview_history_basrs(
         "from": from_timestamp,
         "to": to_timestamp,
     }
-    self._request("GET", "/v1/tv/history", payload=payload)
+    return self._request("GET", "/v1/tv/history", payload=payload)
 
 
 def get_tradingview_symbol_info(self, group: str):
@@ -205,7 +205,7 @@ def get_tradingview_symbol_info(self, group: str):
     """
     check_required_parameters([[group, "group"]])
     payload = {"group": group}
-    self._request("GET", "/v1/tv/symbol_info", payload=payload)
+    return self._request("GET", "/v1/tv/symbol_info", payload=payload)
 
 
 def get_orderbook_snapshot(self, symbol: str, max_level: int = None):
