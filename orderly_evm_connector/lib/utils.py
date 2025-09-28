@@ -21,6 +21,8 @@ from orderly_evm_connector.error import (
 initialized = False
 disable_validation = os.environ.get("DISABLE_VALIDATION", False)
 test_url = os.environ.get("ORDERLY_TEST_URL", False)
+test_public_ws_url = os.environ.get("ORDERLY_TEST_PUBLIC_WS_URL", False)
+test_private_ws_url = os.environ.get("ORDERLY_TEST_PRIVATE_WS_URL", False)
 def orderlyLog(debug=False):
     
     logger = logging.getLogger("orderly_log")
@@ -138,8 +140,8 @@ def get_endpoints(orderly_testnet):
     # True: Testnet, False: Mainnet
     if orderly_testnet and str(orderly_testnet).lower() == 'true':
         orderly_endpoint = test_url or "https://testnet-api.orderly.org"
-        orderly_websocket_public_endpoint = "wss://testnet-ws-evm.orderly.org/ws/stream"
-        orderly_websocket_private_endpoint = (
+        orderly_websocket_public_endpoint = test_public_ws_url or "wss://testnet-ws-evm.orderly.org/ws/stream"
+        orderly_websocket_private_endpoint = test_private_ws_url or (
             "wss://testnet-ws-private-evm.orderly.org/v2/ws/private/stream"
         )
         return (
