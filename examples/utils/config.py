@@ -20,6 +20,6 @@ def get_account_info():
         config["keys"]["orderly_secret"],
         config["keys"]["orderly_account_id"],
         config["keys"]["wallet_secret"],
-        config["keys"]["orderly_testnet"],
+        str(config["keys"]["orderly_testnet"]).lower() == "true",
         config["keys"]["wss_id"],
     )

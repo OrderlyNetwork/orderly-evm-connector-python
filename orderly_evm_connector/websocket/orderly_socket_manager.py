@@ -44,6 +44,7 @@ class OrderlySocketManager(threading.Thread):
         self._proxy_params = parse_proxies(proxies) if proxies else {}
         self.subscriptions = []
         self._login = False
+        self._stopping = False
         self.create_ws_connection()
 
     def create_ws_connection(self):
@@ -59,7 +60,8 @@ class OrderlySocketManager(threading.Thread):
                 self.logger.debug(
                     f"WebSocket connection has been established: {self.websocket_url}, proxies: {self._proxy_params}"
                 )
-                self.on_open(self)
+                if self.on_open:
+                    self.on_open(self)
                 break
             except Exception as e:
                 self.logger.error(f"Failed to create WebSocket connection: {e}")
@@ -73,6 +75,8 @@ class OrderlySocketManager(threading.Thread):
                     raise
 
     def reconnect(self):
+        if self._stopping:
+            return
         retries = 0
         while retries <= WEBSOCKET_FAILED_MAX_RETRIES:
             try:
@@ -108,6 +112,9 @@ class OrderlySocketManager(threading.Thread):
     def read_data(self):
         data = ""
         while True:
+            if self._stopping:
+                break
+            err_code = None
             try:
                 op_code, frame = self.ws.recv_data_frame(True)
                 try:
@@ -115,10 +122,20 @@ class OrderlySocketManager(threading.Thread):
                     if "event" in _message:
                         if _message["event"] == "ping":
                             self._handle_heartbeat()
-                except:
+                except Exception:
                     err_code = decode_ws_error_code(frame.data)
-                    self.logger.warning(f"Websocket error code received: {err_code}")
+                    if err_code == "1000":
+                        self.logger.info(
+                            "Websocket closed normally (code 1000)."
+                        )
+                    elif err_code:
+                        self.logger.warning(
+                            f"Websocket error code received: {err_code}"
+                        )
             except WebSocketConnectionClosedException:
+                if self._stopping:
+                    self.logger.info("WebSocket connection closed by client.")
+                    break
                 self.logger.warning("WebSocket connection closed. Reconnecting...")
                 self.reconnect()
                 continue
@@ -127,17 +144,28 @@ class OrderlySocketManager(threading.Thread):
                     self.logger.error("Websocket connection timeout")
                 else:
                     self.logger.error(f"Websocket exception: {e}")
+                if self._stopping:
+                    break
                 self.reconnect()
                 continue
             except Exception as e:
                 self.logger.error(f"Exception in read_data: {e}")
                 self.logger.warning("Reconnecting...")
+                if self._stopping:
+                    break
                 self.reconnect()
                 continue
             self._handle_data(op_code, frame, data)
 
             if op_code == ABNF.OPCODE_CLOSE:
-                self.logger.warning("CLOSE frame received, closing websocket connection")
+                if err_code == "1000":
+                    self.logger.info(
+                        "CLOSE frame received, websocket connection closed normally"
+                    )
+                else:
+                    self.logger.warning(
+                        "CLOSE frame received, closing websocket connection"
+                    )
                 self._callback(self.on_close)
                 break
 
@@ -147,10 +175,12 @@ class OrderlySocketManager(threading.Thread):
             self._callback(self.on_message, data)
 
     def close(self):
+        self._stopping = True
         if not self.ws.connected:
             self.logger.warning("Websocket already closed")
         else:
             self.ws.send_close()
+            self.ws.close()
         return
 
     def _callback(self, callback, *args):

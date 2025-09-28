@@ -1,19 +1,20 @@
 # from orderly_evm_connector.websocket.websocket_api import WebsocketAPIClient as WebsocketClients
 import asyncio
+import logging
+import os
+import time
 
-from utils.config import get_account_info
-import time, logging
-from orderly_evm_connector.websocket.websocket_api import WebsocketPublicAPIClient, WebsocketPublicAPIClientAsync
 from asgiref.sync import sync_to_async
 
-(
-    orderly_key,
-    orderly_secret,
-    orderly_account_id,
-    wallet_secret,
-    orderly_testnet,
-    wss_id,
-) = get_account_info()
+from orderly_evm_connector.websocket.websocket_api import (
+    WebsocketPublicAPIClient,
+    WebsocketPublicAPIClientAsync,
+)
+from utils.config import get_account_info
+
+logging.basicConfig(level=logging.INFO)
+
+LISTEN_SECONDS = int(os.getenv("ORDERLY_PUBLIC_WS_LISTEN_SECONDS", "60"))
 
 
 def on_close(_):
@@ -24,50 +25,64 @@ def message_handler(_, message):
     logging.info(message)
 
 
-# Public websocket does not need to pass orderly_key and orderly_secret arguments
-
-wss_client = WebsocketPublicAPIClient(
-    orderly_testnet=orderly_testnet,
-    orderly_account_id=orderly_account_id,
-    wss_id=wss_id,
-    on_message=message_handler,
-    on_close=on_close,
-    debug=True,
-)
-
-wss_client_async = WebsocketPublicAPIClientAsync(
-    orderly_testnet=orderly_testnet,
-    orderly_account_id=orderly_account_id,
-    wss_id=wss_id,
-    on_message=sync_to_async(message_handler),
-    on_close=sync_to_async(on_close),
-    debug=True,
-)
-async def request_orderbook():
-    await wss_client_async.run()
-    await wss_client_async.request_orderbook('orderbook','PERP_BTC_USDC')
+async def request_orderbook(client_async):
+    await client_async.run()
+    await client_async.request_orderbook("orderbook", "PERP_BTC_USDC")
     await asyncio.sleep(100)
-    
 
-# #Request orderbook data
-# wss_client.request_orderbook('orderbook','PERP_BTC_USDC')
-# #orderbook depth 100 push every 1s
-# wss_client.get_orderbook('PERP_NEAR_USDC@orderbook')
-# #orderbookupdate updated orderbook push every 200ms
-# wss_client.get_orderbookupdate('PERP_NEAR_USDC@orderbookupdate')
-# wss_client.get_trade('PERP_NEAR_USDC@trade')
-# wss_client.get_24h_ticker('PERP_NEAR_USDC@ticker')
-wss_client.get_24h_tickers()
-# wss_client.get_bbo('PERP_NEAR_USDC@bbo')
-# wss_client.get_bbos()
-# wss_client.get_kline("PERP_NEAR_USDC@kline_1m")
-# wss_client.get_index_price('PERP_ETH_USDC@indexprice')
-# wss_client.get_index_prices()
-# wss_client.get_mark_price('PERP_ETH_USDC@markprice')
-# wss_client.get_mark_prices()
-# wss_client.get_open_interest('PERP_ETH_USDC@openinterest')
-# wss_client.get_estimated_funding_rate('PERP_BTC_USDC@estfundingrate')
-# wss_client.get_liquidation_push()
 
-time.sleep(1000)
-wss_client.stop()
+def main():
+    (
+        orderly_key,
+        orderly_secret,
+        orderly_account_id,
+        wallet_secret,
+        orderly_testnet,
+        wss_id,
+    ) = get_account_info()
+
+    # Public websocket does not need to pass orderly_key and orderly_secret arguments
+    wss_client = WebsocketPublicAPIClient(
+        orderly_testnet=orderly_testnet,
+        orderly_account_id=orderly_account_id,
+        wss_id=wss_id,
+        on_message=message_handler,
+        on_close=on_close,
+        debug=True,
+    )
+
+    try:
+        # # Request orderbook data
+        # wss_client.request_orderbook('orderbook','PERP_BTC_USDC')
+        # # orderbook depth 100 push every 1s
+        wss_client.get_orderbook('PERP_ETH_USDC@orderbook')
+        # wss_client.get_orderbook('PERP_NEAR_USDC@orderbook')
+        # # orderbookupdate updated orderbook push every 200ms
+        # wss_client.get_orderbookupdate('PERP_ETH_USDC@orderbookupdate')
+        # wss_client.get_trade('PERP_NEAR_USDC@trade')
+        # wss_client.get_24h_ticker('PERP_NEAR_USDC@ticker')
+        # wss_client.get_24h_tickers()
+        # wss_client.get_bbo('PERP_NEAR_USDC@bbo')
+        # wss_client.get_bbos()
+        # wss_client.get_kline("PERP_NEAR_USDC@kline_1m")
+        # wss_client.get_index_price('PERP_ETH_USDC@indexprice')
+        # wss_client.get_index_prices()
+        # wss_client.get_mark_price('PERP_ETH_USDC@markprice')
+        # wss_client.get_mark_prices()
+        # wss_client.get_open_interest('PERP_ETH_USDC@openinterest')
+        # wss_client.get_estimated_funding_rate('PERP_BTC_USDC@estfundingrate')
+        # wss_client.get_liquidation_push()
+        # asyncio.run(request_orderbook(wss_client_async))
+
+        logging.info(
+            "Listening for public websocket messages for %s seconds...",
+            LISTEN_SECONDS,
+        )
+        time.sleep(LISTEN_SECONDS)
+    finally:
+        logging.info("closing public ws connection")
+        wss_client.stop()
+
+
+if __name__ == "__main__":
+    main()

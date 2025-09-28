@@ -109,7 +109,7 @@ def parse_proxies(proxies: dict):
 
 def generate_signature(orderly_secret, message=None):
     if not orderly_secret:
-        raise "Please configure orderly secret in the configuration file config.ini"
+        raise ValueError("Please configure orderly secret in the configuration file config.ini")
     _orderly_secret = orderly_secret.split(":")[1]
     _orderly_private_key = Ed25519PrivateKey.from_private_bytes(
         base58.b58decode(_orderly_secret)[0:32]
@@ -180,6 +180,6 @@ def get_account_info(path: str):
         config["keys"]["orderly_secret"],
         config["keys"]["orderly_account_id"],
         config["keys"]["wallet_secret"],
-        config["keys"]["orderly_testnet"],
+        str(config["keys"]["orderly_testnet"]).lower() == "true",
         config["keys"]["wss_id"],
     )

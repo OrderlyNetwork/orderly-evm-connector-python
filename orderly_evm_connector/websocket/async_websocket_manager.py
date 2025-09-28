@@ -1,4 +1,5 @@
 import asyncio
+import inspect
 import json
 import websockets
 from websockets.exceptions import (
@@ -44,6 +45,8 @@ class AsyncWebsocketManager:
         self.max_retries = max_retries
         self.ws = None
         self.loop = asyncio.get_event_loop()
+        self._stopping = False
+        self._on_close_called = False
 
     def start(self):
         pass
@@ -61,8 +64,11 @@ class AsyncWebsocketManager:
                 self.logger.debug(
                     f"WebSocket connection has been established: {self.websocket_url}, proxies: {self._proxy_params}"
                 )
+                self._stopping = False
+                self._on_close_called = False
+                self.init = False
                 if self.on_open:
-                    self.on_open(self)
+                    await self._callback(self.on_open)
                 return
             except Exception as e:
                 self.logger.error(f"Failed to create WebSocket connection: {e}")
@@ -76,20 +82,26 @@ class AsyncWebsocketManager:
                     raise
 
     async def reconnect(self):
+        if self._stopping:
+            return
         self.logger.warning("Reconnecting to WebSocket...")
-        await self.close()
+        await self._internal_close()
+        self._login = False
         await self.create_ws_connection()
 
     def send_message(self, message):
         self.logger.debug("Sending message to Orderly WebSocket Server: %s", message)
-        asyncio.create_task(self.ws.send(message))
+        if self.ws and not self.ws.closed and not self._stopping:
+            asyncio.create_task(self.ws.send(message))
+        else:
+            self.logger.debug("Skipping send_message because websocket is not connected.")
 
     async def run(self):
         await self.create_ws_connection()
         await self.read_data()
 
     async def ensure_init(self):
-        while True:
+        while not self._stopping:
             if self.init:
                 break
             await asyncio.sleep(1)
@@ -97,45 +109,104 @@ class AsyncWebsocketManager:
     async def _handle_heartbeat(self):
         try:
             _payload = {"event": "pong"}
-            await self.ws.send(json.dumps(_payload))
-            self.logger.debug(f"Sent Ping frame: {_payload}")
+            if self.ws and not self.ws.closed:
+                await self.ws.send(json.dumps(_payload))
+                self.logger.debug(f"Sent Ping frame: {_payload}")
         except Exception as e:
             self.logger.error("Failed to send Ping: {}".format(e))
 
     async def read_data(self):
-        try:
-            while True:
-                try:
-                    message = await self.ws.recv()
-                    _message = json.loads(message)
-                    self.init = True
-                except json.JSONDecodeError:
-                    err_code = decode_ws_error_code(message)
-                    self.logger.warning(f"Websocket error code received: {err_code}")
+        while True:
+            if self._stopping:
+                await self._notify_close()
+                break
+            try:
+                ws = self.ws
+                if ws is None:
+                    await asyncio.sleep(WEBSOCKET_RETRY_SLEEP_TIME)
+                    continue
+                message = await ws.recv()
+                self.init = True
+            except (ConnectionClosedError, ConnectionClosedOK) as e:
+                close_code = getattr(e, "code", None)
+                close_reason = getattr(e, "reason", "")
+                if self._stopping:
+                    self.logger.info("WebSocket connection closed by client.")
+                    await self._notify_close()
+                    break
+                if close_code == 1000:
+                    self.logger.info("WebSocket connection closed normally (code 1000).")
                 else:
-                    if "event" in _message and _message["event"] == "ping":
-                        await self._handle_heartbeat()
-                    else:
-                        await self._callback(self.on_message, _message)
-        except (ConnectionClosedError, ConnectionClosedOK):
-            self.logger.warning("WebSocket connection closed. Reconnecting...")
-            await self.reconnect()
-        except WebSocketException as e:
-            self.logger.error(f"WebSocket exception: {e}")
-            await self.reconnect()
-        except Exception as e:
-            self.logger.error(f"Exception in read_data: {e}")
-            await self.reconnect()
+                    self.logger.warning(
+                        f"WebSocket connection closed (code={close_code}, reason={close_reason})."
+                    )
+                await self._notify_close()
+                await self.reconnect()
+                continue
+            except WebSocketException as e:
+                if self._stopping:
+                    break
+                self.logger.error(f"WebSocket exception: {e}")
+                await self._notify_close()
+                await self.reconnect()
+                continue
+            except Exception as e:
+                if self._stopping:
+                    break
+                self.logger.error(f"Exception in read_data: {e}")
+                await self._notify_close()
+                await self.reconnect()
+                continue
+
+            payload = b""
+            try:
+                payload = message
+                if isinstance(message, str):
+                    payload = message.encode()
+                elif isinstance(message, (bytearray, memoryview)):
+                    payload = bytes(message)
+                _message = json.loads(message)
+            except json.JSONDecodeError:
+                err_code = decode_ws_error_code(payload)
+                if err_code == "1000":
+                    self.logger.info("Websocket closed normally (code 1000).")
+                    if self._stopping:
+                        await self._notify_close()
+                        break
+                elif err_code:
+                    self.logger.warning(
+                        f"Websocket error code received: {err_code}"
+                    )
+                continue
+
+            if "event" in _message and _message["event"] == "ping":
+                await self._handle_heartbeat()
+            else:
+                await self._callback(self.on_message, _message)
 
     async def close(self):
-        if self.ws and not self.ws.closed:
-            await self.ws.close()
+        self._stopping = True
+        await self._internal_close()
 
     async def _callback(self, callback, *args):
         if callback:
             try:
-                await callback(self, *args)
+                result = callback(self, *args)
+                if inspect.isawaitable(result):
+                    await result
             except Exception as e:
                 self.logger.error("Error from callback {}: {}".format(callback, e))
-                if self.on_error:
-                    await self.on_error(self, e)
+                if self.on_error and callback is not self.on_error:
+                    await self._callback(self.on_error, e)
+
+    async def _notify_close(self):
+        if not self._on_close_called:
+            self._on_close_called = True
+            await self._callback(self.on_close)
+
+    async def _internal_close(self):
+        if self.ws and not self.ws.closed:
+            await self.ws.close()
+        self.ws = None
+        self.init = False
+        self._login = False
