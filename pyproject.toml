@@ -1,6 +1,6 @@
 [project]
 name = "orderly-evm-connector"
-version = "0.2.5"
+version = "0.2.6"
 description = "This is a lightweight library that works as a connector to Orderly API and Websocket."
 authors = [
     {name = "Orderly Tech"}

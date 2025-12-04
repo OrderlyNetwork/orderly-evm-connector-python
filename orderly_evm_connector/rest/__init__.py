@@ -181,6 +181,11 @@ class Rest(API):
     from orderly_evm_connector.rest._rewards import get_valor_batch_info
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
+    
+    # strategy vault
+    from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
+    from orderly_evm_connector.rest._strategy_vault import get_strategy_vault_nonce
+    from orderly_evm_connector.rest._strategy_vault import get_account_strategy_vault_transaction_history
 
 
 class RestAsync(AsyncAPI):
@@ -196,6 +201,11 @@ class RestAsync(AsyncAPI):
         super().__init__(
             orderly_key, orderly_secret, wallet_secret, orderly_testnet, **kwargs
         )
+
+    # strategy vault
+    from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
+    from orderly_evm_connector.rest._strategy_vault import get_strategy_vault_nonce
+    from orderly_evm_connector.rest._strategy_vault import get_account_strategy_vault_transaction_history
 
     # account
     from orderly_evm_connector.rest._account import get_registration_nonce

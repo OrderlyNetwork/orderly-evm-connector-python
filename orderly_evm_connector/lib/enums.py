@@ -1,7 +1,8 @@
-from enum import Enum, auto
+from enum import Enum, IntEnum, auto
 
 
 class AutoName(Enum):
+    @staticmethod
     def _generate_next_value_(name, start, count, last_values):
         return name
 
@@ -49,12 +50,14 @@ class WalletSide(AutoName):
     DEPOSIT = auto()
     WITHDRAW = auto()
 
+
 class AssetStatus(AutoName):
     NEW = auto()
     CONFIRM = auto()
     PROCESSING = auto()
     COMPLETED = auto()
     FAILED = auto()
+
 
 class AlgoType(AutoName):
     STOP = auto()
@@ -63,3 +66,10 @@ class AlgoType(AutoName):
     TP_SL = auto()
     POSITIONAL_TP_SL = auto()
     BRACKET = auto()
+
+
+class SVPayloadType(IntEnum):
+    LP_DEPOSIT = 0
+    LP_WITHDRAW = 1
+    SP_DEPOSIT = 2
+    SP_WITHDRAW = 3
