@@ -525,3 +525,89 @@ def get_leverage_setting(self, symbol: str):
     check_required_parameters([[symbol, "symbol"]])
     payload = {"symbol": symbol}
     return self._sign_request("GET", "/v1/client/leverage", payload=payload)
+
+
+def add_sub_account(self, description: str = None):
+    """Add sub-account
+    
+    Limit: 10 requests per second
+    
+    POST /v1/client/add_sub_account
+    
+    Only the main account is allowed to call this API.
+    Main account's Orderly key can control sub-accounts.
+    
+    Optional Args:
+        description(string): Description of the sub-account
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/add-sub-account
+    """
+    payload = {"description": description}
+    return self._sign_request("POST", "/v1/client/add_sub_account", payload=payload)
+
+
+def get_sub_account(self):
+    """Get sub-account list
+    
+    Limit: 10 requests per second
+    
+    GET /v1/client/sub_account
+    
+    Only the main account is allowed to call this API.
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-sub-account-list
+    """
+    return self._sign_request("GET", "/v1/client/sub_account")
+
+
+def update_sub_account(self, sub_account_id: str, description: str = None):
+    """Update sub-account
+    
+    Limit: 10 requests per second
+    
+    POST /v1/client/update_sub_account
+    
+    Only the main account is allowed to call this API.
+    
+    Args:
+        sub_account_id(string): Sub-account ID
+        
+    Optional Args:
+        description(string): Description of the sub-account
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-sub-account
+    """
+    check_required_parameters([[sub_account_id, "sub_account_id"]])
+    payload = {
+        "sub_account_id": sub_account_id,
+        "description": description
+    }
+    return self._sign_request("POST", "/v1/client/update_sub_account", payload=payload)
+
+
+def get_aggregate_holding(self):
+    """Get aggregate holding
+    
+    Limit: 1 request per 60 seconds
+    
+    GET /v1/client/aggregate/holding
+    
+    Only the main account is allowed to call this API.
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-aggregate-holding
+    """
+    return self._sign_request("GET", "/v1/client/aggregate/holding")
+
+
+def get_aggregate_positions(self):
+    """Get aggregate positions
+    
+    Limit: 1 request per 60 seconds
+    
+    GET /v1/client/aggregate/positions
+    
+    Only the main account is allowed to call this API.
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-aggregate-positions
+    """
+    return self._sign_request("GET", "/v1/client/aggregate/positions")

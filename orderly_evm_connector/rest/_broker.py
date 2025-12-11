@@ -170,3 +170,35 @@ def get_broker_stats(self, broker_id: str = None):
         "broker_id": broker_id
     }
     return self._request("GET", "/v1/public/broker/stats", payload=payload)
+
+
+def get_broker_leaderboard_daily(self, start_date: str, end_date: str, page: int = None, size: int = None, order_tag: str = None):
+    """Get Builder's Leaderboard
+    
+    Limit: 10 requests per 60 seconds
+    
+    GET /v1/broker/leaderboard/daily
+    
+    The provided start_date/end_date has to be within a 90-day range.
+    Updated hourly.
+    
+    Args:
+        start_date(string): Format YYYY-MM-DD
+        end_date(string): Format YYYY-MM-DD
+        
+    Optional Args:
+        page(number): Start from 1
+        size(number): Page size
+        order_tag(string): Order tag
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-builders-leaderboard
+    """
+    check_required_parameters([[start_date, "start_date"], [end_date, "end_date"]])
+    payload = {
+        "start_date": start_date,
+        "end_date": end_date,
+        "page": page,
+        "size": size,
+        "order_tag": order_tag
+    }
+    return self._sign_request("GET", "/v1/broker/leaderboard/daily", payload=payload)

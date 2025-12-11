@@ -250,3 +250,92 @@ def get_transfer_nonce(self):
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-transfer-nonce
     """
     return self._sign_request("GET", "/v1/transfer_nonce")
+
+
+def create_internal_transfer_v2(
+    self,
+    receiver: str,
+    token: str,
+    amount: int,
+    transferNonce: str,
+    chainId: str,
+    chainType: str,
+    userAddress: str,
+    verifyingContract: str,
+    **kwargs
+):
+    """Create Internal Transfer With Wallet Signature
+    
+    Limit: 10 requests per 1 second
+    
+    POST /v2/internal_transfer
+    
+    Args:
+        receiver(string): Receiver address
+        token(string): Token symbol
+        amount(int): Amount to transfer
+        transferNonce(string): Transfer nonce from Get Transfer Nonce
+        chainId(string): Chain ID
+        chainType(string): Chain type (EVM or SOL)
+        userAddress(string): User address
+        verifyingContract(string): Verifying contract address
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-internal-transfer-with-wallet-signature
+    """
+    from orderly_evm_connector.lib.utils import get_timestamp
+    check_required_parameters([
+        [receiver, "receiver"],
+        [token, "token"],
+        [amount, "amount"],
+        [transferNonce, "transferNonce"],
+        [chainId, "chainId"],
+        [chainType, "chainType"],
+        [userAddress, "userAddress"],
+        [verifyingContract, "verifyingContract"]
+    ])
+    
+    _message = {
+        "receiver": receiver,
+        "token": token,
+        "amount": amount,
+        "transferNonce": transferNonce,
+        "chainId": chainId,
+        "chainType": chainType
+    }
+    
+    message = {
+        "domain": {
+            "name": "Orderly",
+            "version": "1",
+            "chainId": int(chainId),
+            "verifyingContract": verifyingContract,
+        },
+        "message": _message,
+        "primaryType": "InternalTransfer",
+        "types": {
+            "EIP712Domain": [
+                {"name": "name", "type": "string"},
+                {"name": "version", "type": "string"},
+                {"name": "chainId", "type": "uint256"},
+                {"name": "verifyingContract", "type": "address"},
+            ],
+            "InternalTransfer": [
+                {"name": "receiver", "type": "address"},
+                {"name": "token", "type": "string"},
+                {"name": "amount", "type": "uint256"},
+                {"name": "transferNonce", "type": "string"},
+                {"name": "chainId", "type": "string"},
+                {"name": "chainType", "type": "string"},
+            ],
+        },
+    }
+    
+    _signature = self.get_wallet_signature(message=message)
+    payload = {
+        "message": _message,
+        "signature": _signature,
+        "userAddress": userAddress,
+        "verifyingContract": verifyingContract,
+        **kwargs
+    }
+    return self._sign_request("POST", "/v2/internal_transfer", payload=payload)

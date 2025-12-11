@@ -39,6 +39,11 @@ class Rest(API):
     from orderly_evm_connector.rest._account import get_position_history
     from orderly_evm_connector.rest._account import get_all_accounts
     from orderly_evm_connector.rest._account import get_leverage_setting
+    from orderly_evm_connector.rest._account import add_sub_account
+    from orderly_evm_connector.rest._account import get_sub_account
+    from orderly_evm_connector.rest._account import update_sub_account
+    from orderly_evm_connector.rest._account import get_aggregate_holding
+    from orderly_evm_connector.rest._account import get_aggregate_positions
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
@@ -50,6 +55,7 @@ class Rest(API):
     from orderly_evm_connector.rest._broker import update_default_broker_fee
     from orderly_evm_connector.rest._broker import get_tvl_by_broker
     from orderly_evm_connector.rest._broker import get_broker_stats
+    from orderly_evm_connector.rest._broker import get_broker_leaderboard_daily
 
     # general
     from orderly_evm_connector.rest._general import get_system_maintenance_status
@@ -158,6 +164,7 @@ class Rest(API):
     from orderly_evm_connector.rest._wallet import internal_transfer
     from orderly_evm_connector.rest._wallet import get_internal_transfer_history
     from orderly_evm_connector.rest._wallet import get_transfer_nonce
+    from orderly_evm_connector.rest._wallet import create_internal_transfer_v2
 
     #campaign
     from orderly_evm_connector.rest._campaign import get_points_epoch
@@ -172,6 +179,7 @@ class Rest(API):
     from orderly_evm_connector.rest._campaign import get_campaign_stats_details
     from orderly_evm_connector.rest._campaign import get_campaigns
     from orderly_evm_connector.rest._campaign import get_client_points
+    from orderly_evm_connector.rest._campaign import sign_up_campaign
     #referral
     from orderly_evm_connector.rest._referral import bind_referral_code
     from orderly_evm_connector.rest._referral import get_referral_history
@@ -213,6 +221,8 @@ class Rest(API):
     from orderly_evm_connector.rest._rewards import get_market_making_rewards_symbol_params
     from orderly_evm_connector.rest._rewards import get_trading_rewards_status
     from orderly_evm_connector.rest._rewards import get_trading_rewards_symbol_category
+    from orderly_evm_connector.rest._rewards import get_esorder_vesting_list
+    from orderly_evm_connector.rest._rewards import get_esorder_vesting_list
     
     # strategy vault
     from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
@@ -238,6 +248,14 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
     from orderly_evm_connector.rest._strategy_vault import get_strategy_vault_nonce
     from orderly_evm_connector.rest._strategy_vault import get_account_strategy_vault_transaction_history
+    from orderly_evm_connector.rest._strategy_vault import add_sp_orderly_key
+    from orderly_evm_connector.rest._strategy_vault import request_sp_settle_pnl
+    from orderly_evm_connector.rest._strategy_vault import trigger_manual_period_delivery
+    from orderly_evm_connector.rest._strategy_vault import get_venue_transfer_history
+    from orderly_evm_connector.rest._strategy_vault import get_venue_withdrawal_history
+    from orderly_evm_connector.rest._strategy_vault import get_protocol_revenue_share_history
+    from orderly_evm_connector.rest._strategy_vault import get_liquidation_fees_share_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_internal_transfer_history
 
     # account
     from orderly_evm_connector.rest._account import get_registration_nonce
@@ -343,6 +361,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._settlement import get_settle_pnl_nonce
     from orderly_evm_connector.rest._settlement import request_pnl_settlement
     from orderly_evm_connector.rest._settlement import get_pnl_settlement_history
+    from orderly_evm_connector.rest._settlement import settle_sub_account_pnl
 
     # trade
     from orderly_evm_connector.rest._trade import create_algo_order
@@ -371,6 +390,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._trade import get_all_positions_info
     from orderly_evm_connector.rest._trade import get_one_position_info
     from orderly_evm_connector.rest._trade import get_funding_fee_history
+    from orderly_evm_connector.rest._trade import cancel_all_after
 
     # wallet
     from orderly_evm_connector.rest._wallet import get_asset_history
@@ -378,6 +398,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._wallet import withdraw_request
     from orderly_evm_connector.rest._wallet import internal_transfer
     from orderly_evm_connector.rest._wallet import get_internal_transfer_history
+    from orderly_evm_connector.rest._wallet import create_internal_transfer_v2
 
     # campaign
     from orderly_evm_connector.rest._campaign import get_points_epoch
@@ -391,6 +412,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._campaign import get_campaign_stats
     from orderly_evm_connector.rest._campaign import get_campaign_stats_details
     from orderly_evm_connector.rest._campaign import get_campaigns
+    from orderly_evm_connector.rest._campaign import sign_up_campaign
     # referral
     from orderly_evm_connector.rest._referral import bind_referral_code
     from orderly_evm_connector.rest._referral import get_referral_history

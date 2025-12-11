@@ -300,3 +300,24 @@ def get_trading_rewards_symbol_category(self):
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-symbol-rewards-category
     """
     return self._request("GET", "/v1/public/trading_rewards/symbol_category")
+
+
+def get_esorder_vesting_list(self, address: str, is_vesting: bool):
+    """Get esORDER vesting list
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/staking/esorder/vesting_list
+    
+    Args:
+        address(string): User address
+        is_vesting(bool): Whether to show vesting items
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-esorder-vesting-list
+    """
+    check_required_parameters([[address, "address"], [is_vesting, "is_vesting"]])
+    payload = {
+        "address": address,
+        "is_vesting": is_vesting
+    }
+    return self._sign_request("GET", "/v1/staking/esorder/vesting_list", payload=payload)

@@ -1,3 +1,4 @@
+from orderly_evm_connector.lib.utils import check_required_parameters
 def get_points_epoch(self):
     """[Public] Get Number of Points for Distribution
 
@@ -240,3 +241,20 @@ def get_client_points(self, address: str):
     check_required_parameters([[address, "address"]])
     payload = {"address": address}
     return self._request("GET", "/v1/client/points", payload=payload)
+
+
+def sign_up_campaign(self, campaign_id: int):
+    """Sign Up Campaign
+    
+    Limit: 10 requests per 1 second
+    
+    POST /v1/client/campaign/sign_up
+    
+    Args:
+        campaign_id(int): Campaign ID
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/sign-up-campaign
+    """
+    check_required_parameters([[campaign_id, "campaign_id"]])
+    payload = {"campaign_id": campaign_id}
+    return self._sign_request("POST", "/v1/client/campaign/sign_up", payload=payload)

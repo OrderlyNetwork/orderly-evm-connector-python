@@ -114,3 +114,23 @@ def get_pnl_settlement_history(
     """
     payload = {"start_t": start_t, "end_t": end_t, "page": page, "size": size}
     return self._sign_request("GET", "/v1/pnl_settlement/history", payload=payload)
+
+
+def settle_sub_account_pnl(self, settle_nonce: int):
+    """Settle sub-account PnL
+    
+    Limit: 10 requests per second
+    
+    POST /v1/sub_account_settle_pnl
+    
+    Main account's Orderly key can control sub-accounts.
+    Note: account_id in header can only be sub_account
+    
+    Args:
+        settle_nonce(int): Settlement nonce
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/settle-sub-account-pnl
+    """
+    check_required_parameters([[settle_nonce, "settle_nonce"]])
+    payload = {"settle_nonce": settle_nonce}
+    return self._sign_request("POST", "/v1/sub_account_settle_pnl", payload=payload)

@@ -273,18 +273,19 @@ def cancel_algo_order(self, order_id: int, symbol: str):
     check_required_parameters([[order_id, "order_id"], [symbol, "symbol"]])
     return self._sign_request("DELETE", f"/v1/algo/order?order_id={order_id}&symbol={symbol}")
 
-def cancel_algo_all_pending_order(self, symbol: str, algo_type: str):
+def cancel_algo_all_pending_order(self, symbol: str = None, algo_type: str = None):
     """[Private] Cancel All Pending Algo Orders
 
-    Limit: 10 requests per 1 second
+    Limit: 5 requests per 1 second
 
     DELETE /v1/algo/orders?symbol={symbol}
 
     Cancel all pending algo orders.
 
-    Args:
+    Optional Args:
         symbol(string)
         algo_type(string): STOP, TAKE_PROFIT, STOP_LOSS, TP_SL, POSITIONAL_TP_SL, BRACKET
+                          Note: `STOP` will cancel both `TAKE_PROFIT` and `STOP_LOSS`
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-all-pending-algo-orders
     """
@@ -293,8 +294,8 @@ def cancel_algo_all_pending_order(self, symbol: str, algo_type: str):
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         )
-    check_enum_parameter(algo_type, AlgoType)
-    check_required_parameters([[symbol, "symbol"]])
+    if algo_type:
+        check_enum_parameter(algo_type, AlgoType)
     # add symbol and algo type if they are not None
     url = "/v1/algo/orders"
     if symbol and algo_type:
@@ -782,3 +783,25 @@ def get_algo_order_trades(self, order_id: int):
     """
     check_required_parameters([[order_id, "order_id"]])
     return self._sign_request("GET", f"/v1/algo/order/{order_id}/trades")
+
+
+def cancel_all_after(self, trigger_after: int):
+    """[Private] Cancel All After
+
+    Limit: 1 request per 1 second
+
+    POST /v1/order/cancel_all_after
+
+    Cancels all of the user's ordinary and algo orders after being called (dead man switch).
+
+    Note: Users must apply for access before using this endpoint.
+
+    Args:
+        trigger_after(int): Timeout in milliseconds. Min timeout is 5000. Max timeout can be set to 900000. 
+                           To cancel this timer, set timeout to 0.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-all-after
+    """
+    check_required_parameters([[trigger_after, "trigger_after"]])
+    payload = {"trigger_after": trigger_after}
+    return self._sign_request("POST", "/v1/order/cancel_all_after", payload=payload)
