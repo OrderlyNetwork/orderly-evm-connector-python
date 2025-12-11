@@ -30,7 +30,7 @@ def get_asset_history(
         page(number):           (default: 1)	the page you wish to query.
         size(number):           (default: 25)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-asset-history
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-asset-history
     """
     if status:
         check_enum_parameter(status, AssetStatus)
@@ -58,7 +58,7 @@ def get_withdraw_nonce(self):
 
     Retrieve a nonce used for requesting a withdrawal on Orderly Network. Each nonce can only be used once.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-withdrawal-nonce
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-withdrawal-nonce
     """
 
     return self._sign_request("GET", "/v1/withdraw_nonce")
@@ -97,7 +97,7 @@ def withdraw_request(
     userAddress(string): The address of the wallet signing the message object via EIP-712
     # verifyingContract(string): Address of the Orderly Network ledger contract
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/create-withdraw-request
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-withdraw-request
 
     """
     check_required_parameters(
@@ -200,3 +200,53 @@ def internal_transfer(
     }
 
     return self._sign_request("POST", "/v1/internal_transfer", payload=payload)
+
+
+def get_internal_transfer_history(self, status: str = None, start_t: str = None, end_t: str = None, 
+                                   page: int = None, size: int = None, side: str = None,
+                                   from_account_id: str = None, to_account_id: str = None, main_sub_only: bool = None):
+    """Get Internal Transfer History
+    
+    Limit: 10 requests per 1 second
+    
+    GET /v1/internal_transfer_history
+    
+    Orderly key must has `asset` scope to access this endpoint
+    
+    Optional Args:
+        status(string): `CREATED`/`PENDING`/`COMPLETED`/`FAILED`
+        start_t(string): Start timestamp
+        end_t(string): End timestamp
+        page(int): Page number (start from 1)
+        size(int): Page size
+        side(string): `IN`/`OUT` (required)
+        from_account_id(string): From account ID
+        to_account_id(string): To account ID
+        main_sub_only(bool): If True, return only transfers between main and sub-accounts
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-internal-transfer-history
+    """
+    payload = {
+        "status": status,
+        "start_t": start_t,
+        "end_t": end_t,
+        "page": page,
+        "size": size,
+        "side": side,
+        "from_account_id": from_account_id,
+        "to_account_id": to_account_id,
+        "main_sub_only": main_sub_only
+    }
+    return self._sign_request("GET", "/v1/internal_transfer_history", payload=payload)
+
+
+def get_transfer_nonce(self):
+    """Get Transfer Nonce
+    
+    Limit: 10 requests per 1 second
+    
+    GET /v1/transfer_nonce
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-transfer-nonce
+    """
+    return self._sign_request("GET", "/v1/transfer_nonce")

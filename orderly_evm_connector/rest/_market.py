@@ -16,7 +16,7 @@ def get_market_trades(self, symbol: str, limit: int = None):
     Optional Args:
         limit(number): N (default: 10)	Numbers of trades want to query.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-market-trades
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-market-trades
     """
     check_required_parameters([[symbol, "symbol"]])
     payload = {"symbol": symbol, "limit": limit}
@@ -32,7 +32,7 @@ def get_volume_statistics(self):
 
     Get the latest volume statistics of Orderly and its associated brokers. Note that for broker volume, the volume is counted as the sum of the maker and taker volume, while for the full Orderly platform, the volume is the total amount matched on the platform (ie taker and maker are not double-counted.)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-volume-statistics
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-builder-volume
     """
     return self._request("GET", "/v1/public/volume/stats")
 
@@ -48,7 +48,7 @@ def get_predicted_funding_rate_for_all_markets(self):
 
     Get the : * last_funding_rate : latest hourly funding rate for all the markets for the last funding period (dt = 8h) * est_funding_rate : rolling average of all funding rates over the last 8 hours
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-predicted-funding-rates-for-all-markets
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-predicted-funding-rates-for-all-markets
     """
     return self._request("GET", "/v1/public/funding_rates")
 
@@ -62,7 +62,7 @@ def get_predicted_funding_rate_for_one_market(self, symbol: str):
 
     Get latest funding rate for one market.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-funding-rate-history-for-one-market
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-funding-rate-history-for-one-market
     """
     check_required_parameters([[symbol, "symbol"]])
     return self._request("GET", f"/v1/public/funding_rate/{symbol}")
@@ -92,7 +92,7 @@ def get_funding_rate_history_for_one_market(
         page(number): N(default: 1)	the page you wish to query.
         size(number): Default: 60
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-funding-fee-history
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-funding-fee-history
     """
     check_required_parameters([[symbol, "symbol"]])
     payload = {
@@ -114,7 +114,7 @@ def get_futures_info_for_all_markets(self):
 
     Get basic futures information for all the markets.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-futures-info-for-all-markets
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-market-info-for-all-symbols
     """
     return self._request("GET", "/v1/public/futures")
 
@@ -131,7 +131,7 @@ def get_futures_info_for_one_market(self, symbol: str):
     Args:
         symbol(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-futures-info-for-one-market
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-market-info-for-one-symbol
     """
     check_required_parameters([[symbol, "symbol"]])
     _uri = f"/v1/public/futures/{symbol}"
@@ -148,7 +148,7 @@ def get_tradingview_configuration(self, locale: str):
     Args:
         locale(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-tradingview-localized-config-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-tradingview-localized-config-info
     """
     check_required_parameters([[locale, "locale"]])
     payload = {"locale": locale}
@@ -170,7 +170,7 @@ def get_tradingview_history_basrs(
         from(timestamp)
         to(timestamp)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-tradingview-history-bars
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-tradingview-history-bars
 
     """
 
@@ -201,7 +201,7 @@ def get_tradingview_symbol_info(self, group: str):
     Args:
         group(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-tradingview-symbol-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-tradingview-symbol-info
     """
     check_required_parameters([[group, "group"]])
     payload = {"group": group}
@@ -220,7 +220,7 @@ def get_orderbook_snapshot(self, symbol: str, max_level: int = None):
     Optional Args:
         max_level(number): (default: 100)	the levels wish to show on both side.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/orderbook-snapshot
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/orderbook-snapshot
     """
 
     check_required_parameters([[symbol, "symbol"]])
@@ -243,9 +243,101 @@ def get_kline(self, symbol: str, type: str, limit: int = None):
     Optional Args:
         limit(number): Numbers of klines. Maximum of 1000 klines.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-kline
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-kline
     """
     check_required_parameters([[symbol, "symbol"], [type, "type"]])
     check_enum_parameter(f"_{type}", TimeType)
     payload = {"symbol": symbol, "type": type, "limit": limit}
     return self._sign_request("GET", "/v1/kline", payload=payload)
+
+
+def get_market_info_funding_history(self):
+    """Get Funding Rate for All Markets
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/market_info/funding_history
+    
+    Return the funding rate history for all markets
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-funding-rate-for-all-markets
+    """
+    return self._request("GET", "/v1/public/market_info/funding_history")
+
+
+def get_market_info_history_charts(self, time_interval: str = None):
+    """Get Historical Price List for All Symbols
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/market_info/history_charts
+    
+    Return the close price for all symbols
+    
+    Optional Args:
+        time_interval(string): Time interval
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-historical-price-list-for-all-symbols
+    """
+    payload = {"time_interval": time_interval}
+    return self._request("GET", "/v1/public/market_info/history_charts", payload=payload)
+
+
+def get_market_info_price_changes(self):
+    """Get Price Info for All Symbols
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/market_info/price_changes
+    
+    Return the current price and the price 5m, 30m, 1h, 24h, 3d, 7d, 30d ago for all symbols
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-price-info-for-all-symbols
+    """
+    return self._request("GET", "/v1/public/market_info/price_changes")
+
+
+def get_market_info_traders_open_interests(self):
+    """Get Open Interests for All Symbols
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/market_info/traders_open_interests
+    
+    Return the long/short Open Interests for all symbols (mm accounts are excluded)
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-open-interests-for-all-symbols
+    """
+    return self._request("GET", "/v1/public/market_info/traders_open_interests")
+
+
+def get_kline_history(self, symbol: str, resolution: str, from_timestamp: str = None, 
+                      to_timestamp: str = None, limit: int = None):
+    """Get Kline History
+    
+    Limit: 5 request per 10 second per IP address
+    
+    GET /v1/tv/kline_history
+    
+    Get the historical klines of the specified symbol
+    
+    Args:
+        symbol(string): Symbol name
+        resolution(string): `1m/5m/15m/30m/1h/4h/12h/1d/1w/1mon`
+        
+    Optional Args:
+        from_timestamp(string): From timestamp
+        to_timestamp(string): To timestamp
+        limit(int): Numbers of klines (max: 1000)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-kline-history
+    """
+    check_required_parameters([[symbol, "symbol"], [resolution, "resolution"]])
+    payload = {
+        "symbol": symbol,
+        "resolution": resolution,
+        "from": from_timestamp,
+        "to": to_timestamp,
+        "limit": limit
+    }
+    return self._sign_request("GET", "/v1/tv/kline_history", payload=payload)

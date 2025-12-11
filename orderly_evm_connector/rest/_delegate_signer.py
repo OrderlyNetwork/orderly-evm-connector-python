@@ -12,7 +12,7 @@ def delegate_signer(
 
     POST /v1/delegate_signer
 
-    https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/add-delegate-signer
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/add-delegate-signer
     """
     _message = {
         "delegateContract": delegateContract,
@@ -82,7 +82,7 @@ def delegate_add_orderly_key(
 
     POST /v1/delegate_orderly_key
 
-    https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/delegate_orderly_key
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/delegate_orderly_key
     """
     _message = {
         "delegateContract": delegateContract,
@@ -160,7 +160,7 @@ def delegate_withdraw_request(
 
     POST /v1/delegate_withdraw_request
 
-    https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/delegate_withdraw_request
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/delegate_withdraw_request
     """
     check_required_parameters(
         [
@@ -239,7 +239,7 @@ def delegate_request_pnl_settlement(
 
     POST /v1/delegate_settle_pnl
 
-    https://docs.orderly.network/build-on-evm/evm-api/restful-api/public/delegate_settle_pnl
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/delegate_settle_pnl
     """
     check_required_parameters(
         [

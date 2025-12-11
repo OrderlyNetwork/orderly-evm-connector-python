@@ -32,7 +32,7 @@ def create_order(
         reduce_only(boolean): Default False
         visible_quantity(number): The order quantity shown on orderbook. (default: equal to order_quantity)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/create-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-order
     """
     check_required_parameters(
         [[symbol, "symbol"], [order_type, "order_type"], [side, "side"]]
@@ -93,7 +93,7 @@ Note: This endpoint requires trading scope in Orderly Key.
         reduce_only(boolean): Default False
         visible_quantity(boolean): Default false
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/create-algo-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-algo-order
     """
     check_required_parameters(
         [[algo_type, "algo_type"], [quantity, "quantity"], [side, "side"], [symbol, "symbol"], [type, "type"], [trigger_price, "trigger_price"]]
@@ -137,7 +137,7 @@ def batch_create_order(self, orders: list):
         reduce_only	boolean	N	Default False
         visible_quantity	number	N	The order quantity shown on orderbook. (default: equal to order_quantity)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/batch-create-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/batch-create-order
     """
     for order in orders:
         check_required_parameters(
@@ -174,7 +174,7 @@ def edit_algo_order(
         price(number)
         quantity(number)
         trigger_price(number)
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/edit-algo-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/edit-algo-order
     """
     check_required_parameters(
         [
@@ -223,7 +223,7 @@ def edit_order(
         reduce_only	boolean	N	Default False
         visible_quantity	number	N	The order quantity shown on orderbook. (default: equal to order_quantity)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/edit-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/edit-order
 
     """
     check_required_parameters(
@@ -263,7 +263,7 @@ def cancel_algo_order(self, order_id: int, symbol: str):
         order_id(number)
         symbol(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-algo-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-algo-order
     """
     self.session.headers.update(
             {
@@ -286,7 +286,7 @@ def cancel_algo_all_pending_order(self, symbol: str, algo_type: str):
         symbol(string)
         algo_type(string): STOP, TAKE_PROFIT, STOP_LOSS, TP_SL, POSITIONAL_TP_SL, BRACKET
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-all-pending-algo-orders
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-all-pending-algo-orders
     """
     self.session.headers.update(
             {
@@ -319,7 +319,7 @@ def cancel_order(self, order_id: int, symbol: str, **kwargs):
         symbol(string)
         order_id(number)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-order
     """
     check_required_parameters([[order_id, "order_id"], [symbol, "symbol"]])
     payload = {"order_id": order_id, "symbol": symbol}
@@ -338,7 +338,8 @@ def cancel_algo_order_by_client_order_id(self, client_order_id: int, symbol: str
         symbol(string)
         client_order_id(string): client_order_id of the algo order
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-algo-order-by-client_order_id    """
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-algo-order-by-client_order_id
+        """
     check_required_parameters(
         [[client_order_id, "client_order_id"], [symbol, "symbol"]]
     )
@@ -363,7 +364,7 @@ def cancel_order_by_client_order_id(self, client_order_id: int, symbol: str):
         symbol(string)
         client_order_id(string): client_order_id of the order
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-order-by-client_order_id
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-order-by-client_order_id
     """
     check_required_parameters(
         [[client_order_id, "client_order_id"], [symbol, "symbol"]]
@@ -384,7 +385,7 @@ def cancel_orders(self, symbol: str = None):
     Optional Args:
         symbol(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/cancel-orders-in-bulk
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-all-pending-orders
     """
     payload = {"symbol": symbol}
     return self._sign_request("DELETE", "/v1/orders", payload=payload)
@@ -402,7 +403,7 @@ def batch_cancel_orders(self, order_ids: str):
     Args:
         order_ids(string): list of order_ids, comma-separated, with a maximum of 10 order ids per request.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/batch-cancel-orders
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/batch-cancel-orders
     """
     check_required_parameters([[order_ids, "order_ids"]])
     payload = {"order_ids": order_ids}
@@ -421,7 +422,7 @@ def batch_cancel_orders_by_client_order_id(self, client_order_ids: str):
     Args:
         client_order_ids(string): list of order_ids, comma-separated, with a maximum of 10 order ids per request.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/batch-cancel-orders-by-client_order_id
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/batch-cancel-orders-by-client_order_id
     """
     check_required_parameters([[client_order_ids, "client_order_ids"]])
     # payload = {"client_order_ids": ",".join(client_order_ids)}
@@ -440,7 +441,7 @@ def get_algo_order(self, order_id: str):
     Args:
         order_id(string): id of the algo order
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-algo-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-algo-order
     """
     check_required_parameters([[order_id, "order_id"]])
     return self._sign_request("GET", f"/v1/algo/order/{order_id}")
@@ -457,7 +458,7 @@ def get_order(self, order_id: str):
     Args:
         order_id(number): id of the order
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-order
     """
     check_required_parameters([[order_id, "order_id"]])
     return self._sign_request("GET", f"/v1/order/{ order_id }")
@@ -491,14 +492,14 @@ def get_order_by_client_order_id(self, client_order_id: str):
     Args:
         client_order_id(string): client id of the order
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-order-by-client_order_id
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-order-by-client_order_id
     """
     check_required_parameters([[client_order_id, "client_order_id"]])
     return self._sign_request("GET", f"/v1/client/order/{ client_order_id }")
 
 def get_algo_orders(
     self,
-    algo_type: str,
+    algo_type: str = None,
     symbol: str = None,
     order_type: str = None,
     status: str = None,
@@ -538,7 +539,7 @@ def get_algo_orders(
     is_triggered(string)
     order_tag(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-algo-orders#openapi-evmopenapi-get-v1algoorders
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-algo-orders#openapi-evmopenapi-get-v1algoorders
     """
     if order_type:
         check_enum_parameter(order_type, OrderType)
@@ -617,7 +618,7 @@ def get_orders(
     If sort_by == UPDATED_TIME_DESC, descending order by updated_time. Descending order by order_id if updated_time are same;
 
     If sort_by == UPDATED_TIME_ASC, ascending order by updated_time. Ascending order by order_id if updated_time are same;
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-orders#openapi-evmopenapi-get-v1orders
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-orders#openapi-evmopenapi-get-v1orders
     """
     if order_type:
         check_enum_parameter(order_type, OrderType)
@@ -651,7 +652,7 @@ def get_all_trades_of_order(self, order_id: int):
 
     Get specific trades of an order by order_id.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-all-trades-of-specific-order
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-all-trades-of-specific-order
 
     """
     check_required_parameters([[order_id, "order_id"]])
@@ -681,7 +682,7 @@ def get_trades(
     page(number): (default: 1)	the page you wish to query.
     size(number): (default: 25)	the page size you wish to query. (max: 500)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-trades
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-trades
     """
     payload = {
         "symbol": symbol,
@@ -704,7 +705,7 @@ def get_trade(self, trade_id: int):
     Args:
         trade_id(number): id of the trade
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-trade
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-trade
     """
     check_required_parameters([[trade_id, "trade_id"]])
     return self._sign_request("GET", f"/v1/trade/{trade_id}")
@@ -717,7 +718,7 @@ def get_all_positions_info(self):
 
     GET /v1/positions
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-all-positions-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-all-positions-info
     """
     _uri = "/v1/positions"
     return self._sign_request("GET", _uri)
@@ -733,7 +734,7 @@ def get_one_position_info(self, symbol: str):
     Args:
         symbol(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-one-position-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-one-position-info
     """
     check_required_parameters([[symbol, "symbol"]])
     _uri = f"/v1/position/{symbol}"
@@ -757,9 +758,27 @@ def get_funding_fee_history(self, symbol: str, **kwargs):
         end_t(timestamp): end time range that you wish to query, noted that the time stamp is a 13-digits timestamp.
         page(number): N(default: 1)	the page you wish to query.
         size(number): Default: 60
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-funding-fee-history
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-funding-fee-history
 
     """
     check_required_parameters([[symbol, "symbol"]])
     payload = {"symbol": symbol, **kwargs}
     return self._sign_request("GET", "/v1/funding_fee/history", payload=payload)
+
+
+def get_algo_order_trades(self, order_id: int):
+    """Get All Trades of Specific Algo Order
+    
+    Limit: 10 requests per 1 second
+    
+    GET /v1/algo/order/{order_id}/trades
+    
+    Get specific trades of an algo order by order_id
+    
+    Args:
+        order_id(int): Order ID
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-all-trades-of-specific-algo-order
+    """
+    check_required_parameters([[order_id, "order_id"]])
+    return self._sign_request("GET", f"/v1/algo/order/{order_id}/trades")

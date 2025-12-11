@@ -10,7 +10,7 @@ def get_valut_balances(self, chain_id: int = None, token: str = None):
         chain_id(number): id of the chain you wish to query.
         token(string): the token you wish to query
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-vault-balance
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-vault-balance
     """
     payload = {"chain_id": chain_id, "token": token}
     return self._request("GET", "/v1/public/vault_balance", payload=payload)
@@ -26,7 +26,7 @@ def get_valut_balances(self, chain_id: int = None, token: str = None):
 #     Args:
 #         broker_id: str
 #
-#     https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-vault-chain-config
+#     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-supported-chains-per-builder
 #     """
 #
 #     payload = {

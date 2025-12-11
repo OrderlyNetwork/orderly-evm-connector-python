@@ -8,7 +8,7 @@ def get_strategy_vault_nonce(self):
     
     GET /v1/public/sv_nonce
     
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-strategy-vault-nonce-for-account-transaction
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-nonce-for-account-transaction
     """
     return self._request("GET", "/v1/public/sv_nonce")
 
@@ -47,7 +47,7 @@ def submit_sv_operation_request(
         user_address(str): User's address
         verifying_contract(str): Verifying contract address
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/submit-sv-operation-request
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/submit-sv-operation-request
     """
     # Validate required parameters
     check_required_parameters([
@@ -111,7 +111,7 @@ def get_account_strategy_vault_transaction_history(
         page(int): Page number (default: 1)
         size(int): Number of records per page (default: 25)
     
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-account-sv-transaction-history
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/account_sv_transaction_history
     """
     payload = {
         "vault_id": vault_id,

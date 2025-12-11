@@ -10,7 +10,7 @@ def get_system_maintenance_status(self):
 
     Retreive the current system maintenance status of Orderly Network. A return value of status = 0 means the system is functioning properly and a return value of status = 2 means the system is under maintenance.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-system-maintenance-status
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-system-maintenance-status
     """
     return self._request("GET", "/v1/public/system_info")
 
@@ -26,7 +26,7 @@ def get_faucet_usdc(self, chain_id: str, user_address: str):
     chain_id(string): The chain ID that the test USDC should be deposited to
     user_address(string): The address of the user account
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-faucet-usdctestnet-only
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-faucet-usdctestnet-only
     """
 
     check_required_parameters([[chain_id, "chain_id"], [user_address, "user_address"]])
@@ -75,7 +75,7 @@ def get_exchange_info(self, symbol: str):
     Args:
         symbol(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-exchange-information
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-exchange-information
     """
     check_required_parameters([[symbol, "symbol"]])
     return self._request("GET", f"/v1/public/info/{symbol}")
@@ -93,7 +93,7 @@ def get_token_info(self, chain_id: str = None):
     Args:
         chain_id: str
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-supported-collateral-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-supported-collateral-info
 
     """
 
@@ -112,7 +112,7 @@ def get_available_symbols(self):
 
     Get available symbols that Orderly Network supports, and also send order rules for each symbol. The definition of rules can be found at Exchange Infomation
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-available-symbols
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-available-symbols
     """
     return self._request("GET", "/v1/public/info")
 
@@ -138,7 +138,7 @@ def get_leverage_configuration(self):
 
     GET v1/public/config
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-leverage-configuration
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-leverage-configuration
     """
     return self._request("GET", "/v1/public/config")
 
@@ -151,7 +151,7 @@ def get_user_statistics(self):
 
     Get statistics of the user account
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-user-statistics
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-user-statistics
 
     """
     return self._sign_request("GET", "/v1/client/statistics")
@@ -165,7 +165,7 @@ def get_market_volume_by_broker(self, symbol: str = None, broker_id: str = None)
 
     Get market volume filtered by broker
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-market-volume-by-broker
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-market-volume-by-broker
 
     """
 
@@ -174,3 +174,59 @@ def get_market_volume_by_broker(self, symbol: str = None, broker_id: str = None)
         "broker_id": broker_id
     }
     return self._request("GET", "/v1/public/futures_market", payload=payload)
+
+
+def get_announcements(self):
+    """[Public] Get Announcements
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/announcement
+    
+    Get system announcements
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-announcements
+    """
+    return self._request("GET", "/v1/public/announcement")
+
+
+def get_index_price_source(self):
+    """[Public] Get Index Price Source
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/index_price_source
+    
+    Retrieves the available tokens to be used as collateral within Orderly
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-index-price-source
+    """
+    return self._request("GET", "/v1/public/index_price_source")
+
+
+def get_max_leverage_setting(self):
+    """[Public] Get Max Leverage Setting
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/leverage
+    
+    Get max leverage setting
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-max-leverage-setting
+    """
+    return self._request("GET", "/v1/public/leverage")
+
+
+def get_ip_info(self):
+    """[Public] Get IP Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/ip_info
+    
+    Get IP information
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-ip-info
+    """
+    return self._request("GET", "/v1/ip_info")

@@ -37,6 +37,8 @@ class Rest(API):
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import get_position_history
+    from orderly_evm_connector.rest._account import get_all_accounts
+    from orderly_evm_connector.rest._account import get_leverage_setting
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
@@ -47,6 +49,7 @@ class Rest(API):
     from orderly_evm_connector.rest._broker import reset_user_fee_rate
     from orderly_evm_connector.rest._broker import update_default_broker_fee
     from orderly_evm_connector.rest._broker import get_tvl_by_broker
+    from orderly_evm_connector.rest._broker import get_broker_stats
 
     # general
     from orderly_evm_connector.rest._general import get_system_maintenance_status
@@ -58,6 +61,10 @@ class Rest(API):
     from orderly_evm_connector.rest._general import get_leverage_configuration
     from orderly_evm_connector.rest._general import get_user_statistics
     from orderly_evm_connector.rest._general import get_market_volume_by_broker
+    from orderly_evm_connector.rest._general import get_announcements
+    from orderly_evm_connector.rest._general import get_index_price_source
+    from orderly_evm_connector.rest._general import get_max_leverage_setting
+    from orderly_evm_connector.rest._general import get_ip_info
 
     # liquidation
     from orderly_evm_connector.rest._liquidation import get_positions_under_liquidation
@@ -71,6 +78,7 @@ class Rest(API):
     )
     from orderly_evm_connector.rest._liquidation import claim_liquidated_positions
     from orderly_evm_connector.rest._liquidation import claim_from_insurance_fund
+    from orderly_evm_connector.rest._liquidation import get_liquidated_positions_by_liquidator
 
     # market
     from orderly_evm_connector.rest._market import get_market_trades
@@ -91,6 +99,11 @@ class Rest(API):
     from orderly_evm_connector.rest._market import get_tradingview_symbol_info
     from orderly_evm_connector.rest._market import get_orderbook_snapshot
     from orderly_evm_connector.rest._market import get_kline
+    from orderly_evm_connector.rest._market import get_market_info_funding_history
+    from orderly_evm_connector.rest._market import get_market_info_history_charts
+    from orderly_evm_connector.rest._market import get_market_info_price_changes
+    from orderly_evm_connector.rest._market import get_market_info_traders_open_interests
+    from orderly_evm_connector.rest._market import get_kline_history
 
     # notifications
     from orderly_evm_connector.rest._notifications import get_all_notifications
@@ -131,6 +144,7 @@ class Rest(API):
     from orderly_evm_connector.rest._trade import get_order_by_client_order_id
     from orderly_evm_connector.rest._trade import get_orders
     from orderly_evm_connector.rest._trade import get_all_trades_of_order
+    from orderly_evm_connector.rest._trade import get_algo_order_trades
     from orderly_evm_connector.rest._trade import get_trades
     from orderly_evm_connector.rest._trade import get_trade
     from orderly_evm_connector.rest._trade import get_all_positions_info
@@ -142,6 +156,8 @@ class Rest(API):
     from orderly_evm_connector.rest._wallet import get_withdraw_nonce
     from orderly_evm_connector.rest._wallet import withdraw_request
     from orderly_evm_connector.rest._wallet import internal_transfer
+    from orderly_evm_connector.rest._wallet import get_internal_transfer_history
+    from orderly_evm_connector.rest._wallet import get_transfer_nonce
 
     #campaign
     from orderly_evm_connector.rest._campaign import get_points_epoch
@@ -150,6 +166,12 @@ class Rest(API):
     from orderly_evm_connector.rest._campaign import get_points_leaderboard
     from orderly_evm_connector.rest._campaign import get_tradingrewards_epoch
     from orderly_evm_connector.rest._campaign import get_campaign_user_info
+    from orderly_evm_connector.rest._campaign import get_campaign_check
+    from orderly_evm_connector.rest._campaign import get_campaign_ranking
+    from orderly_evm_connector.rest._campaign import get_campaign_stats
+    from orderly_evm_connector.rest._campaign import get_campaign_stats_details
+    from orderly_evm_connector.rest._campaign import get_campaigns
+    from orderly_evm_connector.rest._campaign import get_client_points
     #referral
     from orderly_evm_connector.rest._referral import bind_referral_code
     from orderly_evm_connector.rest._referral import get_referral_history
@@ -164,6 +186,11 @@ class Rest(API):
     from orderly_evm_connector.rest._referral import edit_referral_split
     from orderly_evm_connector.rest._referral import create_referral_code
     from orderly_evm_connector.rest._referral import update_referral_code
+    from orderly_evm_connector.rest._referral import get_auto_referral_info
+    from orderly_evm_connector.rest._referral import get_auto_referral_progress
+    from orderly_evm_connector.rest._referral import update_auto_referral
+    from orderly_evm_connector.rest._referral import edit_referral_code
+    from orderly_evm_connector.rest._referral import get_referee_rebate_summary
     # rewards
     from orderly_evm_connector.rest._rewards import get_parameters_of_each_epoch
     from orderly_evm_connector.rest._rewards import get_broker_allocation_history
@@ -181,6 +208,11 @@ class Rest(API):
     from orderly_evm_connector.rest._rewards import get_valor_batch_info
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
+    from orderly_evm_connector.rest._rewards import get_market_making_rewards_leaderboard
+    from orderly_evm_connector.rest._rewards import get_market_making_rewards_status
+    from orderly_evm_connector.rest._rewards import get_market_making_rewards_symbol_params
+    from orderly_evm_connector.rest._rewards import get_trading_rewards_status
+    from orderly_evm_connector.rest._rewards import get_trading_rewards_symbol_category
     
     # strategy vault
     from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
@@ -238,6 +270,8 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._broker import get_list_of_brokers
     from orderly_evm_connector.rest._broker import get_user_fee_tier
     from orderly_evm_connector.rest._broker import get_broker_daily_volume
+    from orderly_evm_connector.rest._broker import get_tvl_by_broker
+    from orderly_evm_connector.rest._broker import get_broker_stats
 
     # general
     from orderly_evm_connector.rest._general import get_system_maintenance_status
@@ -248,6 +282,11 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._general import get_fee_futures_information
     from orderly_evm_connector.rest._general import get_leverage_configuration
     from orderly_evm_connector.rest._general import get_user_statistics
+    from orderly_evm_connector.rest._general import get_market_volume_by_broker
+    from orderly_evm_connector.rest._general import get_announcements
+    from orderly_evm_connector.rest._general import get_index_price_source
+    from orderly_evm_connector.rest._general import get_max_leverage_setting
+    from orderly_evm_connector.rest._general import get_ip_info
 
     # liquidation
     from orderly_evm_connector.rest._liquidation import get_positions_under_liquidation
@@ -261,6 +300,7 @@ class RestAsync(AsyncAPI):
     )
     from orderly_evm_connector.rest._liquidation import claim_liquidated_positions
     from orderly_evm_connector.rest._liquidation import claim_from_insurance_fund
+    from orderly_evm_connector.rest._liquidation import get_liquidated_positions_by_liquidator
 
     # market
     from orderly_evm_connector.rest._market import get_market_trades
@@ -281,6 +321,11 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._market import get_tradingview_symbol_info
     from orderly_evm_connector.rest._market import get_orderbook_snapshot
     from orderly_evm_connector.rest._market import get_kline
+    from orderly_evm_connector.rest._market import get_market_info_funding_history
+    from orderly_evm_connector.rest._market import get_market_info_history_charts
+    from orderly_evm_connector.rest._market import get_market_info_price_changes
+    from orderly_evm_connector.rest._market import get_market_info_traders_open_interests
+    from orderly_evm_connector.rest._market import get_kline_history
 
     # notifications
     from orderly_evm_connector.rest._notifications import get_all_notifications
@@ -320,6 +365,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._trade import get_order_by_client_order_id
     from orderly_evm_connector.rest._trade import get_orders
     from orderly_evm_connector.rest._trade import get_all_trades_of_order
+    from orderly_evm_connector.rest._trade import get_algo_order_trades
     from orderly_evm_connector.rest._trade import get_trades
     from orderly_evm_connector.rest._trade import get_trade
     from orderly_evm_connector.rest._trade import get_all_positions_info
@@ -331,6 +377,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._wallet import get_withdraw_nonce
     from orderly_evm_connector.rest._wallet import withdraw_request
     from orderly_evm_connector.rest._wallet import internal_transfer
+    from orderly_evm_connector.rest._wallet import get_internal_transfer_history
 
     # campaign
     from orderly_evm_connector.rest._campaign import get_points_epoch
@@ -339,6 +386,11 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._campaign import get_points_leaderboard
     from orderly_evm_connector.rest._campaign import get_tradingrewards_epoch
     from orderly_evm_connector.rest._campaign import get_campaign_user_info
+    from orderly_evm_connector.rest._campaign import get_campaign_check
+    from orderly_evm_connector.rest._campaign import get_campaign_ranking
+    from orderly_evm_connector.rest._campaign import get_campaign_stats
+    from orderly_evm_connector.rest._campaign import get_campaign_stats_details
+    from orderly_evm_connector.rest._campaign import get_campaigns
     # referral
     from orderly_evm_connector.rest._referral import bind_referral_code
     from orderly_evm_connector.rest._referral import get_referral_history

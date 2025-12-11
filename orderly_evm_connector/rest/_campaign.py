@@ -5,7 +5,7 @@ def get_points_epoch(self):
 
     GET /v1/public/points/epoch
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-number-of-epoch-points
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-number-of-merits-for-distribution
 
     """
 
@@ -18,7 +18,7 @@ def get_points_epochdates(self):
 
     GET /v1/public/points/epoch_dates
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-start-and-end-date-of-all-epochs#openapi-evmopenapi-get-v1publicpointsepoch_dates
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-start-and-end-date-of-all-epochs#openapi-evmopenapi-get-v1publicpointsepoch_dates
 
     """
 
@@ -33,7 +33,7 @@ def get_user_points(self,address):
     Args:
         address(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-number-of-points#openapi-evmopenapi-get-v1clientpoints
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-users-merits#openapi-evmopenapi-get-v1clientpoints
     """
     endpoint = "/v1/client/points"
     if address:
@@ -48,7 +48,7 @@ def get_points_leaderboard(self,start_r: int = None,end_r: int = None,epoch_id: 
     Args:
         address(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-number-of-points#openapi-evmopenapi-get-v1clientpoints
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-users-merits#openapi-evmopenapi-get-v1clientpoints
     """
     payload = {
         "start_r": start_r,
@@ -86,7 +86,7 @@ def get_campaign_user_info(self, campaign_id: int, account_id: str = None, user_
         symbol: str
         order_tag: str
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-campaign-user-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-campaign-user-info
     """
     payload = {
         "campaign_id": campaign_id,
@@ -97,3 +97,146 @@ def get_campaign_user_info(self, campaign_id: int, account_id: str = None, user_
         "order_tag": order_tag
     }
     return self._request("GET", "/v1/public/campaign/user",payload=payload)
+
+
+def get_campaign_check(self, campaign_id: int, type: str = None, address: str = None, account_id: str = None):
+    """Get Campaign Verification
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/campaign/check
+    
+    Args:
+        campaign_id(int): Campaign ID
+        
+    Optional Args:
+        type(string): `volume`/`deposit`/`withdraw`/`order_count`
+        address(string): User address
+        account_id(string): Account ID
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-campaign-verification
+    """
+    payload = {
+        "campaign_id": campaign_id,
+        "type": type,
+        "address": address,
+        "account_id": account_id
+    }
+    return self._request("GET", "/v1/public/campaign/check", payload=payload)
+
+
+def get_campaign_ranking(self, campaign_id: int, broker_id: str = None, page: int = None, size: int = None):
+    """Get Campaign Ranking
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/campaign/ranking
+    
+    Args:
+        campaign_id(int): Campaign ID
+        
+    Optional Args:
+        broker_id(string): Broker ID
+        page(int): Page number (start from 1)
+        size(int): Page size
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-campaign-ranking
+    """
+    payload = {
+        "campaign_id": campaign_id,
+        "broker_id": broker_id,
+        "page": page,
+        "size": size
+    }
+    return self._request("GET", "/v1/public/campaign/ranking", payload=payload)
+
+
+def get_campaign_stats(self, campaign_id: int, broker_id: str = None, symbol: str = None, order_tag: str = None):
+    """Get Campaign Statistics
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/campaign/stats
+    
+    Args:
+        campaign_id(int): Campaign ID
+        
+    Optional Args:
+        broker_id(string): Broker ID
+        symbol(string): Symbol
+        order_tag(string): Order tag
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-campaign-statistics
+    """
+    payload = {
+        "campaign_id": campaign_id,
+        "broker_id": broker_id,
+        "symbol": symbol,
+        "order_tag": order_tag
+    }
+    return self._request("GET", "/v1/public/campaign/stats", payload=payload)
+
+
+def get_campaign_stats_details(self, campaign_id: int, broker_id: str = None, symbols: str = None, group_by: str = None):
+    """Get Detailed Campaign Info
+    
+    Limit: 10 requests per 1 minute per IP address
+    
+    GET /v1/public/campaign/stats/details
+    
+    Args:
+        campaign_id(int): Campaign ID
+        
+    Optional Args:
+        broker_id(string): Broker ID
+        symbols(string): Symbols (comma separated)
+        group_by(string): One of `BROKER` / `SYMBOL` / `NONE`
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-detailed-campaign-info
+    """
+    payload = {
+        "campaign_id": campaign_id,
+        "broker_id": broker_id,
+        "symbols": symbols,
+        "group_by": group_by
+    }
+    return self._request("GET", "/v1/public/campaign/stats/details", payload=payload)
+
+
+def get_campaigns(self, start_t: int = None, end_t: int = None, only_show_alive: bool = None):
+    """Get List of Campaigns
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/campaigns
+    
+    Optional Args:
+        start_t(int): Start timestamp
+        end_t(int): End timestamp
+        only_show_alive(bool): Only show alive campaigns
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-list-of-campaigns
+    """
+    payload = {
+        "start_t": start_t,
+        "end_t": end_t,
+        "only_show_alive": only_show_alive
+    }
+    return self._request("GET", "/v1/public/campaigns", payload=payload)
+
+
+def get_client_points(self, address: str):
+    """Get User's Merits
+    
+    Limit: 10 requests per 1 second per user
+    
+    GET /v1/client/points
+    
+    Args:
+        address(string): User address
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-users-merits
+    """
+    check_required_parameters([[address, "address"]])
+    payload = {"address": address}
+    return self._request("GET", "/v1/client/points", payload=payload)

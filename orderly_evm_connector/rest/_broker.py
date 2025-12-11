@@ -13,7 +13,7 @@ def get_list_of_brokers(self, broker_id: str = None):
     Args:
         broker_id(string): If provided, it will only output details for the particular broker.
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-broker-list
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-builder-list
     """
     payload = {"broker_id": broker_id}
     return self._request("GET", "/v1/public/broker/name", payload=payload)
@@ -34,7 +34,7 @@ def get_user_fee_tier(self,account_id: str = None,address: str = None,page: int 
         
         size(number)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-user-fee-tier
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-user-fee-rates
     """
     payload = {"account_id": account_id,"address":address,"page":page,"size":size}
     return self._sign_request("GET", "/v1/broker/user_info", payload=payload)
@@ -67,7 +67,7 @@ def get_broker_daily_volume(
         aggregateBy(string)
         sort(string)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-broker-daily-volume
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-builders-users-volumes
     """
     check_required_parameters([[start_date, "start_date"], [end_date, "end_date"]])
     payload = {
@@ -133,7 +133,40 @@ def get_default_broker_fee(self):
 
 
 def get_tvl_by_broker(self, broker_id: str = None):
+    """Get TVL by Builder
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/balance/stats
+    
+    Get TVL(Total Balance + Unsettled PnL) by broker
+    
+    Optional Args:
+        broker_id(string): Return all TVL if not specified
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-tvl-by-builder
+    """
     payload = {
         "broker_id": broker_id
     }
-    return self._sign_request("GET", "/v1/public/balance/stats", payload=payload)
+    return self._request("GET", "/v1/public/balance/stats", payload=payload)
+
+
+def get_broker_stats(self, broker_id: str = None):
+    """Get Builder Stats
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/broker/stats
+    
+    Get the stats of a specific builder
+    
+    Optional Args:
+        broker_id(string): If provided, it will only return details for the particular builder
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-builder-stats
+    """
+    payload = {
+        "broker_id": broker_id
+    }
+    return self._request("GET", "/v1/public/broker/stats", payload=payload)

@@ -14,7 +14,7 @@ def get_positions_under_liquidation(self, **kwargs):
         page(number):  (default: 1)	the page you wish to query.
         size(number):  Default: 60
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-positions-under-liquidation
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-positions-under-liquidation
     """
     payload = {**kwargs}
     return self._request("GET", "/v1/public/liquidation", payload=payload)
@@ -36,7 +36,7 @@ def get_liquidated_positions_info(self, symbol: str = None, start_t: int = None,
         size(number):  Default: 60
 
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-liquidated-positions-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-liquidated-positions-info
     """
     payload = {}
     if start_t:
@@ -59,7 +59,7 @@ def get_insurance_fund_info(self):
 
     GET /v1/public/insurancefund
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/public/get-insurance-fund-info
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-insurance-fund-info
 
     """
     return self._request("GET", "/v1/public/insurancefund")
@@ -80,7 +80,7 @@ def get_liquidated_positions_by_liquidator(self, symbol: str, **kwargs):
         page(number):  (default: 1)	the page you wish to query.
         size(number):  Default: 60
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-liquidated-positions-by-liquidator
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-liquidated-positions-by-liquidator
     """
     check_required_parameters([[symbol, "symbol"]])
     payload = {"symbol": symbol, **kwargs}
@@ -102,7 +102,7 @@ def get_liquidated_positions_of_account(self, **kwargs):
         end_t(timestamp)
         page(number)
         size(number)
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/get-liquidated-positions-of-account
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-liquidated-positions-of-account
     """
     payload = {**kwargs}
     return self._sign_request("GET", "/v1/liquidations", payload=payload)
@@ -126,7 +126,7 @@ def claim_liquidated_positions(self, liquidation_id: int, ratio_qty_request, **k
             symbols.ratio_qty_request(number, required): Field dedicated to high risk symbols liquidations type only (symbols with liquidation tier = 2), where a liquidator can specific the ratio he wish to liquidates per symbol
             symbols.symbol(string, required): Only relevant if this is a liquidation of type high tier (symbols with liquidation tier = 2)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/claim-liquidated-positions
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/claim-liquidated-positions
     """
     check_required_parameters(
         [[liquidation_id, "liquidation_id"], [ratio_qty_request, "ratio_qty_request"]]
@@ -153,7 +153,7 @@ def claim_from_insurance_fund(
     Optional Args:
         limit_price(number)
 
-    https://orderly.network/docs/build-on-evm/evm-api/restful-api/private/claim-insurance-fund
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/claim-insurance-fund
     """
     check_required_parameters(
         [
@@ -169,3 +169,30 @@ def claim_from_insurance_fund(
         **kwargs,
     }
     return self._sign_request("POST", "/v1/claim_insurance_fund", payload=payload)
+
+
+def get_liquidated_positions_by_liquidator(self, symbol: str = None, start_t: int = None, end_t: int = None,
+                                            page: int = None, size: int = None):
+    """Get Liquidated Positions by Liquidator
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/client/liquidator_liquidations
+    
+    Optional Args:
+        symbol(string): Symbol filter
+        start_t(int): Start timestamp
+        end_t(int): End timestamp
+        page(int): Page number (start from 1)
+        size(int): Page size
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-liquidated-positions-by-liquidator
+    """
+    payload = {
+        "symbol": symbol,
+        "start_t": start_t,
+        "end_t": end_t,
+        "page": page,
+        "size": size
+    }
+    return self._sign_request("GET", "/v1/client/liquidator_liquidations", payload=payload)
