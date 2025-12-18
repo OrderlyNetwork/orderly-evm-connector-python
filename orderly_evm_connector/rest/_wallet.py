@@ -262,6 +262,7 @@ def create_internal_transfer_v2(
     chainType: str,
     userAddress: str,
     verifyingContract: str,
+    signature: str = None,
     **kwargs
 ):
     """Create Internal Transfer With Wallet Signature
@@ -279,6 +280,7 @@ def create_internal_transfer_v2(
         chainType(string): Chain type (EVM or SOL)
         userAddress(string): User address
         verifyingContract(string): Verifying contract address
+        signature(string, optional): Pre-signed signature. If not provided, will be generated automatically.
         
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-internal-transfer-with-wallet-signature
     """
@@ -303,34 +305,38 @@ def create_internal_transfer_v2(
         "chainType": chainType
     }
     
-    message = {
-        "domain": {
-            "name": "Orderly",
-            "version": "1",
-            "chainId": int(chainId),
-            "verifyingContract": verifyingContract,
-        },
-        "message": _message,
-        "primaryType": "InternalTransfer",
-        "types": {
-            "EIP712Domain": [
-                {"name": "name", "type": "string"},
-                {"name": "version", "type": "string"},
-                {"name": "chainId", "type": "uint256"},
-                {"name": "verifyingContract", "type": "address"},
-            ],
-            "InternalTransfer": [
-                {"name": "receiver", "type": "address"},
-                {"name": "token", "type": "string"},
-                {"name": "amount", "type": "uint256"},
-                {"name": "transferNonce", "type": "string"},
-                {"name": "chainId", "type": "string"},
-                {"name": "chainType", "type": "string"},
-            ],
-        },
-    }
+    # If signature is provided, use it; otherwise generate one
+    if signature:
+        _signature = signature
+    else:
+        message = {
+            "domain": {
+                "name": "Orderly",
+                "version": "1",
+                "chainId": int(chainId),
+                "verifyingContract": verifyingContract,
+            },
+            "message": _message,
+            "primaryType": "InternalTransfer",
+            "types": {
+                "EIP712Domain": [
+                    {"name": "name", "type": "string"},
+                    {"name": "version", "type": "string"},
+                    {"name": "chainId", "type": "uint256"},
+                    {"name": "verifyingContract", "type": "address"},
+                ],
+                "InternalTransfer": [
+                    {"name": "receiver", "type": "address"},
+                    {"name": "token", "type": "string"},
+                    {"name": "amount", "type": "uint256"},
+                    {"name": "transferNonce", "type": "string"},
+                    {"name": "chainId", "type": "string"},
+                    {"name": "chainType", "type": "string"},
+                ],
+            },
+        }
+        _signature = self.get_wallet_signature(message=message)
     
-    _signature = self.get_wallet_signature(message=message)
     payload = {
         "message": _message,
         "signature": _signature,
