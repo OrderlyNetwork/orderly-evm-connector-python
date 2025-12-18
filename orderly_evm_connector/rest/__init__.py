@@ -128,6 +128,7 @@ class Rest(API):
     from orderly_evm_connector.rest._settlement import get_settle_pnl_nonce
     from orderly_evm_connector.rest._settlement import request_pnl_settlement
     from orderly_evm_connector.rest._settlement import get_pnl_settlement_history
+    from orderly_evm_connector.rest._settlement import settle_sub_account_pnl
 
     # trade
     from orderly_evm_connector.rest._trade import create_algo_order
@@ -156,6 +157,7 @@ class Rest(API):
     from orderly_evm_connector.rest._trade import get_all_positions_info
     from orderly_evm_connector.rest._trade import get_one_position_info
     from orderly_evm_connector.rest._trade import get_funding_fee_history
+    from orderly_evm_connector.rest._trade import cancel_all_after
 
     # wallet
     from orderly_evm_connector.rest._wallet import get_asset_history
@@ -228,7 +230,14 @@ class Rest(API):
     from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
     from orderly_evm_connector.rest._strategy_vault import get_strategy_vault_nonce
     from orderly_evm_connector.rest._strategy_vault import get_account_strategy_vault_transaction_history
-
+    from orderly_evm_connector.rest._strategy_vault import add_sp_orderly_key
+    from orderly_evm_connector.rest._strategy_vault import request_sp_settle_pnl
+    from orderly_evm_connector.rest._strategy_vault import trigger_manual_period_delivery
+    from orderly_evm_connector.rest._strategy_vault import get_venue_transfer_history
+    from orderly_evm_connector.rest._strategy_vault import get_venue_withdrawal_history
+    from orderly_evm_connector.rest._strategy_vault import get_protocol_revenue_share_history
+    from orderly_evm_connector.rest._strategy_vault import get_liquidation_fees_share_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_internal_transfer_history
 
 class RestAsync(AsyncAPI):
     def __init__(
