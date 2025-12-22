@@ -100,7 +100,7 @@ def get_campaign_user_info(self, campaign_id: int, account_id: str = None, user_
     return self._request("GET", "/v1/public/campaign/user",payload=payload)
 
 
-def get_campaign_check(self, campaign_id: int, type: str = None, address: str = None, account_id: str = None):
+def get_campaign_check(self, campaign_id: int, type: str = None, address: str = None, lower_boundary: int = None, cmp: str = None):
     """Get Campaign Verification
     
     Limit: 10 requests per 1 second per IP address
@@ -113,15 +113,17 @@ def get_campaign_check(self, campaign_id: int, type: str = None, address: str = 
     Optional Args:
         type(string): `volume`/`deposit`/`withdraw`/`order_count`
         address(string): User address
-        account_id(string): Account ID
-        
+        lower_boundary(int): lower boundary
+        cmp(string): cmp
+
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-campaign-verification
     """
     payload = {
         "campaign_id": campaign_id,
         "type": type,
         "address": address,
-        "account_id": account_id
+        "lower_boundary": lower_boundary,
+        "cmp": cmp
     }
     return self._request("GET", "/v1/public/campaign/check", payload=payload)
 
