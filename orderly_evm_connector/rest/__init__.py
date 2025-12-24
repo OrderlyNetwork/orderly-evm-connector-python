@@ -243,6 +243,15 @@ class Rest(API):
     from orderly_evm_connector.rest._internal import set_min_broker_tier
     from orderly_evm_connector.rest._internal import create_broker
     from orderly_evm_connector.rest._internal import refresh_broker_tier
+    from orderly_evm_connector.rest._internal import bind_invitee_to_distributor
+    from orderly_evm_connector.rest._internal import unbind_invitee_from_distributor
+    from orderly_evm_connector.rest._internal import update_distribution_code
+    from orderly_evm_connector.rest._internal import get_distributors_invitees_list
+    from orderly_evm_connector.rest._internal import get_list_of_distributors
+    from orderly_evm_connector.rest._internal import get_revenue_share_history
+    from orderly_evm_connector.rest._internal import get_revenue_share_history_details
+    from orderly_evm_connector.rest._internal import waive_graduation_fee
+    from orderly_evm_connector.rest._internal import revoke_graduation_fee_waiver
 
 class RestAsync(AsyncAPI):
     def __init__(
@@ -270,11 +279,6 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._strategy_vault import get_protocol_revenue_share_history
     from orderly_evm_connector.rest._strategy_vault import get_liquidation_fees_share_history
     from orderly_evm_connector.rest._strategy_vault import get_sv_internal_transfer_history
-
-    # internal
-    from orderly_evm_connector.rest._internal import set_min_broker_tier
-    from orderly_evm_connector.rest._internal import create_broker
-    from orderly_evm_connector.rest._internal import refresh_broker_tier
 
     # account
     from orderly_evm_connector.rest._account import get_registration_nonce
