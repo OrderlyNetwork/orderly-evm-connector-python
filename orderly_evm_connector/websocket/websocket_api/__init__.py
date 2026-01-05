@@ -36,28 +36,29 @@ class WebsocketPublicAPIClient(OrderlyWebsocketClient):
             proxies=proxies,
         )
 
-    from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
     from orderly_evm_connector.websocket.websocket_api._stream import request_orderbook
-    from orderly_evm_connector.websocket.websocket_api._stream import (
-        get_orderbookupdate,
-    )
+    from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
+    from orderly_evm_connector.websocket.websocket_api._stream import get_orderbookupdate
     from orderly_evm_connector.websocket.websocket_api._stream import get_trade
     from orderly_evm_connector.websocket.websocket_api._stream import get_24h_ticker
     from orderly_evm_connector.websocket.websocket_api._stream import get_24h_tickers
+    from orderly_evm_connector.websocket.websocket_api._stream import get_24h_ticker_by_builder
+    from orderly_evm_connector.websocket.websocket_api._stream import get_24h_tickers_by_builder
     from orderly_evm_connector.websocket.websocket_api._stream import get_bbo
     from orderly_evm_connector.websocket.websocket_api._stream import get_bbos
     from orderly_evm_connector.websocket.websocket_api._stream import get_kline
+    from orderly_evm_connector.websocket.websocket_api._stream import get_market_price_changes_info
+    from orderly_evm_connector.websocket.websocket_api._stream import get_traders_open_interest
+    from orderly_evm_connector.websocket.websocket_api._stream import get_price_for_small_charts
     from orderly_evm_connector.websocket.websocket_api._stream import get_index_price
     from orderly_evm_connector.websocket.websocket_api._stream import get_index_prices
     from orderly_evm_connector.websocket.websocket_api._stream import get_mark_price
     from orderly_evm_connector.websocket.websocket_api._stream import get_mark_prices
     from orderly_evm_connector.websocket.websocket_api._stream import get_open_interest
-    from orderly_evm_connector.websocket.websocket_api._stream import (
-        get_estimated_funding_rate,
-    )
-    from orderly_evm_connector.websocket.websocket_api._stream import (
-        get_liquidation_push,
-    )
+    from orderly_evm_connector.websocket.websocket_api._stream import get_estimated_funding_rate
+    from orderly_evm_connector.websocket.websocket_api._stream import get_liquidation_push
+    from orderly_evm_connector.websocket.websocket_api._stream import get_system_maintenance_status
+    from orderly_evm_connector.websocket.websocket_api._stream import get_announcement
 
 class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
     def __init__(
@@ -98,16 +99,14 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
         request_orderbook(self, *args, **kwargs)
         await asyncio.sleep(0)
 
-    async def get_orderbookupdate(self, *args, **kwargs):
-        from orderly_evm_connector.websocket.websocket_api._stream import (
-            get_orderbookupdate,
-        )
-        get_orderbookupdate(self, *args, **kwargs)
-        await asyncio.sleep(0)
-    
     async def get_orderbook(self, *args, **kwargs):
         from orderly_evm_connector.websocket.websocket_api._stream import get_orderbook
         get_orderbook(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+    async def get_orderbookupdate(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_orderbookupdate
+        get_orderbookupdate(self, *args, **kwargs)
         await asyncio.sleep(0)
 
     async def get_trade(self, *args, **kwargs):
@@ -125,6 +124,16 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
         get_24h_tickers(self, *args, **kwargs)
         await asyncio.sleep(0)
 
+    async def get_24h_ticker_by_builder(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_24h_ticker_by_builder
+        get_24h_ticker_by_builder(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+    async def get_24h_tickers_by_builder(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_24h_tickers_by_builder
+        get_24h_tickers_by_builder(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
     async def get_bbo(self, *args, **kwargs):
         from orderly_evm_connector.websocket.websocket_api._stream import get_bbo
         get_bbo(self, *args, **kwargs)
@@ -138,6 +147,21 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
     async def get_kline(self, *args, **kwargs):
         from orderly_evm_connector.websocket.websocket_api._stream import get_kline
         get_kline(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+    async def get_market_price_changes_info(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_market_price_changes_info
+        get_market_price_changes_info(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+    async def get_traders_open_interest(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_traders_open_interest
+        get_traders_open_interest(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+    async def get_price_for_small_charts(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_price_for_small_charts
+        get_price_for_small_charts(self, *args, **kwargs)
         await asyncio.sleep(0)
 
     async def get_index_price(self, *args, **kwargs):
@@ -166,17 +190,23 @@ class WebsocketPublicAPIClientAsync(OrderlyWebsocketClient):
         await asyncio.sleep(0)
 
     async def get_estimated_funding_rate(self, *args, **kwargs):
-        from orderly_evm_connector.websocket.websocket_api._stream import (
-            get_estimated_funding_rate,
-        )
+        from orderly_evm_connector.websocket.websocket_api._stream import get_estimated_funding_rate
         get_estimated_funding_rate(self, *args, **kwargs)
         await asyncio.sleep(0)
 
     async def get_liquidation_push(self, *args, **kwargs):
-        from orderly_evm_connector.websocket.websocket_api._stream import (
-            get_liquidation_push,
-        )
+        from orderly_evm_connector.websocket.websocket_api._stream import get_liquidation_push
         get_liquidation_push(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+    async def get_system_maintenance_status(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_system_maintenance_status
+        get_system_maintenance_status(self, *args, **kwargs)
+        await asyncio.sleep(0)
+
+    async def get_announcement(self, *args, **kwargs):
+        from orderly_evm_connector.websocket.websocket_api._stream import get_announcement
+        get_announcement(self, *args, **kwargs)
         await asyncio.sleep(0)
 
 
@@ -216,49 +246,10 @@ class WebsocketPrivateAPIClient(OrderlyWebsocketClient):
 
     # private websocket
     from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_account,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_balance,
-    )
-  
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_position,
-    )
- 
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_account_liquidations,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_liquidator_liquidations,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_wallet_transactions,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-            get_pnl_settlement,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-            get_notifications,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-            get_execution_report,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-            get_algo_execution_report,
-    )
-
-    from orderly_evm_connector.websocket.websocket_api._private_stream import (
-            get_execution_report_for_single_broker,
+        get_account, get_balance, get_execution_report, get_execution_report_by_symbol,
+        get_algo_execution_report, get_algo_execution_report_v2,
+        get_notifications, get_position, get_account_liquidations, get_liquidator_liquidations, get_pnl_settlement,
+        get_wallet_transactions, get_asset_convert
     )
 
 class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClient):
@@ -298,31 +289,8 @@ class WebsocketPrivateAPIClientAsync(OrderlyWebsocketClient):
         
     # private websocket
   from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_account,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_balance,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_position,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_account_liquidations,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_liquidator_liquidations,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_wallet_transactions,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_pnl_settlement,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_notifications,
-  )
-  from orderly_evm_connector.websocket.websocket_api._private_stream import (
-        get_execution_report,
-        get_algo_execution_report,
-        get_execution_report_for_single_broker
+      get_account, get_balance, get_execution_report, get_execution_report_by_symbol,
+      get_algo_execution_report, get_algo_execution_report_v2,
+      get_notifications, get_position, get_account_liquidations, get_liquidator_liquidations, get_pnl_settlement,
+      get_wallet_transactions, get_asset_convert
   )

@@ -38,7 +38,7 @@ async def main():
     )
 
     await wss_client.run()
-    await wss_client.get_24h_tickers()
+    await wss_client.get_24h_ticker_by_builder("woofi_pro", "PERP_BTC_USDC")
     logging.info(
         "Listening for async public websocket messages for %s seconds...",
         LISTEN_SECONDS,

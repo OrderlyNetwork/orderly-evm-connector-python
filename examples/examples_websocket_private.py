@@ -40,17 +40,23 @@ def main():
     )
 
     try:
-        wss_client.get_account()
+        # wss_client.get_account()
         # wss_client.get_balance()
-        # wss_client.get_position()
-        # wss_client.get_account_liquidations()
-        # wss_client.get_liquidator_liquidations()
-        # wss_client.get_wallet_transactions()
-        # wss_client.get_pnl_settlement()
-        # wss_client.get_notifications()
         # wss_client.get_execution_report()
+        # wss_client.get_execution_report_by_symbol("PERP_BTC_USDC")
         # wss_client.get_algo_execution_report()
-        # wss_client.get_execution_report_for_single_broker(broker_id="woofi-pro")
+        # wss_client.get_algo_execution_report_v2()
+        # 1
+        wss_client.get_notifications()
+        # wss_client.get_position()
+        # 2
+        # wss_client.get_account_liquidations()
+        # 3
+        # wss_client.get_liquidator_liquidations()
+        # wss_client.get_pnl_settlement()
+        # wss_client.get_wallet_transactions()
+        # 4
+        # wss_client.get_asset_convert()
         logging.info(
             "Listening for private websocket messages for %s seconds...",
             LISTEN_SECONDS,
