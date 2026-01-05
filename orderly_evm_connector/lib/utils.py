@@ -150,7 +150,7 @@ def get_endpoints(orderly_testnet):
             orderly_websocket_private_endpoint,
         )
     else:
-        orderly_endpoint = "https://api.orderly.org"
+        orderly_endpoint = "https://api.orderly.org/"
         orderly_websocket_public_endpoint = "wss://ws-evm.orderly.org/ws/stream"
         orderly_websocket_private_endpoint = (
             "wss://ws-private-evm.orderly.org/v2/ws/private/stream"
@@ -162,7 +162,7 @@ def get_endpoints(orderly_testnet):
         )
         
 def get_withdraw_settle_verifyingcontract(orderly_testnet):
-    verifyingcontract  = '0x1826B75e2ef249173FC735149AE4B8e9ea10abff' if orderly_testnet else '0x6F7a338F2aA472838dEFD3283eB360d4Dff5D203'
+    verifyingcontract = '0x1826B75e2ef249173FC735149AE4B8e9ea10abff' if orderly_testnet else '0x6F7a338F2aA472838dEFD3283eB360d4Dff5D203'
     return verifyingcontract
 
 def decode_ws_error_code(data):
