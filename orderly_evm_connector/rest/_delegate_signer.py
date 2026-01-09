@@ -139,7 +139,7 @@ def delegate_add_orderly_key(
     }
     _signature = self.get_wallet_signature(message=message)
 
-    payload_message = {
+    _message = {
         "delegateContract": delegateContract,
         "brokerId": brokerId,
         "chainId": chainId,
@@ -150,7 +150,7 @@ def delegate_add_orderly_key(
     }
 
     payload = {
-        "message": payload_message,
+        "message": _message,
         "signature": _signature,
         "userAddress": userAddress,
     }
@@ -159,7 +159,7 @@ def delegate_add_orderly_key(
 
 def delegate_withdraw_request(
     self,
-    delegateContract: int,
+    delegateContract: str,
     brokerId: str,
     chainId: int,
     receiver: str,
@@ -194,6 +194,7 @@ def delegate_withdraw_request(
         ]
     )
     _message = {
+        "delegateContract": delegateContract,
         "brokerId": brokerId,
         "chainId": chainId,
         "receiver": receiver,
@@ -201,7 +202,6 @@ def delegate_withdraw_request(
         "amount": amount,
         "withdrawNonce": withdrawNonce,
         "timestamp": timestamp,
-        "delegateContract": delegateContract,
     }
     verifyingContract = get_withdraw_settle_verifyingcontract(self.orderly_testnet)
     message = {
@@ -244,7 +244,7 @@ def delegate_withdraw_request(
 
 def delegate_request_pnl_settlement(
     self,
-    delegateContract: int,
+    delegateContract: str,
     brokerId: str,
     chainId: int,
     settleNonce: int,
