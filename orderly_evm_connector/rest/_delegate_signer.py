@@ -14,13 +14,23 @@ def delegate_signer(
 
     https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/add-delegate-signer
     """
+    check_required_parameters(
+        [
+            [delegateContract, "delegateContract"],
+            [brokerId, "brokerId"],
+            [chainId, "chainId"],
+            [registrationNonce, "registrationNonce"],
+            [txHash, "txHash"],
+            [userAddress, "userAddress"],
+        ]
+    )
     _message = {
         "delegateContract": delegateContract,
         "brokerId": brokerId,
         "chainId": chainId,
+        "timestamp": timestamp,
         "registrationNonce": registrationNonce,
-        "txHash": txHash,
-        "timestamp": timestamp
+        "txHash": txHash
     }
 
     message = {
@@ -34,32 +44,24 @@ def delegate_signer(
         "primaryType": "DelegateSigner",
         "types": {
             "EIP712Domain": [
-                {"name": "name", "type": "string"},
-                {"name": "version", "type": "string"},
-                {"name": "chainId", "type": "uint256"},
-                {"name": "verifyingContract", "type": "address"},
+                { "name": "name", "type": "string" },
+                { "name": "version", "type": "string" },
+                { "name": "chainId", "type": "uint256" },
+                { "name": "verifyingContract", "type": "address" },
             ],
             "DelegateSigner": [
-                {"name": "delegateContract", "type": "address"},
-                {"name": "brokerId", "type": "string"},
-                {"name": "chainId", "type": "uint256"},
-                {"name": "timestamp", "type": "uint64"},
-                {"name": "registrationNonce", "type": "uint256"},
-                {"name": "txHash", "type": "bytes32"},
-            ],
+                { "name": "delegateContract", type: "address" },
+                { "name": "brokerId", type: "string" },
+                { "name": "chainId", type: "uint256" },
+                { "name": "timestamp", type: "uint64" },
+                { "name": "registrationNonce", type: "uint256" },
+                { "name": "txHash", type: "string" },
+            ]
         },
     }
 
     _signature = self.get_wallet_signature(message=message)
     payload = {"message": _message, "signature": _signature, "userAddress": userAddress}
-    check_required_parameters(
-        [
-            [brokerId, "brokerId"],
-            [chainId, "chainId"],
-            [registrationNonce, "registrationNonce"],
-            [userAddress, "userAddress"],
-        ]
-    )
     return self._request("POST", "/v1/delegate_signer", payload=payload)
 
 
@@ -84,6 +86,17 @@ def delegate_add_orderly_key(
 
     https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/delegate_orderly_key
     """
+    check_required_parameters(
+        [
+            [brokerId, "brokerId"],
+            [chainId, "chainId"],
+            [orderlyKey, "orderlyKey"],
+            [scope, "scope"],
+            [timestamp, "timestamp"],
+            [expiration, "expiration"],
+            [userAddress, "userAddress"],
+        ]
+    )
     _message = {
         "delegateContract": delegateContract,
         "brokerId": brokerId,
@@ -109,7 +122,7 @@ def delegate_add_orderly_key(
                 {"name": "chainId", "type": "uint256"},
                 {"name": "verifyingContract", "type": "address"},
             ],
-            "AddOrderlyKey": [
+            "DelegateAddOrderlyKey": [
                 {"name": "delegateContract", "type": "address"},
                 {"name": "brokerId", "type": "string"},
                 {"name": "chainId", "type": "uint256"},
@@ -127,17 +140,6 @@ def delegate_add_orderly_key(
         "userAddress": userAddress,
         **kwargs,
     }
-    check_required_parameters(
-        [
-            [brokerId, "brokerId"],
-            [chainId, "chainId"],
-            [orderlyKey, "orderlyKey"],
-            [scope, "scope"],
-            [timestamp, "timestamp"],
-            [expiration, "expiration"],
-            [userAddress, "userAddress"],
-        ]
-    )
     return self._request("POST", "/v1/delegate_orderly_key", payload=payload)
 
 
@@ -202,7 +204,7 @@ def delegate_withdraw_request(
                 {"name": "verifyingContract", "type": "address"},
             ],
             "DelegateWithdraw": [
-                {"name": "delegateContract", "type": "string"},
+                {"name": "delegateContract", "type": "address"},
                 {"name": "brokerId", "type": "string"},
                 {"name": "chainId", "type": "uint256"},
                 {"name": "receiver", "type": "address"},
@@ -233,7 +235,7 @@ def delegate_request_pnl_settlement(
     timestamp: int
 ):
     """
-    Delegate Orderly Key
+    Delegate PnL Settlement
 
     Limit: 1 requests per 1 second
 
@@ -247,7 +249,7 @@ def delegate_request_pnl_settlement(
             [brokerId, "brokerId"],
             [chainId, "chainId"],
             [settleNonce, "settleNonce"],
-            [userAddress, "userAdress"],
+            [userAddress, "userAddress"],
             [timestamp, "timestamp"],
         ]
     )
