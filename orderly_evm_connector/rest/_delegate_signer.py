@@ -19,6 +19,7 @@ def delegate_signer(
             [delegateContract, "delegateContract"],
             [brokerId, "brokerId"],
             [chainId, "chainId"],
+            [timestamp, "timestamp"],
             [registrationNonce, "registrationNonce"],
             [txHash, "txHash"],
             [userAddress, "userAddress"],
@@ -88,6 +89,7 @@ def delegate_add_orderly_key(
     """
     check_required_parameters(
         [
+            [delegateContract, "delegateContract"],
             [brokerId, "brokerId"],
             [chainId, "chainId"],
             [orderlyKey, "orderlyKey"],
@@ -146,14 +148,15 @@ def delegate_add_orderly_key(
 def delegate_withdraw_request(
     self,
     delegateContract: int,
-    userAddress: str,
     brokerId: str,
     chainId: int,
     receiver: str,
     token: str,
     amount: str,
     withdrawNonce: int,
-    timestamp: int
+    timestamp: int,
+    userAddress: str,
+    verifyingContract: str,
 ):
     """
     Delegate Withdraw Request
@@ -166,6 +169,7 @@ def delegate_withdraw_request(
     """
     check_required_parameters(
         [
+            [delegateContract, "delegateContract"],
             [brokerId, "brokerId"],
             [chainId, "chainId"],
             [receiver, "receiver"],
@@ -173,7 +177,8 @@ def delegate_withdraw_request(
             [amount, "amount"],
             [withdrawNonce, "withdrawNonce"],
             [timestamp, "timestamp"],
-            [delegateContract, "delegateContract"]
+            [userAddress, "userAddress"],
+            [verifyingContract, "verifyingContract"],
         ]
     )
     _message = {
@@ -231,8 +236,9 @@ def delegate_request_pnl_settlement(
     brokerId: str,
     chainId: int,
     settleNonce: int,
+    timestamp: int,
     userAddress: str,
-    timestamp: int
+    verifyingContract: str
 ):
     """
     Delegate PnL Settlement
@@ -249,8 +255,9 @@ def delegate_request_pnl_settlement(
             [brokerId, "brokerId"],
             [chainId, "chainId"],
             [settleNonce, "settleNonce"],
-            [userAddress, "userAddress"],
             [timestamp, "timestamp"],
+            [userAddress, "userAddress"],
+            [verifyingContract, "verifyingContract"],
         ]
     )
     verifyingContract = get_withdraw_settle_verifyingcontract(self.orderly_testnet)
