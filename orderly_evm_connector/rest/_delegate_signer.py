@@ -99,7 +99,8 @@ def delegate_add_orderly_key(
             [userAddress, "userAddress"],
         ]
     )
-    _message = {
+    
+    sign_message = {
         "delegateContract": delegateContract,
         "brokerId": brokerId,
         "chainId": chainId,
@@ -108,6 +109,7 @@ def delegate_add_orderly_key(
         "timestamp": timestamp,
         "expiration": expiration,
     }
+    
     message = {
         "domain": {
             "name": "Orderly",
@@ -115,7 +117,7 @@ def delegate_add_orderly_key(
             "chainId": chainId,
             "verifyingContract": "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
         },
-        "message": _message,
+        "message": sign_message,
         "primaryType": "DelegateAddOrderlyKey",
         "types": {
             "EIP712Domain": [
@@ -136,11 +138,23 @@ def delegate_add_orderly_key(
         },
     }
     _signature = self.get_wallet_signature(message=message)
+
+    payload_message = {
+        "delegateContract": delegateContract,
+        "brokerId": brokerId,
+        "chainId": str(chainId),
+        "orderlyKey": orderlyKey,
+        "scope": scope,
+        "timestamp": timestamp,
+        "expiration": expiration,
+    }
+    if "tag" in kwargs:
+        payload_message["tag"] = kwargs["tag"]
+
     payload = {
-        "message": _message,
+        "message": payload_message,
         "signature": _signature,
         "userAddress": userAddress,
-        **kwargs,
     }
     return self._request("POST", "/v1/delegate_orderly_key", payload=payload)
 
