@@ -246,6 +246,28 @@ class Rest(API):
     from orderly_evm_connector.rest._strategy_vault import get_protocol_revenue_share_history
     from orderly_evm_connector.rest._strategy_vault import get_liquidation_fees_share_history
     from orderly_evm_connector.rest._strategy_vault import get_sv_internal_transfer_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_overall_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_user_overall_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_performance
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_performance_chart
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_positions
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_open_orders
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_trade_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_liquidator_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_performance
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_performance_chart
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_transaction_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_claim_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_fees_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_transaction_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_claim_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_fees_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_fund_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_fund_period_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_fund_pending_transactions
 
     # _delegate_signer
     from orderly_evm_connector.rest._delegate_signer import delegate_signer
@@ -279,6 +301,29 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._strategy_vault import get_protocol_revenue_share_history
     from orderly_evm_connector.rest._strategy_vault import get_liquidation_fees_share_history
     from orderly_evm_connector.rest._strategy_vault import get_sv_internal_transfer_history
+    # Public Strategy Vault APIs
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_overall_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_user_overall_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_performance
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_performance_chart
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_positions
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_open_orders
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_trade_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_liquidator_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_performance
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_performance_chart
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_transaction_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_claim_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_lp_fees_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_transaction_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_claim_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_sp_fees_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_fund_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_fund_period_info
+    from orderly_evm_connector.rest._strategy_vault import get_sv_fund_pending_transactions
 
     # account
     from orderly_evm_connector.rest._account import get_registration_nonce

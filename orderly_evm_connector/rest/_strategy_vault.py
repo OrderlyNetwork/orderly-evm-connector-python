@@ -467,3 +467,485 @@ def get_sv_internal_transfer_history(self, page: int = None, size: int = None):
         "size": size
     }
     return self._sign_request("GET", "/v1/sv/internal_transfer_history", payload=payload)
+
+
+# Vault related APIs
+def get_sv_vault_info(self, vault_id: Optional[str] = None):
+    """Get Strategy Vault Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/info
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-info
+    """
+    payload = {"vault_id": vault_id} if vault_id else {}
+    return self._request("GET", "/v1/public/strategy_vault/vault/info", payload=payload)
+
+
+def get_sv_vault_overall_info(self):
+    """Get Strategy Vault Overall Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/overall_info
+    
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-overall-info
+    """
+    return self._request("GET", "/v1/public/strategy_vault/vault/overall_info")
+
+
+def get_sv_user_overall_info(self, address: Optional[str] = None):
+    """Get Strategy Vault User Overall Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/user/overall_info
+    
+    Optional Args:
+        address(str): User address
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-user-overall-info
+    """
+    payload = {"address": address} if address else {}
+    return self._request("GET", "/v1/public/strategy_vault/user/overall_info", payload=payload)
+
+
+def get_sv_vault_performance(self, vault_id: Optional[str] = None, start_date: Optional[str] = None, end_date: Optional[str] = None):
+    """Get Strategy Vault Performance
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/performance
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        start_date(str): Start date (YYYY-MM-DD)
+        end_date(str): End date (YYYY-MM-DD)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-performance
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if start_date:
+        payload["start_date"] = start_date
+    if end_date:
+        payload["end_date"] = end_date
+    return self._request("GET", "/v1/public/strategy_vault/vault/performance", payload=payload)
+
+
+def get_sv_vault_performance_chart(self, vault_id: Optional[str] = None, start_date: Optional[str] = None, end_date: Optional[str] = None):
+    """Get Strategy Vault Performance Chart
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/performance_chart
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        start_date(str): Start date (YYYY-MM-DD)
+        end_date(str): End date (YYYY-MM-DD)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-performance-chart
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if start_date:
+        payload["start_date"] = start_date
+    if end_date:
+        payload["end_date"] = end_date
+    return self._request("GET", "/v1/public/strategy_vault/vault/performance_chart", payload=payload)
+
+
+def get_sv_vault_positions(self, vault_id: Optional[str] = None):
+    """Get Strategy Vault Positions
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/positions
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-positions
+    """
+    payload = {"vault_id": vault_id} if vault_id else {}
+    return self._request("GET", "/v1/public/strategy_vault/vault/positions", payload=payload)
+
+
+def get_sv_vault_open_orders(self, vault_id: Optional[str] = None):
+    """Get Strategy Vault Open Orders
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/open_orders
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-open-orders
+    """
+    payload = {"vault_id": vault_id} if vault_id else {}
+    return self._request("GET", "/v1/public/strategy_vault/vault/open_orders", payload=payload)
+
+
+def get_sv_vault_trade_history(self, vault_id: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault Trade History
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/trade_history
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        page(int): Page number (start from 1)
+        size(int): Page size (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-trade-history
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/vault/trade_history", payload=payload)
+
+
+def get_sv_vault_liquidator_history(self, vault_id: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault Liquidator History
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/vault/liquidator_history
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        page(int): Page number (start from 1)
+        size(int): Page size (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-liquidator-history
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/vault/liquidator_history", payload=payload)
+
+
+# LP related APIs
+def get_sv_lp_info(self, vault_id: Optional[str] = None, address: Optional[str] = None):
+    """Get Strategy Vault LP Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/lp/info
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-lp-info
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    return self._request("GET", "/v1/public/strategy_vault/lp/info", payload=payload)
+
+
+def get_sv_lp_performance(self, vault_id: Optional[str] = None, address: Optional[str] = None, start_date: Optional[str] = None, end_date: Optional[str] = None):
+    """Get Strategy Vault LP Performance
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/lp/performance
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        start_date(str): Start date (YYYY-MM-DD)
+        end_date(str): End date (YYYY-MM-DD)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-lp-performance
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    if start_date:
+        payload["start_date"] = start_date
+    if end_date:
+        payload["end_date"] = end_date
+    return self._request("GET", "/v1/public/strategy_vault/lp/performance", payload=payload)
+
+
+def get_sv_lp_performance_chart(self, vault_id: Optional[str] = None, address: Optional[str] = None, start_date: Optional[str] = None, end_date: Optional[str] = None):
+    """Get Strategy Vault LP Performance Chart
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/lp/performance_chart
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        start_date(str): Start date (YYYY-MM-DD)
+        end_date(str): End date (YYYY-MM-DD)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-lp-performance-chart
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    if start_date:
+        payload["start_date"] = start_date
+    if end_date:
+        payload["end_date"] = end_date
+    return self._request("GET", "/v1/public/strategy_vault/lp/performance_chart", payload=payload)
+
+
+def get_sv_lp_transaction_history(self, vault_id: Optional[str] = None, address: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault LP Transaction History
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/lp/transaction_history
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        page(int): Page number (start from 1)
+        size(int): Page size (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-lp-transaction-history
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/lp/transaction_history", payload=payload)
+
+
+def get_sv_lp_claim_info(self, vault_id: Optional[str] = None, address: Optional[str] = None):
+    """Get Strategy Vault LP Claim Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/lp/claim_info
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-lp-claim-info
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    return self._request("GET", "/v1/public/strategy_vault/lp/claim_info", payload=payload)
+
+
+def get_sv_lp_fees_history(self, vault_id: Optional[str] = None, address: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault LP Fees History
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/lp/fees_history
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        page(int): Page number (start from 1)
+        size(int): Page size (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-lp-fees-history
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/lp/fees_history", payload=payload)
+
+
+# SP related APIs
+def get_sv_sp_info(self, vault_id: Optional[str] = None, address: Optional[str] = None):
+    """Get Strategy Vault SP Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/sp/info
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-sp-info
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    return self._request("GET", "/v1/public/strategy_vault/sp/info", payload=payload)
+
+
+def get_sv_sp_transaction_history(self, vault_id: Optional[str] = None, address: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault SP Transaction History
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/sp/transaction_history
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        page(int): Page number (start from 1)
+        size(int): Page size (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-sp-transaction-history
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/sp/transaction_history", payload=payload)
+
+
+def get_sv_sp_claim_info(self, vault_id: Optional[str] = None, address: Optional[str] = None):
+    """Get Strategy Vault SP Claim Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/sp/claim_info
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-sp-claim-info
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    return self._request("GET", "/v1/public/strategy_vault/sp/claim_info", payload=payload)
+
+
+def get_sv_sp_fees_history(self, vault_id: Optional[str] = None, address: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault SP Fees History
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/sp/fees_history
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        address(str): User address
+        page(int): Page number (start from 1)
+        size(int): Page size (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-sp-fees-history
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if address:
+        payload["address"] = address
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/sp/fees_history", payload=payload)
+
+
+def get_sv_fund_info(self, vault_id: Optional[str] = None):
+    """Get Strategy Vault Fund Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/fund/info
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-fund-info
+    """
+    payload = {"vault_id": vault_id} if vault_id else {}
+    return self._request("GET", "/v1/public/strategy_vault/fund/info", payload=payload)
+
+
+def get_sv_fund_period_info(self, vault_id: Optional[str] = None, period_number: Optional[int] = None):
+    """Get Strategy Vault Fund Period Info
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/fund/period_info
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        period_number(int): Period number
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-fund-period-info
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if period_number:
+        payload["period_number"] = period_number
+    return self._request("GET", "/v1/public/strategy_vault/fund/period_info", payload=payload)
+
+
+def get_sv_fund_pending_transactions(self, vault_id: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault Fund Pending Transactions
+    
+    Limit: 10 requests per 1 second per IP address
+    
+    GET /v1/public/strategy_vault/fund/pending_transactions
+    
+    Optional Args:
+        vault_id(str): Vault ID
+        page(int): Page number (start from 1)
+        size(int): Page size (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-fund-pending-transactions
+    """
+    payload = {}
+    if vault_id:
+        payload["vault_id"] = vault_id
+    if page:
+        payload["page"] = page
+    if size:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/fund/pending_transactions", payload=payload)
