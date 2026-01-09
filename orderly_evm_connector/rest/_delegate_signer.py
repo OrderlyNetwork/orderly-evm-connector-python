@@ -3,7 +3,8 @@ from orderly_evm_connector.lib.utils import get_withdraw_settle_verifyingcontrac
 
 
 def delegate_signer(
-    self, delegateContract: str, brokerId: str, chainId: int, registrationNonce: int, txHash: str, timestamp: int, userAddress: str
+    self, delegateContract: str, brokerId: str, chainId: int, registrationNonce: int, txHash: str, timestamp: int,
+        userAddress: str
 ):
     """
     Delegate Signer
@@ -75,8 +76,7 @@ def delegate_add_orderly_key(
     scope: str,
     timestamp: int,
     expiration: int,
-    userAddress: str,
-    **kwargs
+    userAddress: str
 ):
     """
     Delegate Orderly Key
@@ -148,8 +148,6 @@ def delegate_add_orderly_key(
         "timestamp": timestamp,
         "expiration": expiration,
     }
-    if "tag" in kwargs:
-        payload_message["tag"] = kwargs["tag"]
 
     payload = {
         "message": payload_message,
