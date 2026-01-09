@@ -234,6 +234,64 @@ def get_valor_redeem_info(self, address: str):
     return self._request("GET", "/v1/staking/valor/redeem", payload=payload)
 
 
+def get_valor2_pool_info(self):
+    """
+    Get Valor2 Pool Info
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/staking/valor2/pool_info
+
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/get-valor2-pool-info
+    """
+    return self._request("GET", "/v1/staking/valor2/pool_info")
+
+
+def get_valor2_batch_info(self):
+    """
+    Get Valor2 Batch Info
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/staking/valor2/batch_info
+
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/get-valor2-batch-info
+    """
+    return self._request("GET", "/v1/staking/valor2/batch_info")
+
+
+def get_valor2_redeem_info(self, address: str):
+    """
+    Get Valor2 Redeem Info
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/staking/valor2/redeem
+
+    The redeemed VALOR amount may come from multiple batches
+
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/private/get-valor2-redeem-info
+    """
+    check_required_parameters([[address, "address"]])
+    payload = {"address": address}
+    return self._sign_request("GET", "/v1/staking/valor2/redeem", payload=payload)
+
+
+def get_valor2_revenue_buyback(self):
+    """
+    Get Valor2 Revenue Buyback
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/staking/valor2/revenue_buyback
+
+    Order by batch_id. Display the amount after the batch is claimable.
+
+    https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/public/get-valor2-revenue-buyback
+    """
+    return self._request("GET", "/v1/staking/valor2/revenue_buyback")
+
+
 def get_market_making_rewards_leaderboard(self, epoch: int, market: str = None):
     """Leaderboard for market maker rewards
     
