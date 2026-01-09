@@ -142,7 +142,7 @@ def delegate_add_orderly_key(
     payload_message = {
         "delegateContract": delegateContract,
         "brokerId": brokerId,
-        "chainId": str(chainId),
+        "chainId": chainId,
         "orderlyKey": orderlyKey,
         "scope": scope,
         "timestamp": timestamp,
