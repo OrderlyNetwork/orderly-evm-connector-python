@@ -50,12 +50,12 @@ def delegate_signer(
                 { "name": "verifyingContract", "type": "address" },
             ],
             "DelegateSigner": [
-                { "name": "delegateContract", type: "address" },
-                { "name": "brokerId", type: "string" },
-                { "name": "chainId", type: "uint256" },
-                { "name": "timestamp", type: "uint64" },
-                { "name": "registrationNonce", type: "uint256" },
-                { "name": "txHash", type: "string" },
+                { "name": "delegateContract", "type": "address" },
+                { "name": "brokerId", "type": "string" },
+                { "name": "chainId", "type": "uint256" },
+                { "name": "timestamp", "type": "uint64" },
+                { "name": "registrationNonce", "type": "uint256" },
+                { "name": "txHash", "type": "string" },
             ]
         },
     }
