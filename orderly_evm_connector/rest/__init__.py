@@ -239,6 +239,12 @@ class Rest(API):
     from orderly_evm_connector.rest._strategy_vault import get_liquidation_fees_share_history
     from orderly_evm_connector.rest._strategy_vault import get_sv_internal_transfer_history
 
+    # _delegate_signer
+    from orderly_evm_connector.rest._delegate_signer import delegate_signer
+    from orderly_evm_connector.rest._delegate_signer import delegate_add_orderly_key
+    from orderly_evm_connector.rest._delegate_signer import delegate_withdraw_request
+    from orderly_evm_connector.rest._delegate_signer import delegate_request_pnl_settlement
+
 class RestAsync(AsyncAPI):
     def __init__(
         self,
@@ -454,3 +460,9 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._rewards import get_valor_batch_info
     from orderly_evm_connector.rest._rewards import get_valor_pool_info
     from orderly_evm_connector.rest._rewards import get_valor_redeem_info
+
+    # _delegate_signer
+    from orderly_evm_connector.rest._delegate_signer import delegate_signer
+    from orderly_evm_connector.rest._delegate_signer import delegate_add_orderly_key
+    from orderly_evm_connector.rest._delegate_signer import delegate_withdraw_request
+    from orderly_evm_connector.rest._delegate_signer import delegate_request_pnl_settlement
