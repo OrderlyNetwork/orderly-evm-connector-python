@@ -20,12 +20,16 @@ class API(object):
         orderly_account_id=None,
         proxies=None,
         timeout=None,
-        debug=False
+        debug=False,
+        orderly_api_url=None
     ):
         self.orderly_key = orderly_key
         self.orderly_secret = orderly_secret
         self.wallet_secret = wallet_secret
-        self.orderly_endpoint, _, _ = get_endpoints(orderly_testnet)
+        if orderly_api_url:
+            self.orderly_endpoint = orderly_api_url
+        else:
+            self.orderly_endpoint, _, _ = get_endpoints(orderly_testnet)
         self.orderly_account_id = orderly_account_id
         self.timeout = timeout
         self.show_header = False

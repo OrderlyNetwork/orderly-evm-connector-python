@@ -18,7 +18,8 @@ class AsyncAPI(API):
         orderly_account_id=None,
         proxies=None,
         timeout=None,
-        debug=False
+        debug=False,
+        orderly_api_url=None
     ):
         super().__init__(
             orderly_key=orderly_key,
@@ -28,7 +29,8 @@ class AsyncAPI(API):
             orderly_account_id=orderly_account_id,
             proxies=proxies,
             timeout=timeout,
-            debug=debug
+            debug=debug,
+            orderly_api_url=orderly_api_url
         )
         self.headers = {
             "Content-Type": "application/json;charset=utf-8",
