@@ -986,6 +986,42 @@ def get_sv_sp_transaction_history(
         payload["size"] = size
     return self._request("GET", "/v1/public/strategy_vault/sp/transaction_history", payload=payload)
 
+def get_sv_vault_order_history(self, vault_id: str, symbol: Optional[str] = None, sort_by: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None):
+    """Get Strategy Vault Order History
+    
+    Include both normal & algo orders
+    
+    Limit: 10 requests per second per IP address
+    
+    GET /v1/public/strategy_vault/vault/order_history
+    
+    Args:
+        vault_id(str): Vault ID (required)
+        
+    Optional Args:
+        symbol(str): one symbol at a time
+        sort_by(str): `ascending` / `descending` (default) on updated_time
+        page(int): The page you wish to query (start from 1)
+        size(int): The page size you wish to query (max: 500)
+        
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-strategy-vault-vault-order-history
+    """
+    check_required_parameters([
+        [vault_id, "vault_id"]
+    ])
+    payload = {
+        "vault_id": vault_id
+    }
+    if symbol is not None:
+        payload["symbol"] = symbol
+    if sort_by is not None:
+        payload["sort_by"] = sort_by
+    if page is not None:
+        payload["page"] = page
+    if size is not None:
+        payload["size"] = size
+    return self._request("GET", "/v1/public/strategy_vault/vault/order_history", payload=payload)
+
 
 def get_sv_sp_claim_info(self, vault_id: str, wallet_address: str, chain_id: str):
     """Get Strategy Provider Claimable Amount

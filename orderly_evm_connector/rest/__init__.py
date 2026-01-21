@@ -245,6 +245,7 @@ class Rest(API):
     from orderly_evm_connector.rest._strategy_vault import get_venue_withdrawal_history
     from orderly_evm_connector.rest._strategy_vault import get_protocol_revenue_share_history
     from orderly_evm_connector.rest._strategy_vault import get_liquidation_fees_share_history
+    from orderly_evm_connector.rest._strategy_vault import get_sv_vault_order_history
     from orderly_evm_connector.rest._strategy_vault import get_sv_internal_transfer_history
     from orderly_evm_connector.rest._strategy_vault import get_sv_vault_info
     from orderly_evm_connector.rest._strategy_vault import get_sv_vault_overall_info
