@@ -326,7 +326,7 @@ def cancel_order(self, order_id: int, symbol: str, **kwargs):
     payload = {"order_id": order_id, "symbol": symbol}
     return self._sign_request("DELETE", "/v1/order", payload=payload)
 
-def cancel_algo_order_by_client_order_id(self, client_order_id: int, symbol: str):
+def cancel_algo_order_by_client_order_id(self, client_order_id: str, symbol: str):
     """[Private] Cancel Algo Order By client_order_id
 
     Limit: 10 requests per 1 second
@@ -340,7 +340,7 @@ def cancel_algo_order_by_client_order_id(self, client_order_id: int, symbol: str
         client_order_id(string): client_order_id of the algo order
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/cancel-algo-order-by-client_order_id
-        """
+    """
     check_required_parameters(
         [[client_order_id, "client_order_id"], [symbol, "symbol"]]
     )
@@ -352,7 +352,7 @@ def cancel_algo_order_by_client_order_id(self, client_order_id: int, symbol: str
     return self._sign_request("DELETE", f"/v1/algo/client/order?client_order_id={client_order_id}&symbol={symbol}")
 
 
-def cancel_order_by_client_order_id(self, client_order_id: int, symbol: str):
+def cancel_order_by_client_order_id(self, client_order_id: str, symbol: str):
     """[Private] Cancel order by client_order_id
 
     Limit: 10 requests per 1 second
