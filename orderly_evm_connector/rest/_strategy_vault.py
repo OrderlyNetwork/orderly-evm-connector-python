@@ -134,18 +134,18 @@ def add_sp_orderly_key(
     timestamp: int,
     expiration: int,
     userAddress: str,
-    subAccountId: str,
-    contract: str = None,
+    contract: str,
+    subAccountId: str = None,
     **kwargs
 ):
     """Add SP Orderly Key
-    
+
     Limit: 10 requests per second per IP address
-    
+
     POST /v1/sv/sp_orderly_key
-    
+
     Adds an Orderly access key to a SP account
-    
+
     Args:
         brokerId(string): Broker ID
         chainId(int): Chain ID
@@ -154,11 +154,11 @@ def add_sp_orderly_key(
         timestamp(int): Timestamp in UNIX milliseconds
         expiration(int): Expiration timestamp
         userAddress(string): User address
-        subAccountId(string): Create the api key for the input subAccountId
-        
-    Optional Args:
         contract(string): Contract address
-        
+
+    Optional Args:
+        subAccountId(string): If not null, create the api key for the input subAccountId
+
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/add-sp-orderly-key
     """
     from orderly_evm_connector.lib.utils import check_required_parameters, get_timestamp
@@ -169,9 +169,9 @@ def add_sp_orderly_key(
         [scope, "scope"],
         [expiration, "expiration"],
         [userAddress, "userAddress"],
-        [subAccountId, "subAccountId"]
+        [contract, "contract"]
     ])
-    
+
     _message = {
         "brokerId": brokerId,
         "chainId": chainId,
@@ -179,17 +179,17 @@ def add_sp_orderly_key(
         "scope": scope,
         "timestamp": int(get_timestamp()) if not timestamp else timestamp,
         "expiration": expiration,
-        "subAccountId": subAccountId
+        "contract": contract
     }
-    if contract:
-        _message["contract"] = contract
-    
+    if subAccountId:
+        _message["subAccountId"] = subAccountId
+
     message = {
         "domain": {
             "name": "Orderly",
             "version": "1",
             "chainId": chainId,
-            "verifyingContract": contract or "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+            "verifyingContract": contract,
         },
         "message": _message,
         "primaryType": "AddSPOrderlyKey",
@@ -207,13 +207,13 @@ def add_sp_orderly_key(
                 {"name": "scope", "type": "string"},
                 {"name": "timestamp", "type": "uint64"},
                 {"name": "expiration", "type": "uint64"},
-                {"name": "subAccountId", "type": "string"},
+                {"name": "contract", "type": "string"},
             ],
         },
     }
-    if contract:
-        message["types"]["AddSPOrderlyKey"].append({"name": "contract", "type": "string"})
-    
+    if subAccountId:
+        message["types"]["AddSPOrderlyKey"].append({"name": "subAccountId", "type": "string"})
+
     _signature = self.get_wallet_signature(message=message)
     payload = {
         "message": _message,
