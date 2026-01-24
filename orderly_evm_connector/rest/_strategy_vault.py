@@ -1,6 +1,6 @@
 from typing import Optional
 from orderly_evm_connector.lib.enums import SVPayloadType
-from orderly_evm_connector.lib.utils import check_required_parameters, generate_signature
+from orderly_evm_connector.lib.utils import check_required_parameters
 
 def get_strategy_vault_nonce(self):
     """
@@ -310,57 +310,24 @@ def request_sp_settle_pnl(
     return self._sign_request("POST", "/v1/sv/sp_settle_pnl", payload=payload)
 
 
-def trigger_manual_period_delivery(self, account_id: str, orderly_key: str, plan_id: str):
+def trigger_manual_period_delivery(self, plan_id: str):
     """Trigger Manual Period Delivery
-    
+
     Limit: 1 request per second per account
-    
+
     POST /v1/sv/manual_period_delivery
-    
+
     Args:
-        account_id(string): Account ID
-        orderly_key(string): Orderly key
         plan_id(string): Plan ID
-        
-    Note: This endpoint requires special authentication with account_id, orderly_key, and orderly_signature in query parameters.
-    The signature should be generated for the request.
-        
+
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/trigger-manual-period-delivery
     """
-    import json
     check_required_parameters([
-        [account_id, "account_id"],
-        [orderly_key, "orderly_key"],
         [plan_id, "plan_id"]
     ])
-    
+
     payload = {"plan_id": plan_id}
-    # Build URL with query parameters
-    url_path = f"/v1/sv/manual_period_delivery?account_id={account_id}&orderly_key={orderly_key}"
-    
-    # Prepare params for signature generation
-    _payload = json.dumps(payload) if payload else ""
-    query_string = f"POST{url_path}{_payload}"
-    
-    try:
-        _timestamp, _signature = generate_signature(
-            self.orderly_secret, message=query_string
-        )
-    except ValueError:
-        _timestamp, _signature = "mock_timestamp", "mock_signature"
-    
-    # Add signature to URL
-    url_path += f"&orderly_signature={_signature}"
-    
-    # Update headers
-    self.session.headers.update({
-        "orderly-timestamp": _timestamp,
-        "orderly-account-id": account_id,
-        "orderly-key": orderly_key,
-        "orderly-signature": _signature,
-    })
-    
-    return self.send_request("POST", url_path, payload=payload)
+    return self._sign_request("POST", "/v1/sv/manual_period_delivery", payload=payload)
 
 
 def get_venue_transfer_history(self, period_number: int = None, page: int = None, size: int = None):
