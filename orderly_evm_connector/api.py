@@ -26,6 +26,7 @@ class API(object):
         self.orderly_key = orderly_key
         self.orderly_secret = orderly_secret
         self.wallet_secret = wallet_secret
+        self.orderly_testnet = orderly_testnet
         if orderly_api_url:
             self.orderly_endpoint = orderly_api_url
         else:

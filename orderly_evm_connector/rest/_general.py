@@ -15,32 +15,54 @@ def get_system_maintenance_status(self):
     return self._request("GET", "/v1/public/system_info")
 
 
-def get_faucet_usdc(self, chain_id: str, user_address: str):
+def get_faucet_usdc(self, broker_id: str, user_address: str, chain_id: str):
     """[Public] Get faucet USDC(Testnet only)
 
-    Receive 1,000 USDC in the Testnet environment. Each account may only use the faucet a maximum of 5 times.
+    Receive 1,000 USDC in the EVM Testnet environment or 100 USDC in the Solana Testnet environment.
+    Each account may only use the faucet a maximum of 5 times.
 
-    POST https://testnet-operator-evm.orderly.org/v1/faucet/usdc
+    For EVM: POST https://testnet-operator-evm.orderly.org/v1/faucet/usdc
+    For Solana (chain_id=901901901): POST https://testnet-operator-sol.orderly.org/v1/faucet/usdc
 
     Args:
-    chain_id(string): The chain ID that the test USDC should be deposited to
-    user_address(string): The address of the user account
+        broker_id(string): Builder ID of an account (required)
+        user_address(string): The address of the user account (required)
+        chain_id(string): The chain ID. Use 901901901 for Solana.
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-faucet-usdctestnet-only
     """
+    # Check if running on testnet
+    if not getattr(self, 'orderly_testnet', False):
+        raise ValueError("Faucet is only available on Testnet. Please configure orderly_testnet=True to use this feature.")
 
-    check_required_parameters([[chain_id, "chain_id"], [user_address, "user_address"]])
+    check_required_parameters([[broker_id, "broker_id"], [user_address, "user_address"], [chain_id, "chain_id"]])
 
-    self.orderly_endpoint = "https://testnet-operator-evm.orderly.org"
+    # Save original endpoint to restore after request
+    original_endpoint = self.orderly_endpoint
+
+    # Determine endpoint based on chain_id (901901901 = Solana)
+    if str(chain_id) == "901901901":
+        self.orderly_endpoint = "https://testnet-operator-sol.orderly.org"
+    else:
+        self.orderly_endpoint = "https://testnet-operator-evm.orderly.org"
+
     payload = {
-        "broker_id": "woo-dex",
-        "chain_id": chain_id,
+        "broker_id": broker_id,
         "user_address": user_address,
+        "chain_id": chain_id,
     }
+
     self.logger.info(
-        f"Receive 1,000 USDC in the Testnet environment. {self.orderly_endpoint} {payload}"
+        f"Receive USDC in the Testnet environment. {self.orderly_endpoint} {payload}"
     )
-    return self._request("POST", "/v1/faucet/usdc", payload=payload)
+
+    try:
+        result = self._request("POST", "/v1/faucet/usdc", payload=payload)
+    finally:
+        # Restore original endpoint
+        self.orderly_endpoint = original_endpoint
+
+    return result
 
 
 def get_exchange_info(self, symbol: str):
