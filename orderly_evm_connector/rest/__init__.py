@@ -233,7 +233,19 @@ class Rest(API):
     from orderly_evm_connector.rest._rewards import get_trading_rewards_symbol_category
     from orderly_evm_connector.rest._rewards import get_esorder_vesting_list
     from orderly_evm_connector.rest._rewards import get_esorder_vesting_list
-    
+
+    # admin
+    from orderly_evm_connector.rest._admin import get_admin_client_info
+    from orderly_evm_connector.rest._admin import get_admin_client_holding
+    from orderly_evm_connector.rest._admin import get_admin_internal_transfer_history
+    from orderly_evm_connector.rest._admin import get_admin_asset_history
+    from orderly_evm_connector.rest._admin import get_admin_client_leverage
+    from orderly_evm_connector.rest._admin import get_admin_orders
+    from orderly_evm_connector.rest._admin import get_admin_position
+    from orderly_evm_connector.rest._admin import get_admin_positions
+    from orderly_evm_connector.rest._admin import get_admin_funding_fee_history
+    from orderly_evm_connector.rest._admin import get_admin_volume_user_stats
+
     # strategy vault
     from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
     from orderly_evm_connector.rest._strategy_vault import get_strategy_vault_nonce
@@ -496,6 +508,18 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._referral import edit_referral_split
     from orderly_evm_connector.rest._referral import create_referral_code
     from orderly_evm_connector.rest._referral import update_referral_code
+
+    # admin
+    from orderly_evm_connector.rest._admin import get_admin_client_info
+    from orderly_evm_connector.rest._admin import get_admin_client_holding
+    from orderly_evm_connector.rest._admin import get_admin_internal_transfer_history
+    from orderly_evm_connector.rest._admin import get_admin_asset_history
+    from orderly_evm_connector.rest._admin import get_admin_client_leverage
+    from orderly_evm_connector.rest._admin import get_admin_orders
+    from orderly_evm_connector.rest._admin import get_admin_position
+    from orderly_evm_connector.rest._admin import get_admin_positions
+    from orderly_evm_connector.rest._admin import get_admin_funding_fee_history
+    from orderly_evm_connector.rest._admin import get_admin_volume_user_stats
 
     # rewards
     from orderly_evm_connector.rest._rewards import get_parameters_of_each_epoch
