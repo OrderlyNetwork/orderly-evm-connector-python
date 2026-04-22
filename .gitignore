@@ -4,3 +4,6 @@
 dist
 config_local.ini
 .ruff_cache
+orderly.openapi.yaml
+sv.openapi.yaml
+.claude/settings.local.json

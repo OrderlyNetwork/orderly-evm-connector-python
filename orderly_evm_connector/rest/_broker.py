@@ -172,6 +172,123 @@ def get_broker_stats(self, broker_id: str = None):
     return self._request("GET", "/v1/public/broker/stats", payload=payload)
 
 
+def get_broker_info(self):
+    """Get broker info
+
+    Limit: 10 requests per 60 seconds
+
+    GET /v1/broker/broker_info
+
+    Get broker tiered fee daily log information including staking balance,
+    trading volume, and fee rates.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-broker-info
+    """
+    return self._sign_request("GET", "/v1/broker/broker_info")
+
+
+def get_broker_order_enums(self):
+    """List all order enums for broker
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/broker/order_enums
+
+    List all order enums for the broker with usage stats.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/list-order-enums
+    """
+    return self._sign_request("GET", "/v1/broker/order_enums")
+
+
+def get_broker_order_enum(self, enum_id: str):
+    """Get single order enum with stats
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/broker/order_enum/{enum_id}
+
+    Get a single order enum with usage stats.
+
+    Args:
+        enum_id(string): Enum ID
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-order-enum
+    """
+    check_required_parameters([[enum_id, "enum_id"]])
+    return self._sign_request("GET", f"/v1/broker/order_enum/{enum_id}")
+
+
+def create_broker_order_enum(self, **kwargs):
+    """Create order enum
+
+    Limit: 1 request per second
+
+    POST /v1/broker/order_enum
+
+    Create a new order enum.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-order-enum
+    """
+    payload = {**kwargs}
+    return self._sign_request("POST", "/v1/broker/order_enum", payload=payload)
+
+
+def update_broker_order_enum(self, enum_id: str, **kwargs):
+    """Update order enum
+
+    Limit: 1 request per second
+
+    PUT /v1/broker/order_enum/{enum_id}
+
+    Update an order enum. Cannot change enum_id.
+
+    Args:
+        enum_id(string): Enum ID
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-order-enum
+    """
+    check_required_parameters([[enum_id, "enum_id"]])
+    payload = {**kwargs}
+    return self._sign_request("PUT", f"/v1/broker/order_enum/{enum_id}", payload=payload)
+
+
+def archive_broker_order_enum(self, enum_id: str):
+    """Archive an order enum
+
+    Limit: 1 request per second
+
+    POST /v1/broker/order_enum/{enum_id}/archive
+
+    Archive an order enum.
+
+    Args:
+        enum_id(string): Enum ID
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/archive-order-enum
+    """
+    check_required_parameters([[enum_id, "enum_id"]])
+    return self._sign_request("POST", f"/v1/broker/order_enum/{enum_id}/archive")
+
+
+def unarchive_broker_order_enum(self, enum_id: str):
+    """Unarchive an order enum
+
+    Limit: 1 request per second
+
+    POST /v1/broker/order_enum/{enum_id}/unarchive
+
+    Unarchive an order enum.
+
+    Args:
+        enum_id(string): Enum ID
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/unarchive-order-enum
+    """
+    check_required_parameters([[enum_id, "enum_id"]])
+    return self._sign_request("POST", f"/v1/broker/order_enum/{enum_id}/unarchive")
+
+
 def get_broker_leaderboard_daily(self, start_date: str, end_date: str, page: int = None, size: int = None, order_tag: str = None):
     """Get Builder's Leaderboard
     

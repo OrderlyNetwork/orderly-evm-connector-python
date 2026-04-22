@@ -328,6 +328,200 @@ def get_admin_funding_fee_history(
     )
 
 
+def get_admin_algo_orders(
+    self,
+    user_account: str = None,
+    user_address: str = None,
+    symbol: str = None,
+    side: str = None,
+    order_type: str = None,
+    status: str = None,
+    order_tag: str = None,
+    start_t: float = None,
+    end_t: float = None,
+    page: int = None,
+    size: int = None,
+    algo_type: str = None,
+    is_triggered: str = None,
+):
+    """[Admin] Get Algo Orders
+
+    Limit: 5 requests per 1 second
+
+    GET /v1/admin/algo/orders
+
+    Get algo order details by customized filters for admin usage.
+    Either user_account or user_address is required.
+
+    Optional Args:
+        user_account(string): Target user account to query for admin usage.
+        user_address(string): Target user address to query for admin usage.
+        symbol(string): Symbol filter.
+        side(string): BUY/SELL.
+        order_type(string): LIMIT/MARKET.
+        status(string): NEW/CANCELLED/PARTIAL_FILLED/FILLED/REJECTED/INCOMPLETE/COMPLETED.
+        order_tag(string): Order tag filter.
+        start_t(number): Start time (13-digit timestamp).
+        end_t(number): End time (13-digit timestamp).
+        page(number): Page number (start from 1).
+        size(number): Page size (max: 500).
+        algo_type(string): STOP/TPSL/positional_TPSL.
+        is_triggered(string): Filter by triggered status.
+    """
+    payload = {
+        "user_account": user_account,
+        "user_address": user_address,
+        "symbol": symbol,
+        "side": side,
+        "order_type": order_type,
+        "status": status,
+        "order_tag": order_tag,
+        "start_t": start_t,
+        "end_t": end_t,
+        "page": page,
+        "size": size,
+        "algo_type": algo_type,
+        "is_triggered": is_triggered,
+    }
+    return self._sign_request("GET", "/v1/admin/algo/orders", payload=payload)
+
+
+def get_admin_trades(
+    self,
+    user_account: str = None,
+    user_address: str = None,
+    symbol: str = None,
+    start_t: float = None,
+    end_t: float = None,
+    page: int = None,
+    size: int = None,
+):
+    """[Admin] Get Trades
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/admin/trades
+
+    Return client's trades history within a time range for admin usage.
+    Only returns the latest 500 entries.
+    Either user_account or user_address is required.
+
+    Optional Args:
+        user_account(string): Target user account to query for admin usage.
+        user_address(string): Target user address to query for admin usage.
+        symbol(string): Symbol filter.
+        start_t(number): Start time (13-digit timestamp).
+        end_t(number): End time (13-digit timestamp).
+        page(number): Page number (start from 1).
+        size(number): Page size (max: 500).
+    """
+    payload = {
+        "user_account": user_account,
+        "user_address": user_address,
+        "symbol": symbol,
+        "start_t": start_t,
+        "end_t": end_t,
+        "page": page,
+        "size": size,
+    }
+    return self._sign_request("GET", "/v1/admin/trades", payload=payload)
+
+
+def get_admin_liquidations(
+    self,
+    user_account: str = None,
+    user_address: str = None,
+    symbol: str = None,
+    start_t: float = None,
+    end_t: float = None,
+    page: int = None,
+    size: int = None,
+    sort_by: str = None,
+    liquidation_id: int = None,
+):
+    """[Admin] Get Liquidated Positions
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/admin/liquidations
+
+    Get liquidated positions for admin usage.
+    Either user_account or user_address is required.
+
+    Optional Args:
+        user_account(string): Target user account to query for admin usage.
+        user_address(string): Target user address to query for admin usage.
+        symbol(string): Symbol filter.
+        start_t(number): Start time (13-digit timestamp).
+        end_t(number): End time (13-digit timestamp).
+        page(number): Page number (start from 1).
+        size(number): Page size.
+        sort_by(string): liquidation_id or time.
+        liquidation_id(number): Return the designated liquidation_id only.
+    """
+    payload = {
+        "user_account": user_account,
+        "user_address": user_address,
+        "symbol": symbol,
+        "start_t": start_t,
+        "end_t": end_t,
+        "page": page,
+        "size": size,
+        "sort_by": sort_by,
+        "liquidation_id": liquidation_id,
+    }
+    return self._sign_request("GET", "/v1/admin/liquidations", payload=payload)
+
+
+def get_admin_points_stage(self, stage_id: int = None):
+    """[Admin] Get stage parameters
+
+    Limit: 10 requests per 1 second per user per IP address
+
+    GET /v1/admin/points/stage
+
+    Get a specific stage (series of epochs). Only callable by Broker Admin.
+
+    Optional Args:
+        stage_id(number): Filter by specific Stage. Returns all if omitted.
+    """
+    payload = {"stage_id": stage_id}
+    return self._sign_request("GET", "/v1/admin/points/stage", payload=payload)
+
+
+def create_admin_points_stage(self, **kwargs):
+    """[Admin] Create/update stage parameters
+
+    Limit: 10 requests per 1 second per user per IP address
+
+    POST /v1/admin/points/stage
+
+    Create a new stage (series of epochs). Only callable by Broker Admin.
+    Make sure there is only 1 active stage at any time.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-stage
+    """
+    payload = {**kwargs}
+    return self._sign_request("POST", "/v1/admin/points/stage", payload=payload)
+
+
+def delete_admin_points_stage(self, stage_id: int):
+    """[Admin] Delete stage
+
+    Limit: 10 requests per 1 second per user per IP address
+
+    DELETE /v1/admin/points/stage
+
+    Delete a specific stage. Only callable by Broker Admin.
+
+    Args:
+        stage_id(number): Stage ID to delete.
+    """
+    check_required_parameters([[stage_id, "stage_id"]])
+    payload = {"stage_id": stage_id}
+    return self._sign_request("DELETE", "/v1/admin/points/stage", payload=payload)
+
+
 def get_admin_volume_user_stats(
     self,
     user_account: str = None,

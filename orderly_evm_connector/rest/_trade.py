@@ -785,6 +785,56 @@ def get_algo_order_trades(self, order_id: int):
     return self._sign_request("GET", f"/v1/algo/order/{order_id}/trades")
 
 
+def get_account_info(self):
+    """[Private] Get account overview info
+
+    Limit: 10 requests per 1 second per user
+
+    GET /v1/account_info
+
+    Returns account-level collateral, margin, and PnL overview metrics.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-account-info
+    """
+    return self._sign_request("GET", "/v1/account_info")
+
+
+def get_positions_lite(self):
+    """[Private] Get lite positions info
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/positions_lite
+
+    Get lightweight positions information.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-positions-lite
+    """
+    return self._sign_request("GET", "/v1/positions_lite")
+
+
+def adjust_position_margin(self, symbol: str, amount: str, type: str):
+    """[Private] Add or reduce position margin
+
+    Limit: 10 requests per 1 second per user
+
+    POST /v1/position_margin
+
+    Add or reduce margin for an existing isolated margin position.
+    Prerequisites: You must have an open isolated position on the specified symbol.
+
+    Args:
+        symbol(string): Symbol of the isolated position (e.g., "PERP_ETH_USDC")
+        amount(string): Amount of margin to add or reduce
+        type(enum): ADD or REDUCE
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/adjust-position-margin
+    """
+    check_required_parameters([[symbol, "symbol"], [amount, "amount"], [type, "type"]])
+    payload = {"symbol": symbol, "amount": amount, "type": type}
+    return self._sign_request("POST", "/v1/position_margin", payload=payload)
+
+
 def cancel_all_after(self, trigger_after: int):
     """[Private] Cancel All After
 

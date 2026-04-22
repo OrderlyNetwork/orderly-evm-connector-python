@@ -44,6 +44,13 @@ class Rest(API):
     from orderly_evm_connector.rest._account import update_sub_account
     from orderly_evm_connector.rest._account import get_aggregate_holding
     from orderly_evm_connector.rest._account import get_aggregate_positions
+    from orderly_evm_connector.rest._account import get_asset_receiver_address
+    from orderly_evm_connector.rest._account import get_asset_receiver_events
+    from orderly_evm_connector.rest._account import get_all_leverages
+    from orderly_evm_connector.rest._account import update_leverages
+    from orderly_evm_connector.rest._account import get_margin_modes
+    from orderly_evm_connector.rest._account import update_margin_mode
+    from orderly_evm_connector.rest._account import get_client_points_user_statistics
 
     # broker
     from orderly_evm_connector.rest._broker import get_list_of_brokers
@@ -56,6 +63,13 @@ class Rest(API):
     from orderly_evm_connector.rest._broker import get_tvl_by_broker
     from orderly_evm_connector.rest._broker import get_broker_stats
     from orderly_evm_connector.rest._broker import get_broker_leaderboard_daily
+    from orderly_evm_connector.rest._broker import get_broker_info
+    from orderly_evm_connector.rest._broker import get_broker_order_enums
+    from orderly_evm_connector.rest._broker import get_broker_order_enum
+    from orderly_evm_connector.rest._broker import create_broker_order_enum
+    from orderly_evm_connector.rest._broker import update_broker_order_enum
+    from orderly_evm_connector.rest._broker import archive_broker_order_enum
+    from orderly_evm_connector.rest._broker import unarchive_broker_order_enum
 
     # general
     from orderly_evm_connector.rest._general import get_system_maintenance_status
@@ -110,6 +124,11 @@ class Rest(API):
     from orderly_evm_connector.rest._market import get_market_info_price_changes
     from orderly_evm_connector.rest._market import get_market_info_traders_open_interests
     from orderly_evm_connector.rest._market import get_kline_history
+    from orderly_evm_connector.rest._market import get_symbol_info
+    from orderly_evm_connector.rest._market import get_public_broker_order_enums
+    from orderly_evm_connector.rest._market import get_public_broker_order_enum
+    from orderly_evm_connector.rest._market import get_public_points_stages
+    from orderly_evm_connector.rest._market import get_public_points_rankings
 
     # notifications
     from orderly_evm_connector.rest._notifications import get_all_notifications
@@ -158,6 +177,9 @@ class Rest(API):
     from orderly_evm_connector.rest._trade import get_one_position_info
     from orderly_evm_connector.rest._trade import get_funding_fee_history
     from orderly_evm_connector.rest._trade import cancel_all_after
+    from orderly_evm_connector.rest._trade import get_account_info
+    from orderly_evm_connector.rest._trade import get_positions_lite
+    from orderly_evm_connector.rest._trade import adjust_position_margin
 
     # wallet
     from orderly_evm_connector.rest._wallet import get_asset_history
@@ -201,6 +223,22 @@ class Rest(API):
     from orderly_evm_connector.rest._referral import update_auto_referral
     from orderly_evm_connector.rest._referral import edit_referral_code
     from orderly_evm_connector.rest._referral import get_referee_rebate_summary
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_config
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_info
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_summary
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_statistics
+    from orderly_evm_connector.rest._referral import get_multi_level_max_rebate_rate
+    from orderly_evm_connector.rest._referral import get_multi_level_rebate_info
+    from orderly_evm_connector.rest._referral import get_multi_level_referee_list
+    from orderly_evm_connector.rest._referral import get_multi_level_volume_prerequisite
+    from orderly_evm_connector.rest._referral import enable_multi_level_referral
+    from orderly_evm_connector.rest._referral import update_multi_level_referral_config
+    from orderly_evm_connector.rest._referral import update_multi_level_affiliate_rebate
+    from orderly_evm_connector.rest._referral import reset_multi_level_affiliate_rebate
+    from orderly_evm_connector.rest._referral import create_multi_level_affiliate_code
+    from orderly_evm_connector.rest._referral import claim_multi_level_referral_code
+    from orderly_evm_connector.rest._referral import update_multi_level_rebate_rate
+    from orderly_evm_connector.rest._referral import set_default_multi_level_rebate_rate
     # rewards
     from orderly_evm_connector.rest._rewards import get_parameters_of_each_epoch
     from orderly_evm_connector.rest._rewards import get_broker_allocation_history
@@ -245,6 +283,12 @@ class Rest(API):
     from orderly_evm_connector.rest._admin import get_admin_positions
     from orderly_evm_connector.rest._admin import get_admin_funding_fee_history
     from orderly_evm_connector.rest._admin import get_admin_volume_user_stats
+    from orderly_evm_connector.rest._admin import get_admin_algo_orders
+    from orderly_evm_connector.rest._admin import get_admin_trades
+    from orderly_evm_connector.rest._admin import get_admin_liquidations
+    from orderly_evm_connector.rest._admin import get_admin_points_stage
+    from orderly_evm_connector.rest._admin import create_admin_points_stage
+    from orderly_evm_connector.rest._admin import delete_admin_points_stage
 
     # strategy vault
     from orderly_evm_connector.rest._strategy_vault import submit_sv_operation_request
@@ -358,6 +402,13 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._account import set_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import reset_orderlykey_ip_restriction
     from orderly_evm_connector.rest._account import get_position_history
+    from orderly_evm_connector.rest._account import get_asset_receiver_address
+    from orderly_evm_connector.rest._account import get_asset_receiver_events
+    from orderly_evm_connector.rest._account import get_all_leverages
+    from orderly_evm_connector.rest._account import update_leverages
+    from orderly_evm_connector.rest._account import get_margin_modes
+    from orderly_evm_connector.rest._account import update_margin_mode
+    from orderly_evm_connector.rest._account import get_client_points_user_statistics
 
     from orderly_evm_connector.rest._broker import get_default_broker_fee
     from orderly_evm_connector.rest._broker import update_user_fee_rate
@@ -371,6 +422,13 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._broker import get_broker_daily_volume
     from orderly_evm_connector.rest._broker import get_tvl_by_broker
     from orderly_evm_connector.rest._broker import get_broker_stats
+    from orderly_evm_connector.rest._broker import get_broker_info
+    from orderly_evm_connector.rest._broker import get_broker_order_enums
+    from orderly_evm_connector.rest._broker import get_broker_order_enum
+    from orderly_evm_connector.rest._broker import create_broker_order_enum
+    from orderly_evm_connector.rest._broker import update_broker_order_enum
+    from orderly_evm_connector.rest._broker import archive_broker_order_enum
+    from orderly_evm_connector.rest._broker import unarchive_broker_order_enum
 
     # general
     from orderly_evm_connector.rest._general import get_system_maintenance_status
@@ -425,6 +483,11 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._market import get_market_info_price_changes
     from orderly_evm_connector.rest._market import get_market_info_traders_open_interests
     from orderly_evm_connector.rest._market import get_kline_history
+    from orderly_evm_connector.rest._market import get_symbol_info
+    from orderly_evm_connector.rest._market import get_public_broker_order_enums
+    from orderly_evm_connector.rest._market import get_public_broker_order_enum
+    from orderly_evm_connector.rest._market import get_public_points_stages
+    from orderly_evm_connector.rest._market import get_public_points_rankings
 
     # notifications
     from orderly_evm_connector.rest._notifications import get_all_notifications
@@ -472,6 +535,9 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._trade import get_one_position_info
     from orderly_evm_connector.rest._trade import get_funding_fee_history
     from orderly_evm_connector.rest._trade import cancel_all_after
+    from orderly_evm_connector.rest._trade import get_account_info
+    from orderly_evm_connector.rest._trade import get_positions_lite
+    from orderly_evm_connector.rest._trade import adjust_position_margin
 
     # wallet
     from orderly_evm_connector.rest._wallet import get_asset_history
@@ -508,6 +574,22 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._referral import edit_referral_split
     from orderly_evm_connector.rest._referral import create_referral_code
     from orderly_evm_connector.rest._referral import update_referral_code
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_config
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_info
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_summary
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_statistics
+    from orderly_evm_connector.rest._referral import get_multi_level_max_rebate_rate
+    from orderly_evm_connector.rest._referral import get_multi_level_rebate_info
+    from orderly_evm_connector.rest._referral import get_multi_level_referee_list
+    from orderly_evm_connector.rest._referral import get_multi_level_volume_prerequisite
+    from orderly_evm_connector.rest._referral import enable_multi_level_referral
+    from orderly_evm_connector.rest._referral import update_multi_level_referral_config
+    from orderly_evm_connector.rest._referral import update_multi_level_affiliate_rebate
+    from orderly_evm_connector.rest._referral import reset_multi_level_affiliate_rebate
+    from orderly_evm_connector.rest._referral import create_multi_level_affiliate_code
+    from orderly_evm_connector.rest._referral import claim_multi_level_referral_code
+    from orderly_evm_connector.rest._referral import update_multi_level_rebate_rate
+    from orderly_evm_connector.rest._referral import set_default_multi_level_rebate_rate
 
     # admin
     from orderly_evm_connector.rest._admin import get_admin_client_info
@@ -520,6 +602,12 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._admin import get_admin_positions
     from orderly_evm_connector.rest._admin import get_admin_funding_fee_history
     from orderly_evm_connector.rest._admin import get_admin_volume_user_stats
+    from orderly_evm_connector.rest._admin import get_admin_algo_orders
+    from orderly_evm_connector.rest._admin import get_admin_trades
+    from orderly_evm_connector.rest._admin import get_admin_liquidations
+    from orderly_evm_connector.rest._admin import get_admin_points_stage
+    from orderly_evm_connector.rest._admin import create_admin_points_stage
+    from orderly_evm_connector.rest._admin import delete_admin_points_stage
 
     # rewards
     from orderly_evm_connector.rest._rewards import get_parameters_of_each_epoch

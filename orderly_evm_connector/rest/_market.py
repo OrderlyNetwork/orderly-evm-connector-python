@@ -311,7 +311,123 @@ def get_market_info_traders_open_interests(self):
     return self._request("GET", "/v1/public/market_info/traders_open_interests")
 
 
-def get_kline_history(self, symbol: str, resolution: str, from_timestamp: str = None, 
+def get_symbol_info(self, symbol: str):
+    """Get order rules per symbol
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/public/info/{symbol}
+
+    Provides all the values for the rules that an order needs to fulfill to be placed
+    successfully. Includes Price filter, Size filter, Min Notional filter, and
+    Risk Exposure filter rules.
+
+    Args:
+        symbol(string): Symbol (e.g., PERP_BTC_USDC)
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-order-rules
+    """
+    check_required_parameters([[symbol, "symbol"]])
+    return self._request("GET", f"/v1/public/info/{symbol}")
+
+
+def get_public_broker_order_enums(
+    self,
+    broker_id: str,
+    symbol: str = None,
+    enum_id: str = None,
+    include_archived: bool = None,
+):
+    """List order enums for a broker (public)
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/public/broker/{broker_id}/order_enums
+
+    List order enums for a broker.
+
+    Args:
+        broker_id(string): Broker ID
+
+    Optional Args:
+        symbol(string): Filter by symbol
+        enum_id(string): Filter by enum ID
+        include_archived(boolean): Include archived enums
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/list-broker-order-enums
+    """
+    check_required_parameters([[broker_id, "broker_id"]])
+    payload = {"symbol": symbol, "enum_id": enum_id, "include_archived": include_archived}
+    return self._request("GET", f"/v1/public/broker/{broker_id}/order_enums", payload=payload)
+
+
+def get_public_broker_order_enum(self, broker_id: str, enum_id: str):
+    """Get single order enum (public)
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/public/broker/{broker_id}/order_enum/{enum_id}
+
+    Get a single order enum by ID.
+
+    Args:
+        broker_id(string): Broker ID
+        enum_id(string): Enum ID
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-broker-order-enum
+    """
+    check_required_parameters([[broker_id, "broker_id"], [enum_id, "enum_id"]])
+    return self._request("GET", f"/v1/public/broker/{broker_id}/order_enum/{enum_id}")
+
+
+def get_public_points_stages(self, broker_id: str, stage_id: int = None, status: str = None):
+    """Get information about stages (public)
+
+    Limit: 10 requests per 1 second per user per IP address
+
+    GET /v1/public/points/stages
+
+    Returns information about stages.
+
+    Args:
+        broker_id(string): Filter by Broker
+
+    Optional Args:
+        stage_id(number): Filter by specific Stage. Returns all if omitted.
+        status(string): Filter by status (completed/active)
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-points-stages
+    """
+    check_required_parameters([[broker_id, "broker_id"]])
+    payload = {"broker_id": broker_id, "stage_id": stage_id, "status": status}
+    return self._request("GET", "/v1/public/points/stages", payload=payload)
+
+
+def get_public_points_rankings(self, stage: int, period: str, page: int = None, size: int = None):
+    """Get stage rankings (public)
+
+    Limit: 10 requests per 1 second per user per IP address
+
+    GET /v1/public/points/rankings
+
+    Returns the rankings for a specific stage.
+
+    Args:
+        stage(number): Filter by Stage
+        period(string): Filter by period (all_time/last_week/this_week)
+
+    Optional Args:
+        page(number): Page number (default: 1)
+        size(number): Items per page (default: 20)
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-points-rankings
+    """
+    check_required_parameters([[stage, "stage"], [period, "period"]])
+    payload = {"stage": stage, "period": period, "page": page, "size": size}
+    return self._request("GET", "/v1/public/points/rankings", payload=payload)
+
+
+def get_kline_history(self, symbol: str, resolution: str, from_timestamp: str = None,
                       to_timestamp: str = None, limit: int = None):
     """Get Kline History
     

@@ -601,13 +601,141 @@ def get_aggregate_holding(self):
 
 def get_aggregate_positions(self):
     """Get aggregate positions
-    
+
     Limit: 1 request per 60 seconds
-    
+
     GET /v1/client/aggregate/positions
-    
+
     Only the main account is allowed to call this API.
-    
+
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-aggregate-positions
     """
     return self._sign_request("GET", "/v1/client/aggregate/positions")
+
+
+def get_asset_receiver_address(self, chain_id: int):
+    """Get receiver address
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/client/asset/receiver_address
+
+    Returns the exclusive receiver address for the authenticated account.
+    Users can deposit USDC by transferring directly to this address without
+    wallet connection or gas.
+
+    Args:
+        chain_id(integer): Chain ID. Currently only Arbitrum (42161) is supported.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-receiver-address
+    """
+    check_required_parameters([[chain_id, "chain_id"]])
+    payload = {"chain_id": chain_id}
+    return self._sign_request("GET", "/v1/client/asset/receiver_address", payload=payload)
+
+
+def get_asset_receiver_events(self):
+    """Get receiver events
+
+    Limit: 10 requests per 1 second
+
+    GET /v1/client/asset/receiver_events
+
+    Returns pending transfer events detected at the user's exclusive receiver address
+    that have not yet been fully deposited into the Vault.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-receiver-events
+    """
+    return self._sign_request("GET", "/v1/client/asset/receiver_events")
+
+
+def get_all_leverages(self):
+    """Get all leverage settings
+
+    GET /v1/client/leverages
+
+    Get leverage settings for all symbols.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-all-leverage-settings
+    """
+    return self._sign_request("GET", "/v1/client/leverages")
+
+
+def update_leverages(self, leverage: int, symbol: str = None, margin_mode: str = None):
+    """Update leverage setting (single or batch)
+
+    Limit: 5 requests per 60 seconds per user
+
+    POST /v1/client/leverages
+
+    Update leverage settings. Supports single symbol mode (when symbol is provided)
+    or batch mode (when symbol is omitted). For batch mode, each symbol's new leverage
+    will be adjusted to min(requested_leverage, symbol_max_leverage).
+
+    Args:
+        leverage(integer): Integer between 1 to 100
+
+    Optional Args:
+        symbol(string): e.g., "PERP_BTC_USDC". If omitted, applies to all symbols.
+        margin_mode(enum): CROSS or ISOLATED. Default: CROSS
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-leverage-settings
+    """
+    check_required_parameters([[leverage, "leverage"]])
+    payload = {"leverage": leverage, "symbol": symbol, "margin_mode": margin_mode}
+    return self._sign_request("POST", "/v1/client/leverages", payload=payload)
+
+
+def get_margin_modes(self):
+    """Get margin modes
+
+    Limit: 10 requests per 1 second per user
+
+    GET /v1/client/margin_modes
+
+    Get default margin mode for all symbols.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-margin-modes
+    """
+    return self._sign_request("GET", "/v1/client/margin_modes")
+
+
+def update_margin_mode(self, symbol: str, default_margin_mode: str):
+    """Update margin mode
+
+    Limit: 10 requests per 1 second per user
+
+    POST /v1/client/margin_mode
+
+    Update the default margin mode for a specific symbol. Switching a symbol's margin
+    mode is only possible when you have no open positions or pending orders on that
+    symbol in the current mode.
+
+    Args:
+        symbol(string): Symbol to update margin mode for (e.g., "PERP_BTC_USDC")
+        default_margin_mode(enum): CROSS or ISOLATED
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-margin-mode
+    """
+    check_required_parameters([[symbol, "symbol"], [default_margin_mode, "default_margin_mode"]])
+    payload = {"symbol": symbol, "default_margin_mode": default_margin_mode}
+    return self._sign_request("POST", "/v1/client/margin_mode", payload=payload)
+
+
+def get_client_points_user_statistics(self, stage: int):
+    """Get user point statistics
+
+    Limit: 10 requests per 1 second per user per IP address
+
+    GET /v1/client/points/user_statistics
+
+    Returns daily point statistics for a specific user.
+
+    Args:
+        stage(number): Filter by Stage
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-user-point-statistics
+    """
+    check_required_parameters([[stage, "stage"]])
+    payload = {"stage": stage}
+    return self._sign_request("GET", "/v1/client/points/user_statistics", payload=payload)

@@ -341,6 +341,383 @@ def edit_referral_code(self, current_referral_code: str, new_referral_code: str)
     return self._sign_request("POST", "/v1/referral/edit_referral_code", payload=payload)
 
 
+def get_multi_level_referral_admin_config(self):
+    """[Admin] Get multilevel referral config
+
+    Limit: 1 request per second
+
+    GET /v1/referral/multi_level/admin
+
+    Returns the multilevel referral configuration. Restricted to Admin users only.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-multilevel-referral-config
+    """
+    return self._sign_request("GET", "/v1/referral/multi_level/admin")
+
+
+def get_multi_level_referral_admin_info(
+    self,
+    user_address: str = None,
+    account_id: str = None,
+    referrer_account: str = None,
+    page: int = None,
+    size: int = None,
+    sort_by: str = None,
+    level: int = None,
+):
+    """[Admin] Get multilevel referral info
+
+    Limit: 10 requests per second
+
+    GET /v1/referral/multi_level/admin/info
+
+    Returns detailed multilevel referral information.
+    Users without a created code will not appear in the response.
+    Restricted to Admin users only.
+
+    Optional Args:
+        user_address(string): Only one of user_address and account_id can be provided.
+        account_id(string): Only one of user_address and account_id can be provided.
+        referrer_account(string): Filter by referrer account.
+        page(integer): Page number.
+        size(integer): Page size.
+        sort_by(string): total_invites/total_traded/referee_volume.
+        level(integer): Return all if not provided.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-multilevel-referral-info
+    """
+    payload = {
+        "user_address": user_address,
+        "account_id": account_id,
+        "referrer_account": referrer_account,
+        "page": page,
+        "size": size,
+        "sort_by": sort_by,
+        "level": level,
+    }
+    return self._sign_request("GET", "/v1/referral/multi_level/admin/info", payload=payload)
+
+
+def get_multi_level_referral_admin_summary(
+    self,
+    start_date: str,
+    end_date: str,
+    page: int = None,
+    size: int = None,
+    account_id: str = None,
+    user_address: str = None,
+    sort_by: str = None,
+):
+    """[Admin] Get multilevel referral summary
+
+    Limit: 10 requests per second
+
+    GET /v1/referral/multi_level/admin/summary
+
+    Returns summary information for multilevel referral. Restricted to Admin users only.
+
+    Args:
+        start_date(string): Start date (YYYY-MM-DD)
+        end_date(string): End date (YYYY-MM-DD)
+
+    Optional Args:
+        page(integer): Page number (default 1).
+        size(integer): Page size.
+        account_id(string): Only one of account_id and user_address can be provided.
+        user_address(string): Only one of account_id and user_address can be provided.
+        sort_by(string): broker_fee/total_volume/total_invites.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-multilevel-referral-summary
+    """
+    check_required_parameters([[start_date, "start_date"], [end_date, "end_date"]])
+    payload = {
+        "start_date": start_date,
+        "end_date": end_date,
+        "page": page,
+        "size": size,
+        "account_id": account_id,
+        "user_address": user_address,
+        "sort_by": sort_by,
+    }
+    return self._sign_request("GET", "/v1/referral/multi_level/admin/summary", payload=payload)
+
+
+def get_multi_level_referral_statistics(self, time_range: str):
+    """Get multilevel referral statistics
+
+    Limit: 10 requests per second
+
+    GET /v1/referral/multi_level/statistics
+
+    Returns multilevel referral statistics for the user.
+
+    Args:
+        time_range(string): Time range (1d/7d/30d/all_time)
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-multilevel-referral-statistics
+    """
+    check_required_parameters([[time_range, "time_range"]])
+    payload = {"time_range": time_range}
+    return self._sign_request("GET", "/v1/referral/multi_level/statistics", payload=payload)
+
+
+def get_multi_level_max_rebate_rate(self):
+    """Get max rebate rate
+
+    Limit: 1 request per second
+
+    GET /v1/referral/multi_level/max_rebate_rate
+
+    Returns the maximum rebate rate for the user in the multilevel referral program.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-max-rebate-rate
+    """
+    return self._sign_request("GET", "/v1/referral/multi_level/max_rebate_rate")
+
+
+def get_multi_level_rebate_info(self):
+    """Get multilevel rebate info
+
+    Limit: 1 request per second
+
+    GET /v1/referral/multi_level/rebate_info
+
+    Returns detailed rebate information for the referral code.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-rebate-info
+    """
+    return self._sign_request("GET", "/v1/referral/multi_level/rebate_info")
+
+
+def get_multi_level_referee_list(
+    self,
+    page: int = None,
+    size: int = None,
+    address: str = None,
+    sort_by: str = None,
+    sort_order: str = None,
+):
+    """Get multilevel referee list
+
+    Limit: 10 requests per second
+
+    GET /v1/referral/multi_level/referee_list
+
+    Returns the list of direct referees (those who used your code).
+    Includes both multilevel and legacy referral codes.
+
+    Optional Args:
+        page(integer): Page number (default 1).
+        size(integer): Page size (default 25).
+        address(string): Filter by address.
+        sort_by(string): code_binding_time/referral_rebate_rate/referee_rebate_rate/
+                         direct_invites/indirect_invites/direct_volume/indirect_volume.
+        sort_order(string): ascending/descending.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-referee-list
+    """
+    payload = {
+        "page": page,
+        "size": size,
+        "address": address,
+        "sort_by": sort_by,
+        "sort_order": sort_order,
+    }
+    return self._sign_request("GET", "/v1/referral/multi_level/referee_list", payload=payload)
+
+
+def get_multi_level_volume_prerequisite(self):
+    """Get multilevel volume prerequisite
+
+    Limit: 10 requests per second
+
+    GET /v1/referral/multi_level/volume_prerequisite
+
+    Returns the volume prerequisite for the multilevel referral program.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-volume-prerequisite
+    """
+    return self._sign_request("GET", "/v1/referral/multi_level/volume_prerequisite")
+
+
+def enable_multi_level_referral(self, enable: bool):
+    """[Admin] Enable or configure multilevel referral
+
+    Limit: 1 request per second
+
+    POST /v1/referral/multi_level/admin
+
+    Enables or configures the multilevel referral program.
+    Restricted to Admin users only.
+
+    Args:
+        enable(boolean): Enable Multi-Level Referral program
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/enable-multilevel-referral
+    """
+    check_required_parameters([[enable, "enable"]])
+    payload = {"enable": enable}
+    return self._sign_request("POST", "/v1/referral/multi_level/admin", payload=payload)
+
+
+def update_multi_level_referral_config(self, required_volume: float, default_rebate_rate: float):
+    """[Admin] Update multilevel referral config
+
+    Limit: 1 request per second
+
+    POST /v1/referral/multi_level/admin/update
+
+    Updates the multilevel referral configuration.
+    Restricted to Admin users only.
+
+    Args:
+        required_volume(number): Required volume for referral
+        default_rebate_rate(number): Default max rebate rate
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-multilevel-referral-config
+    """
+    check_required_parameters([
+        [required_volume, "required_volume"],
+        [default_rebate_rate, "default_rebate_rate"],
+    ])
+    payload = {"required_volume": required_volume, "default_rebate_rate": default_rebate_rate}
+    return self._sign_request("POST", "/v1/referral/multi_level/admin/update", payload=payload)
+
+
+def update_multi_level_affiliate_rebate(self, rebate_rate: float, account_ids: list):
+    """[Admin] Update L1 affiliate rebate rate
+
+    Limit: 1 request per second
+
+    POST /v1/referral/multi_level/admin/update/affiliate
+
+    Updates the max rebate rate of an L1 affiliate.
+    Broker can only update the rate for L1 affiliates.
+    Restricted to Admin users only.
+
+    Args:
+        rebate_rate(number): Custom rebate rate for the target affiliate(s)
+        account_ids(list): The L1 affiliate account(s) to update
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-affiliate-rebate-rate
+    """
+    check_required_parameters([[rebate_rate, "rebate_rate"], [account_ids, "account_ids"]])
+    payload = {"rebate_rate": rebate_rate, "account_ids": account_ids}
+    return self._sign_request("POST", "/v1/referral/multi_level/admin/update/affiliate", payload=payload)
+
+
+def reset_multi_level_affiliate_rebate(self, account_ids: list):
+    """[Admin] Reset L1 affiliate rebate rate
+
+    Limit: 1 request per second
+
+    POST /v1/referral/multi_level/admin/reset/affiliate
+
+    Resets an L1 affiliate's rebate rate to default.
+    Admin can only reset the rate for L1 referees.
+    Restricted to Admin users only.
+
+    Args:
+        account_ids(list): The referee account(s) to reset
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/reset-affiliate-rebate-rate
+    """
+    check_required_parameters([[account_ids, "account_ids"]])
+    payload = {"account_ids": account_ids}
+    return self._sign_request("POST", "/v1/referral/multi_level/admin/reset/affiliate", payload=payload)
+
+
+def create_multi_level_affiliate_code(self, account_id: str, max_rebate_rate: float, referral_code: str = None):
+    """[Admin] Create multilevel referral code on affiliate's behalf
+
+    Limit: 10 requests per second
+
+    POST /v1/referral/multi_level/admin/create/affiliate
+
+    Creates a multilevel referral code on an affiliate's behalf.
+    Restricted to Admin users only.
+
+    Args:
+        account_id(string): The account ID to create referral code for
+        max_rebate_rate(number): Maximum rebate rate
+
+    Optional Args:
+        referral_code(string): The referral code to create
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-affiliate-code
+    """
+    check_required_parameters([[account_id, "account_id"], [max_rebate_rate, "max_rebate_rate"]])
+    payload = {
+        "account_id": account_id,
+        "max_rebate_rate": max_rebate_rate,
+        "referral_code": referral_code,
+    }
+    return self._sign_request("POST", "/v1/referral/multi_level/admin/create/affiliate", payload=payload)
+
+
+def claim_multi_level_referral_code(self, referee_rebate_rate: float):
+    """Claim referral code
+
+    Limit: 1 request per second
+
+    POST /v1/referral/multi_level/claim_code
+
+    Claims a referral code for the user.
+
+    Args:
+        referee_rebate_rate(number): New rebate rate for referees
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/claim-referral-code
+    """
+    check_required_parameters([[referee_rebate_rate, "referee_rebate_rate"]])
+    payload = {"referee_rebate_rate": referee_rebate_rate}
+    return self._sign_request("POST", "/v1/referral/multi_level/claim_code", payload=payload)
+
+
+def update_multi_level_rebate_rate(self, referee_rebate_rate: float, account_ids: list = None):
+    """Update referee rebate rate
+
+    Limit: 1 request per second
+
+    POST /v1/referral/multi_level/rebate_rate/update
+
+    Updates the rebate rate for referees.
+    Users can only update the rate for their direct referees.
+
+    Args:
+        referee_rebate_rate(number): New rebate rate for referees
+
+    Optional Args:
+        account_ids(list): The referee account(s) to update.
+                          Updates default rate if not provided.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-rebate-rate
+    """
+    check_required_parameters([[referee_rebate_rate, "referee_rebate_rate"]])
+    payload = {"referee_rebate_rate": referee_rebate_rate, "account_ids": account_ids}
+    return self._sign_request("POST", "/v1/referral/multi_level/rebate_rate/update", payload=payload)
+
+
+def set_default_multi_level_rebate_rate(self, account_ids: list):
+    """Reset referee rebate rate to default
+
+    Limit: 1 request per second
+
+    POST /v1/referral/multi_level/rebate_rate/set_default
+
+    Resets the referee rebate rate to default.
+    Users can only reset the rate for their direct referees.
+
+    Args:
+        account_ids(list): The referee account(s) to reset
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/set-default-rebate-rate
+    """
+    check_required_parameters([[account_ids, "account_ids"]])
+    payload = {"account_ids": account_ids}
+    return self._sign_request("POST", "/v1/referral/multi_level/rebate_rate/set_default", payload=payload)
+
+
 def get_referee_rebate_summary(self, start_date: str, end_date: str):
     """Get Referee Rebate Summary
     
