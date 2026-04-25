@@ -13,7 +13,8 @@ create_order_params = {
     "order_type": "LIMIT",
     "side": "BUY",
     "order_price": 1.3,
-    "order_amount": 2
+    "order_amount": 2,
+    "order_tag": "enum:STRATEGY_DCA",
 }
 
 create_algo_order_params = {
@@ -69,7 +70,7 @@ def test_create_order():
         orderly_secret=orderly_secret,
     )
     response = client.create_order(**create_order_params)
-    response.should.equal(mock_data)
+    assert response == mock_data
 
 
 @mock_http_response(
@@ -114,8 +115,16 @@ def test_edit_order():
         orderly_key=orderly_key,
         orderly_secret=orderly_secret,
     )
-    response = client.edit_order(order_id="test_order_id")
-    response.should.equal(mock_data)
+    response = client.edit_order(
+        order_id="test_order_id",
+        symbol="PERP_NEAR_USDC",
+        order_type="LIMIT",
+        side="BUY",
+        order_price=1.3,
+        order_amount=2,
+        order_tag="enum:STRATEGY_DCA",
+    )
+    assert response == mock_data
 
 @mock_http_response(
     responses.PUT,
@@ -123,13 +132,13 @@ def test_edit_order():
     mock_data,
     200
 )
-def test_edit_order():
+def test_edit_algo_order():
     client = Client(
         orderly_key=orderly_key,
         orderly_secret=orderly_secret,
     )
     response = client.edit_algo_order(order_id="test_order_id")
-    response.should.equal(mock_data)
+    assert response == mock_data
 
 
 @mock_http_response(

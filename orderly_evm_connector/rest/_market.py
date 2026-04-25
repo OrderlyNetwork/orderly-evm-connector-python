@@ -342,7 +342,7 @@ def get_public_broker_order_enums(
 
     Limit: 10 requests per 1 second per IP address
 
-    GET /v1/public/broker/{broker_id}/order_enums
+    GET /v1/public/broker/order_enums
 
     List order enums for a broker.
 
@@ -354,11 +354,16 @@ def get_public_broker_order_enums(
         enum_id(string): Filter by enum ID
         include_archived(boolean): Include archived enums
 
-    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/list-broker-order-enums
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-order-enums
     """
     check_required_parameters([[broker_id, "broker_id"]])
-    payload = {"symbol": symbol, "enum_id": enum_id, "include_archived": include_archived}
-    return self._request("GET", f"/v1/public/broker/{broker_id}/order_enums", payload=payload)
+    payload = {
+        "broker_id": broker_id,
+        "symbol": symbol,
+        "enum_id": enum_id,
+        "include_archived": include_archived,
+    }
+    return self._request("GET", "/v1/public/broker/order_enums", payload=payload)
 
 
 def get_public_broker_order_enum(self, broker_id: str, enum_id: str):

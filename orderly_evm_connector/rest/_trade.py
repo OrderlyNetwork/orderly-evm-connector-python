@@ -13,6 +13,7 @@ def create_order(
     order_amount: float = None,
     reduce_only: bool = None,
     visible_quantity: float = None,
+    order_tag: str = None,
 ):
     """[Private] Create order
 
@@ -31,6 +32,7 @@ def create_order(
         order_amount(number): For MARKET/ASK/BID order, the order size in terms of quote currency
         reduce_only(boolean): Default False
         visible_quantity(number): The order quantity shown on orderbook. (default: equal to order_quantity)
+        order_tag(string): Optional tag for referral code or order enum, e.g. enum:STRATEGY_DCA. Cannot be modified after order placement by backend rule.
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-order
     """
@@ -48,6 +50,7 @@ def create_order(
         "order_amount": order_amount,
         "reduce_only": reduce_only,
         "visible_quantity": visible_quantity,
+        "order_tag": order_tag,
     }
     return self._sign_request("POST", "/v1/order", payload=payload)
 
@@ -202,6 +205,7 @@ def edit_order(
     order_amount: float = None,
     reduce_only: bool = None,
     visible_quantity: float = None,
+    order_tag: str = None,
 ):
     """[Private] Edit order
     Limit: 10 request per 1 second
@@ -247,6 +251,7 @@ def edit_order(
         "order_amount": order_amount,
         "reduce_only": reduce_only,
         "visible_quantity": visible_quantity,
+        "order_tag": order_tag,
     }
     return self._sign_request("PUT", "/v1/order", payload=payload)
 

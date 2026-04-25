@@ -8,3 +8,4 @@ config_local.ini
 orderly.openapi.yaml
 sv.openapi.yaml
 .claude/settings.local.json
+docs/
