@@ -187,7 +187,7 @@ def get_broker_info(self):
     return self._sign_request("GET", "/v1/broker/broker_info")
 
 
-def get_broker_order_enums(self):
+def get_broker_order_enums(self, symbol: str = None, enum_id: str = None, include_archived: bool = None):
     """List all order enums for broker
 
     Limit: 10 requests per 1 second
@@ -196,9 +196,15 @@ def get_broker_order_enums(self):
 
     List all order enums for the broker with usage stats.
 
-    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/list-order-enums
+    Optional Args:
+        symbol(string): Filter by trading pair.
+        enum_id(string): Filter by enum ID.
+        include_archived(boolean): Include archived enums.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-order-enums-for-broker
     """
-    return self._sign_request("GET", "/v1/broker/order_enums")
+    payload = {"symbol": symbol, "enum_id": enum_id, "include_archived": include_archived}
+    return self._sign_request("GET", "/v1/broker/order_enums", payload=payload)
 
 
 def get_broker_order_enum(self, enum_id: str):
@@ -258,7 +264,7 @@ def archive_broker_order_enum(self, enum_id: str):
 
     Limit: 1 request per second
 
-    POST /v1/broker/order_enum/{enum_id}/archive
+    POST /v1/broker/order_enum/archive
 
     Archive an order enum.
 
@@ -268,7 +274,8 @@ def archive_broker_order_enum(self, enum_id: str):
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/archive-order-enum
     """
     check_required_parameters([[enum_id, "enum_id"]])
-    return self._sign_request("POST", f"/v1/broker/order_enum/{enum_id}/archive")
+    payload = {"enum_id": enum_id}
+    return self._sign_request("POST", "/v1/broker/order_enum/archive", payload=payload)
 
 
 def unarchive_broker_order_enum(self, enum_id: str):
@@ -276,7 +283,7 @@ def unarchive_broker_order_enum(self, enum_id: str):
 
     Limit: 1 request per second
 
-    POST /v1/broker/order_enum/{enum_id}/unarchive
+    POST /v1/broker/order_enum/unarchive
 
     Unarchive an order enum.
 
@@ -286,7 +293,8 @@ def unarchive_broker_order_enum(self, enum_id: str):
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/unarchive-order-enum
     """
     check_required_parameters([[enum_id, "enum_id"]])
-    return self._sign_request("POST", f"/v1/broker/order_enum/{enum_id}/unarchive")
+    payload = {"enum_id": enum_id}
+    return self._sign_request("POST", "/v1/broker/order_enum/unarchive", payload=payload)
 
 
 def get_broker_leaderboard_daily(self, start_date: str, end_date: str, page: int = None, size: int = None, order_tag: str = None):
