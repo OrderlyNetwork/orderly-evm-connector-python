@@ -402,7 +402,7 @@ def get_multi_level_referral_admin_summary(
     self,
     start_date: str,
     end_date: str,
-    aggregate_by: str,
+    aggregate_by: str = None,
     page: int = None,
     size: int = None,
     account_id: str = None,
@@ -420,9 +420,9 @@ def get_multi_level_referral_admin_summary(
     Args:
         start_date(string): Start date (YYYY-MM-DD)
         end_date(string): End date (YYYY-MM-DD)
-        aggregate_by(string): Aggregation granularity (e.g. day/week/month)
 
     Optional Args:
+        aggregate_by(string): Aggregation dimension (e.g. account_id/day/week/month).
         page(integer): Page number (default 1).
         size(integer): Page size.
         account_id(string): Only one of account_id and user_address can be provided.
@@ -431,7 +431,7 @@ def get_multi_level_referral_admin_summary(
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-multilevel-referral-summary
     """
-    check_required_parameters([[start_date, "start_date"], [end_date, "end_date"], [aggregate_by, "aggregate_by"]])
+    check_required_parameters([[start_date, "start_date"], [end_date, "end_date"]])
     payload = {
         "start_date": start_date,
         "end_date": end_date,
