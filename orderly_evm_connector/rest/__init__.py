@@ -226,6 +226,7 @@ class Rest(API):
     from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_config
     from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_info
     from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_summary
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_referee_list
     from orderly_evm_connector.rest._referral import get_multi_level_referral_statistics
     from orderly_evm_connector.rest._referral import get_multi_level_max_rebate_rate
     from orderly_evm_connector.rest._referral import get_multi_level_rebate_info
@@ -577,6 +578,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_config
     from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_info
     from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_summary
+    from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_referee_list
     from orderly_evm_connector.rest._referral import get_multi_level_referral_statistics
     from orderly_evm_connector.rest._referral import get_multi_level_max_rebate_rate
     from orderly_evm_connector.rest._referral import get_multi_level_rebate_info

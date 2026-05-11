@@ -445,6 +445,49 @@ def get_multi_level_referral_admin_summary(
     return self._sign_request("GET", "/v1/referral/multi_level/admin/summary", payload=payload)
 
 
+def get_multi_level_referral_admin_referee_list(
+    self,
+    page: int = None,
+    size: int = None,
+    user_address: str = None,
+    account_id: str = None,
+    referrer_address: str = None,
+    sort_by: str = None,
+    sort_order: str = None,
+):
+    """[Admin] Get admin referee list
+
+    Limit: 10 requests per second
+
+    GET /v1/referral/multi_level/admin/referee_list
+
+    Returns a list of referees for a builder admin.
+    Includes legacy code referrals. Restricted to Admin users only.
+
+    Optional Args:
+        page(integer): Page number (default 1).
+        size(integer): Page size (default 25).
+        user_address(string): Only one of user_address and account_id can be provided.
+        account_id(string): Only one of user_address and account_id can be provided.
+        referrer_address(string): Filter by referrer address.
+        sort_by(string): code_binding_time/referral_rebate_rate/referee_rebate_rate/
+                         direct_invites/indirect_invites/direct_volume/indirect_volume.
+        sort_order(string): ascending/descending.
+    """
+    payload = {
+        "page": page,
+        "size": size,
+        "user_address": user_address,
+        "account_id": account_id,
+        "referrer_address": referrer_address,
+        "sort_by": sort_by,
+        "sort_order": sort_order,
+    }
+    return self._sign_request(
+        "GET", "/v1/referral/multi_level/admin/referee_list", payload=payload
+    )
+
+
 def get_multi_level_referral_statistics(self, time_range: str):
     """Get multilevel referral statistics
 
