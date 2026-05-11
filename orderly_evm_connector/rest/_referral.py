@@ -623,6 +623,8 @@ def reset_multi_level_affiliate_rebate(self, account_ids: list):
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/reset-affiliate-rebate-rate
     """
     check_required_parameters([[account_ids, "account_ids"]])
+    if isinstance(account_ids, str):
+        account_ids = [account_ids]
     payload = {"account_ids": account_ids}
     return self._sign_request("POST", "/v1/referral/multi_level/admin/reset/affiliate", payload=payload)
 
