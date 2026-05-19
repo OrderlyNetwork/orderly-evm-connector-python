@@ -297,6 +297,31 @@ def unarchive_broker_order_enum(self, enum_id: str):
     return self._sign_request("POST", "/v1/broker/order_enum/unarchive", payload=payload)
 
 
+def get_broker_daily_fee_revenue(self, start_date: str, end_date: str):
+    """Get builder's daily revenue settlement history
+
+    Limit: 10 requests per second
+
+    GET /v1/broker/daily_fee_revenue
+
+    Retrieve daily revenue settlement records for the broker ID linked to the
+    authenticated builder admin. Results sorted by date descending.
+    The start_date/end_date range must not exceed 180 days.
+
+    Args:
+        start_date(string): Format YYYY-MM-DD.
+        end_date(string): Format YYYY-MM-DD.
+
+    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-builder-daily-fee-revenue
+    """
+    check_required_parameters([[start_date, "start_date"], [end_date, "end_date"]])
+    payload = {
+        "start_date": start_date,
+        "end_date": end_date,
+    }
+    return self._sign_request("GET", "/v1/broker/daily_fee_revenue", payload=payload)
+
+
 def get_broker_leaderboard_daily(self, start_date: str, end_date: str, page: int = None, size: int = None, order_tag: str = None):
     """Get Builder's Leaderboard
     
