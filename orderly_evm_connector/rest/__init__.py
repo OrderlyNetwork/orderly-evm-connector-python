@@ -127,7 +127,6 @@ class Rest(API):
     from orderly_evm_connector.rest._market import get_kline_history
     from orderly_evm_connector.rest._market import get_symbol_info
     from orderly_evm_connector.rest._market import get_public_broker_order_enums
-    from orderly_evm_connector.rest._market import get_public_broker_order_enum
     from orderly_evm_connector.rest._market import get_public_points_stages
     from orderly_evm_connector.rest._market import get_public_points_rankings
 
@@ -488,7 +487,6 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._market import get_kline_history
     from orderly_evm_connector.rest._market import get_symbol_info
     from orderly_evm_connector.rest._market import get_public_broker_order_enums
-    from orderly_evm_connector.rest._market import get_public_broker_order_enum
     from orderly_evm_connector.rest._market import get_public_points_stages
     from orderly_evm_connector.rest._market import get_public_points_rankings
 

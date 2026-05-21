@@ -366,25 +366,6 @@ def get_public_broker_order_enums(
     return self._request("GET", "/v1/public/broker/order_enums", payload=payload)
 
 
-def get_public_broker_order_enum(self, broker_id: str, enum_id: str):
-    """Get single order enum (public)
-
-    Limit: 10 requests per 1 second per IP address
-
-    GET /v1/public/broker/{broker_id}/order_enum/{enum_id}
-
-    Get a single order enum by ID.
-
-    Args:
-        broker_id(string): Broker ID
-        enum_id(string): Enum ID
-
-    https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/public/get-broker-order-enum
-    """
-    check_required_parameters([[broker_id, "broker_id"], [enum_id, "enum_id"]])
-    return self._request("GET", f"/v1/public/broker/{broker_id}/order_enum/{enum_id}")
-
-
 def get_public_points_stages(self, broker_id: str, stage_id: int = None, status: str = None):
     """Get information about stages (public)
 
