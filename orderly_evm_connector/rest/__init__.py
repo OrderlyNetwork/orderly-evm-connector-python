@@ -62,6 +62,7 @@ class Rest(API):
     from orderly_evm_connector.rest._broker import update_default_broker_fee
     from orderly_evm_connector.rest._broker import get_tvl_by_broker
     from orderly_evm_connector.rest._broker import get_broker_stats
+    from orderly_evm_connector.rest._broker import get_broker_daily_fee_revenue
     from orderly_evm_connector.rest._broker import get_broker_leaderboard_daily
     from orderly_evm_connector.rest._broker import get_broker_info
     from orderly_evm_connector.rest._broker import get_broker_order_enums
@@ -126,7 +127,6 @@ class Rest(API):
     from orderly_evm_connector.rest._market import get_kline_history
     from orderly_evm_connector.rest._market import get_symbol_info
     from orderly_evm_connector.rest._market import get_public_broker_order_enums
-    from orderly_evm_connector.rest._market import get_public_broker_order_enum
     from orderly_evm_connector.rest._market import get_public_points_stages
     from orderly_evm_connector.rest._market import get_public_points_rankings
 
@@ -421,6 +421,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._broker import get_list_of_brokers
     from orderly_evm_connector.rest._broker import get_user_fee_tier
     from orderly_evm_connector.rest._broker import get_broker_daily_volume
+    from orderly_evm_connector.rest._broker import get_broker_daily_fee_revenue
     from orderly_evm_connector.rest._broker import get_tvl_by_broker
     from orderly_evm_connector.rest._broker import get_broker_stats
     from orderly_evm_connector.rest._broker import get_broker_info
@@ -486,7 +487,6 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._market import get_kline_history
     from orderly_evm_connector.rest._market import get_symbol_info
     from orderly_evm_connector.rest._market import get_public_broker_order_enums
-    from orderly_evm_connector.rest._market import get_public_broker_order_enum
     from orderly_evm_connector.rest._market import get_public_points_stages
     from orderly_evm_connector.rest._market import get_public_points_rankings
 
