@@ -122,7 +122,6 @@ def test_edit_order():
         side="BUY",
         order_price=1.3,
         order_amount=2,
-        order_tag="enum:STRATEGY_DCA",
     )
     assert response == mock_data
 

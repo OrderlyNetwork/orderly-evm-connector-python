@@ -205,7 +205,6 @@ def edit_order(
     order_amount: float = None,
     reduce_only: bool = None,
     visible_quantity: float = None,
-    order_tag: str = None,
 ):
     """[Private] Edit order
     Limit: 10 request per 1 second
@@ -251,7 +250,6 @@ def edit_order(
         "order_amount": order_amount,
         "reduce_only": reduce_only,
         "visible_quantity": visible_quantity,
-        "order_tag": order_tag,
     }
     return self._sign_request("PUT", "/v1/order", payload=payload)
 

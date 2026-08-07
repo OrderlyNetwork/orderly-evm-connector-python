@@ -40,3 +40,21 @@ get_asset_hist_exp_data = {
 
 orderly_key = random_str()
 orderly_secret = "ed25519:" + random_str()
+
+
+@mock_http_response(
+    responses.GET,
+    "/v1/public/broker/order_enum",
+    mock_data,
+    200
+)
+def test_get_public_broker_order_enum():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret
+    )
+    response = client.get_public_broker_order_enum(
+        broker_id="woofi_dex",
+        enum_id="enum:STRATEGY_DCA"
+    )
+    assert response == mock_data

@@ -366,6 +366,24 @@ def get_public_broker_order_enums(
     return self._request("GET", "/v1/public/broker/order_enums", payload=payload)
 
 
+def get_public_broker_order_enum(self, broker_id: str, enum_id: str):
+    """[Public] Get one order tag for a broker
+
+    Limit: 10 requests per 1 second per IP address
+
+    GET /v1/public/broker/order_enum
+
+    Get a single order enum for a broker by its enum ID.
+
+    Args:
+        broker_id(string): Broker ID (required)
+        enum_id(string): The enum ID to look up (required)
+    """
+    check_required_parameters([[broker_id, "broker_id"], [enum_id, "enum_id"]])
+    payload = {"broker_id": broker_id, "enum_id": enum_id}
+    return self._request("GET", "/v1/public/broker/order_enum", payload=payload)
+
+
 def get_public_points_stages(self, broker_id: str, stage_id: int = None, status: str = None):
     """Get information about stages (public)
 
