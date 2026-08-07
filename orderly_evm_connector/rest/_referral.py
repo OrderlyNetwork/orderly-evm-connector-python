@@ -1,8 +1,8 @@
 from orderly_evm_connector.lib.utils import check_required_parameters
 
 
-def create_referral_code(self, account_id: str, referral_code: str, max_rebate_rate: float,
-                         referrer_rebate_rate: float, referee_rebate_rate: float):
+def create_referral_code(self, account_id: str, referral_code: str, bonus_max_rebate_rate: float,
+                         bonus_referrer_rebate_rate: float, bonus_referee_rebate_rate: float):
     """
     Create Referral Code
 
@@ -10,49 +10,63 @@ def create_referral_code(self, account_id: str, referral_code: str, max_rebate_r
 
     POST /v1/referral/create
 
+    Args:
+        account_id(string): Account ID of the referrer (required)
+        referral_code(string): The referral code to create (required)
+        bonus_max_rebate_rate(number): Max bonus rebate rate (required)
+        bonus_referrer_rebate_rate(number): Bonus rebate rate for the referrer (required)
+        bonus_referee_rebate_rate(number): Bonus rebate rate for the referee (required)
+
     https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/private/create-referral-code
     """
     check_required_parameters(
         [[account_id, "account_id"],
          [referral_code, "referral_code"],
-         [max_rebate_rate, "max_rebate_rate"],
-         [referrer_rebate_rate, "referrer_rebate_rate"],
-         [referee_rebate_rate, "referee_rebate_rate"]]
+         [bonus_max_rebate_rate, "bonus_max_rebate_rate"],
+         [bonus_referrer_rebate_rate, "bonus_referrer_rebate_rate"],
+         [bonus_referee_rebate_rate, "bonus_referee_rebate_rate"]]
     )
     payload = {
         "account_id": account_id,
         "referral_code": referral_code,
-        "max_rebate_rate": max_rebate_rate,
-        "referrer_rebate_rate": referrer_rebate_rate,
-        "referee_rebate_rate": referee_rebate_rate
+        "bonus_max_rebate_rate": bonus_max_rebate_rate,
+        "bonus_referrer_rebate_rate": bonus_referrer_rebate_rate,
+        "bonus_referee_rebate_rate": bonus_referee_rebate_rate
     }
     return self._sign_request("POST", "/v1/referral/create", payload=payload)
 
 
-def update_referral_code(self, account_id: str, referral_code: str, max_rebate_rate: float,
-                         referrer_rebate_rate: float, referee_rebate_rate: float):
+def update_referral_code(self, account_id: str, referral_code: str, bonus_max_rebate_rate: float,
+                         bonus_referrer_rebate_rate: float, bonus_referee_rebate_rate: float):
     """
     Update Referral Code
 
     Limit: 1 requests per 1 second
 
-    POST /v1/referral/ypdate
+    POST /v1/referral/update
+
+    Args:
+        account_id(string): Account ID of the referrer (required)
+        referral_code(string): The referral code to update (required)
+        bonus_max_rebate_rate(number): Max bonus rebate rate (required)
+        bonus_referrer_rebate_rate(number): Bonus rebate rate for the referrer (required)
+        bonus_referee_rebate_rate(number): Bonus rebate rate for the referee (required)
 
     https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/private/update-referral-code
     """
     check_required_parameters(
         [[account_id, "account_id"],
          [referral_code, "referral_code"],
-         [max_rebate_rate, "max_rebate_rate"],
-         [referrer_rebate_rate, "referrer_rebate_rate"],
-         [referee_rebate_rate, "referee_rebate_rate"]]
+         [bonus_max_rebate_rate, "bonus_max_rebate_rate"],
+         [bonus_referrer_rebate_rate, "bonus_referrer_rebate_rate"],
+         [bonus_referee_rebate_rate, "bonus_referee_rebate_rate"]]
     )
     payload = {
         "account_id": account_id,
         "referral_code": referral_code,
-        "max_rebate_rate": max_rebate_rate,
-        "referrer_rebate_rate": referrer_rebate_rate,
-        "referee_rebate_rate": referee_rebate_rate
+        "bonus_max_rebate_rate": bonus_max_rebate_rate,
+        "bonus_referrer_rebate_rate": bonus_referrer_rebate_rate,
+        "bonus_referee_rebate_rate": bonus_referee_rebate_rate
     }
     return self._sign_request("POST", "/v1/referral/update", payload=payload)
 
@@ -119,7 +133,7 @@ def get_referral_history(self, start_date: str = None, end_date: str = None, pag
 
     Limit: 10 requests per 1 second
 
-    GET /v1/referral/history
+    GET /v1/referral/referral_history
 
     https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/private/get-referral-history
     """
@@ -234,7 +248,8 @@ def verify_ref_code(self, referral_code:str = None ):
     check_required_parameters([[referral_code,'referral_code']])
     return self._request("GET", f"/v1/public/referral/verify_ref_code?referral_code={referral_code}")
 
-def edit_referral_split(self, referral_code: str, referrer_rebate_rate: float, referee_rebate_rate: float):
+def edit_referral_split(self, referral_code: str, bonus_referrer_rebate_rate: float,
+                        bonus_referee_rebate_rate: float):
     """
     Edit Split
 
@@ -242,14 +257,65 @@ def edit_referral_split(self, referral_code: str, referrer_rebate_rate: float, r
 
     POST /v1/referral/edit_split
 
+    Args:
+        referral_code(string): The referral code to edit (required)
+        bonus_referrer_rebate_rate(number): Bonus rebate rate for the referrer (required)
+        bonus_referee_rebate_rate(number): Bonus rebate rate for the referee (required)
+
     https://docs.orderly.network/build-on-omnichain/evm-api/restful-api/private/edit-split
     """
-    check_required_parameters([[referral_code,'referral_code'], [referrer_rebate_rate,'referrer_rebate_rate'], [referee_rebate_rate,'referee_rebate_rate']])
+    check_required_parameters([[referral_code,'referral_code'], [bonus_referrer_rebate_rate,'bonus_referrer_rebate_rate'], [bonus_referee_rebate_rate,'bonus_referee_rebate_rate']])
     return self._sign_request("POST", "/v1/referral/edit_split", payload={
         "referral_code": referral_code,
-        "referrer_rebate_rate": referrer_rebate_rate,
-        "referee_rebate_rate": referee_rebate_rate
+        "bonus_referrer_rebate_rate": bonus_referrer_rebate_rate,
+        "bonus_referee_rebate_rate": bonus_referee_rebate_rate
     })
+
+
+def edit_referral_description(self, user_address: str, description: str = None):
+    """[Private] Edit referral description
+
+    Limit: 10 requests per 1 second
+
+    POST /v1/referral/edit_description
+
+    Edit the description a builder admin attaches to a referrer.
+
+    Args:
+        user_address(string): The address of the user account (required)
+
+    Optional Args:
+        description(string): Free-form description text.
+    """
+    check_required_parameters([[user_address, "user_address"]])
+    payload = {
+        "user_address": user_address,
+        "description": description,
+    }
+    return self._sign_request("POST", "/v1/referral/edit_description", payload=payload)
+
+
+def edit_referee_description(self, user_address: str, description: str = None):
+    """[Private] Edit direct referee description
+
+    Limit: 10 requests per 1 second
+
+    POST /v1/referral/edit_referee_description
+
+    Edit the description a builder admin attaches to a direct referee.
+
+    Args:
+        user_address(string): The address of the user account (required)
+
+    Optional Args:
+        description(string): Free-form description text.
+    """
+    check_required_parameters([[user_address, "user_address"]])
+    payload = {
+        "user_address": user_address,
+        "description": description,
+    }
+    return self._sign_request("POST", "/v1/referral/edit_referee_description", payload=payload)
 
 
 def get_auto_referral_info(self):
@@ -381,7 +447,7 @@ def get_multi_level_referral_admin_info(
         referrer_account(string): Filter by referrer account.
         page(integer): Page number.
         size(integer): Page size.
-        sort_by(string): total_invites/total_traded/referee_volume.
+        sort_by(string): total_invites/total_traded/referee_volume/bonus_max_rebate_rate.
         level(integer): Return all if not provided.
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/get-multilevel-referral-info
@@ -452,6 +518,7 @@ def get_multi_level_referral_admin_referee_list(
     user_address: str = None,
     account_id: str = None,
     referrer_address: str = None,
+    referrer_account: str = None,
     sort_by: str = None,
     sort_order: str = None,
 ):
@@ -470,6 +537,7 @@ def get_multi_level_referral_admin_referee_list(
         user_address(string): Only one of user_address and account_id can be provided.
         account_id(string): Only one of user_address and account_id can be provided.
         referrer_address(string): Filter by referrer address.
+        referrer_account(string): Filter by referrer account id.
         sort_by(string): code_binding_time/referral_rebate_rate/referee_rebate_rate/
                          direct_invites/indirect_invites/direct_volume/indirect_volume.
         sort_order(string): ascending/descending.
@@ -480,6 +548,7 @@ def get_multi_level_referral_admin_referee_list(
         "user_address": user_address,
         "account_id": account_id,
         "referrer_address": referrer_address,
+        "referrer_account": referrer_account,
         "sort_by": sort_by,
         "sort_order": sort_order,
     }
@@ -586,7 +655,9 @@ def get_multi_level_volume_prerequisite(self):
     return self._sign_request("GET", "/v1/referral/multi_level/volume_prerequisite")
 
 
-def enable_multi_level_referral(self, enable: bool):
+def enable_multi_level_referral(self, enable: bool, base_rebate_rate: float = None,
+                                default_bonus_rebate_rate: float = None,
+                                required_volume: float = None):
     """[Admin] Enable or configure multilevel referral
 
     Limit: 1 request per second
@@ -599,14 +670,25 @@ def enable_multi_level_referral(self, enable: bool):
     Args:
         enable(boolean): Enable Multi-Level Referral program
 
+    Optional Args:
+        base_rebate_rate(number): Base rebate rate applied to all affiliates.
+        default_bonus_rebate_rate(number): Default bonus rebate rate.
+        required_volume(number): Required volume for referral.
+
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/enable-multilevel-referral
     """
     check_required_parameters([[enable, "enable"]])
-    payload = {"enable": enable}
+    payload = {
+        "enable": enable,
+        "base_rebate_rate": base_rebate_rate,
+        "default_bonus_rebate_rate": default_bonus_rebate_rate,
+        "required_volume": required_volume,
+    }
     return self._sign_request("POST", "/v1/referral/multi_level/admin", payload=payload)
 
 
-def update_multi_level_referral_config(self, required_volume: float, default_rebate_rate: float):
+def update_multi_level_referral_config(self, required_volume: float, base_rebate_rate: float,
+                                       default_bonus_rebate_rate: float):
     """[Admin] Update multilevel referral config
 
     Limit: 1 request per second
@@ -618,37 +700,43 @@ def update_multi_level_referral_config(self, required_volume: float, default_reb
 
     Args:
         required_volume(number): Required volume for referral
-        default_rebate_rate(number): Default max rebate rate
+        base_rebate_rate(number): Base rebate rate applied to all affiliates
+        default_bonus_rebate_rate(number): Default bonus rebate rate
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-multilevel-referral-config
     """
     check_required_parameters([
         [required_volume, "required_volume"],
-        [default_rebate_rate, "default_rebate_rate"],
+        [base_rebate_rate, "base_rebate_rate"],
+        [default_bonus_rebate_rate, "default_bonus_rebate_rate"],
     ])
-    payload = {"required_volume": required_volume, "default_rebate_rate": default_rebate_rate}
+    payload = {
+        "required_volume": required_volume,
+        "base_rebate_rate": base_rebate_rate,
+        "default_bonus_rebate_rate": default_bonus_rebate_rate,
+    }
     return self._sign_request("POST", "/v1/referral/multi_level/admin/update", payload=payload)
 
 
-def update_multi_level_affiliate_rebate(self, rebate_rate: float, account_ids: list):
+def update_multi_level_affiliate_rebate(self, bonus_rebate_rate: float, account_ids: list):
     """[Admin] Update L1 affiliate rebate rate
 
     Limit: 1 request per second
 
     POST /v1/referral/multi_level/admin/update/affiliate
 
-    Updates the max rebate rate of an L1 affiliate.
+    Updates the bonus rebate rate of an L1 affiliate.
     Broker can only update the rate for L1 affiliates.
     Restricted to Admin users only.
 
     Args:
-        rebate_rate(number): Custom rebate rate for the target affiliate(s)
+        bonus_rebate_rate(number): Custom bonus rebate rate for the target affiliate(s)
         account_ids(list): The L1 affiliate account(s) to update
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-affiliate-rebate-rate
     """
-    check_required_parameters([[rebate_rate, "rebate_rate"], [account_ids, "account_ids"]])
-    payload = {"rebate_rate": rebate_rate, "account_ids": account_ids}
+    check_required_parameters([[bonus_rebate_rate, "bonus_rebate_rate"], [account_ids, "account_ids"]])
+    payload = {"bonus_rebate_rate": bonus_rebate_rate, "account_ids": account_ids}
     return self._sign_request("POST", "/v1/referral/multi_level/admin/update/affiliate", payload=payload)
 
 
@@ -675,7 +763,8 @@ def reset_multi_level_affiliate_rebate(self, account_ids: list):
     return self._sign_request("POST", "/v1/referral/multi_level/admin/reset/affiliate", payload=payload)
 
 
-def create_multi_level_affiliate_code(self, account_id: str, max_rebate_rate: float, referral_code: str = None):
+def create_multi_level_affiliate_code(self, account_id: str, bonus_max_rebate_rate: float,
+                                      referral_code: str = None):
     """[Admin] Create multilevel referral code on affiliate's behalf
 
     Limit: 10 requests per second
@@ -687,23 +776,23 @@ def create_multi_level_affiliate_code(self, account_id: str, max_rebate_rate: fl
 
     Args:
         account_id(string): The account ID to create referral code for
-        max_rebate_rate(number): Maximum rebate rate
+        bonus_max_rebate_rate(number): Maximum bonus rebate rate
 
     Optional Args:
         referral_code(string): The referral code to create
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/create-affiliate-code
     """
-    check_required_parameters([[account_id, "account_id"], [max_rebate_rate, "max_rebate_rate"]])
+    check_required_parameters([[account_id, "account_id"], [bonus_max_rebate_rate, "bonus_max_rebate_rate"]])
     payload = {
         "account_id": account_id,
-        "max_rebate_rate": max_rebate_rate,
+        "bonus_max_rebate_rate": bonus_max_rebate_rate,
         "referral_code": referral_code,
     }
     return self._sign_request("POST", "/v1/referral/multi_level/admin/create/affiliate", payload=payload)
 
 
-def claim_multi_level_referral_code(self, referee_rebate_rate: float):
+def claim_multi_level_referral_code(self, bonus_referee_rebate_rate: float):
     """Claim referral code
 
     Limit: 1 request per second
@@ -713,16 +802,16 @@ def claim_multi_level_referral_code(self, referee_rebate_rate: float):
     Claims a referral code for the user.
 
     Args:
-        referee_rebate_rate(number): New rebate rate for referees
+        bonus_referee_rebate_rate(number): New bonus rebate rate for referees
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/claim-referral-code
     """
-    check_required_parameters([[referee_rebate_rate, "referee_rebate_rate"]])
-    payload = {"referee_rebate_rate": referee_rebate_rate}
+    check_required_parameters([[bonus_referee_rebate_rate, "bonus_referee_rebate_rate"]])
+    payload = {"bonus_referee_rebate_rate": bonus_referee_rebate_rate}
     return self._sign_request("POST", "/v1/referral/multi_level/claim_code", payload=payload)
 
 
-def update_multi_level_rebate_rate(self, referee_rebate_rate: float, account_ids: list = None):
+def update_multi_level_rebate_rate(self, bonus_referee_rebate_rate: float, account_ids: list = None):
     """Update referee rebate rate
 
     Limit: 1 request per second
@@ -733,7 +822,7 @@ def update_multi_level_rebate_rate(self, referee_rebate_rate: float, account_ids
     Users can only update the rate for their direct referees.
 
     Args:
-        referee_rebate_rate(number): New rebate rate for referees
+        bonus_referee_rebate_rate(number): New bonus rebate rate for referees
 
     Optional Args:
         account_ids(list): The referee account(s) to update.
@@ -741,8 +830,8 @@ def update_multi_level_rebate_rate(self, referee_rebate_rate: float, account_ids
 
     https://orderly.network/docs/build-on-omnichain/evm-api/restful-api/private/update-rebate-rate
     """
-    check_required_parameters([[referee_rebate_rate, "referee_rebate_rate"]])
-    payload = {"referee_rebate_rate": referee_rebate_rate, "account_ids": account_ids}
+    check_required_parameters([[bonus_referee_rebate_rate, "bonus_referee_rebate_rate"]])
+    payload = {"bonus_referee_rebate_rate": bonus_referee_rebate_rate, "account_ids": account_ids}
     return self._sign_request("POST", "/v1/referral/multi_level/rebate_rate/update", payload=payload)
 
 

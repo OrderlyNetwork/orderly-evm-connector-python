@@ -127,6 +127,7 @@ class Rest(API):
     from orderly_evm_connector.rest._market import get_kline_history
     from orderly_evm_connector.rest._market import get_symbol_info
     from orderly_evm_connector.rest._market import get_public_broker_order_enums
+    from orderly_evm_connector.rest._market import get_public_broker_order_enum
     from orderly_evm_connector.rest._market import get_public_points_stages
     from orderly_evm_connector.rest._market import get_public_points_rankings
 
@@ -216,6 +217,8 @@ class Rest(API):
     from orderly_evm_connector.rest._referral import get_referee_info
     from orderly_evm_connector.rest._referral import get_referee_history
     from orderly_evm_connector.rest._referral import edit_referral_split
+    from orderly_evm_connector.rest._referral import edit_referral_description
+    from orderly_evm_connector.rest._referral import edit_referee_description
     from orderly_evm_connector.rest._referral import create_referral_code
     from orderly_evm_connector.rest._referral import update_referral_code
     from orderly_evm_connector.rest._referral import get_auto_referral_info
@@ -487,6 +490,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._market import get_kline_history
     from orderly_evm_connector.rest._market import get_symbol_info
     from orderly_evm_connector.rest._market import get_public_broker_order_enums
+    from orderly_evm_connector.rest._market import get_public_broker_order_enum
     from orderly_evm_connector.rest._market import get_public_points_stages
     from orderly_evm_connector.rest._market import get_public_points_rankings
 
@@ -573,6 +577,8 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._referral import get_referee_info
     from orderly_evm_connector.rest._referral import get_referee_history
     from orderly_evm_connector.rest._referral import edit_referral_split
+    from orderly_evm_connector.rest._referral import edit_referral_description
+    from orderly_evm_connector.rest._referral import edit_referee_description
     from orderly_evm_connector.rest._referral import create_referral_code
     from orderly_evm_connector.rest._referral import update_referral_code
     from orderly_evm_connector.rest._referral import get_multi_level_referral_admin_config

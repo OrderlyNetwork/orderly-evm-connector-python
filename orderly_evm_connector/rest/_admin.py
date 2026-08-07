@@ -129,7 +129,7 @@ def get_admin_asset_history(
         user_address(string): Target user address to query for admin usage.
         token(string): Token name to search.
         side(string): `DEPOSIT`/`WITHDRAW`.
-        status(string): `NEW`/`CONFIRM`/`PROCESSING`/`COMPLETED`/`FAILED`/`PENDING_REBALANCE`.
+        status(string): `PENDING`/`PENDING_REBALANCE`/`PROCESSING`/`COMPLETED`/`FAILED`.
         start_t(number): Start time (13-digit timestamp).
         end_t(number): End time (13-digit timestamp).
         page(number): Page number (start from 1).
@@ -154,6 +154,7 @@ def get_admin_client_leverage(
     symbol: str,
     user_account: str = None,
     user_address: str = None,
+    margin_mode: str = None,
 ):
     """[Admin] Get Leverage Setting
 
@@ -191,9 +192,12 @@ def get_admin_orders(
     order_tag: str = None,
     start_t: float = None,
     end_t: float = None,
+    update_start_t: float = None,
+    update_end_t: float = None,
     page: int = None,
     size: int = None,
     sort_by: str = None,
+    source_type: str = None,
 ):
     """[Admin] Get Orders
 
@@ -209,14 +213,17 @@ def get_admin_orders(
         user_address(string): Target user address to query for admin usage.
         symbol(string): Symbol filter.
         side(string): `BUY`/`SELL`.
-        order_type(string): `LIMIT`/`MARKET`.
+        order_type(string): `LIMIT`/`MARKET`/`IOC`/`POST_ONLY`/`FOK`/`ASK`/`BID`.
         status(string): `NEW`/`CANCELLED`/`PARTIAL_FILLED`/`FILLED`/`REJECTED`/`INCOMPLETE`/`COMPLETED`.
         order_tag(string): Order tag filter.
-        start_t(number): Start time (13-digit timestamp).
-        end_t(number): End time (13-digit timestamp).
+        start_t(number): Creation window start (13-digit timestamp).
+        end_t(number): Creation window end (13-digit timestamp).
+        update_start_t(number): Update window start (13-digit timestamp).
+        update_end_t(number): Update window end (13-digit timestamp).
         page(number): Page number (start from 1).
         size(number): Page size (max: 500).
         sort_by(string): CREATED_TIME_DESC/CREATED_TIME_ASC/UPDATED_TIME_DESC/UPDATED_TIME_ASC.
+        source_type(string): Filter by order source type.
     """
     payload = {
         "user_account": user_account,
@@ -228,9 +235,12 @@ def get_admin_orders(
         "order_tag": order_tag,
         "start_t": start_t,
         "end_t": end_t,
+        "update_start_t": update_start_t,
+        "update_end_t": update_end_t,
         "page": page,
         "size": size,
         "sort_by": sort_by,
+        "source_type": source_type,
     }
     return self._sign_request("GET", "/v1/admin/orders", payload=payload)
 
@@ -240,6 +250,7 @@ def get_admin_position(
     symbol: str,
     user_account: str = None,
     user_address: str = None,
+    margin_mode: str = None,
 ):
     """[Admin] Get One Position Info
 
@@ -256,9 +267,14 @@ def get_admin_position(
     Optional Args:
         user_account(string): Target user account to query for admin usage.
         user_address(string): Target user address to query for admin usage.
+        margin_mode(string): CROSS/ISOLATED.
     """
     check_required_parameters([[symbol, "symbol"]])
-    payload = {"user_account": user_account, "user_address": user_address}
+    payload = {
+        "user_account": user_account,
+        "user_address": user_address,
+        "margin_mode": margin_mode,
+    }
     return self._sign_request(
         "GET", f"/v1/admin/position/{symbol}", payload=payload
     )
@@ -337,8 +353,8 @@ def get_admin_algo_orders(
     order_type: str = None,
     status: str = None,
     order_tag: str = None,
-    start_t: float = None,
-    end_t: float = None,
+    created_time_start: float = None,
+    created_time_end: float = None,
     page: int = None,
     size: int = None,
     algo_type: str = None,
@@ -361,11 +377,12 @@ def get_admin_algo_orders(
         order_type(string): LIMIT/MARKET.
         status(string): NEW/CANCELLED/PARTIAL_FILLED/FILLED/REJECTED/INCOMPLETE/COMPLETED.
         order_tag(string): Order tag filter.
-        start_t(number): Start time (13-digit timestamp).
-        end_t(number): End time (13-digit timestamp).
+        created_time_start(number): Order creation window start (13-digit timestamp).
+        created_time_end(number): Order creation window end (13-digit timestamp).
         page(number): Page number (start from 1).
         size(number): Page size (max: 500).
-        algo_type(string): STOP/TPSL/positional_TPSL.
+        algo_type(string): STOP/TRAILING_STOP/TAKE_PROFIT/STOP_LOSS/TP_SL/
+                           POSITIONAL_TP_SL/BRACKET.
         is_triggered(string): Filter by triggered status.
     """
     payload = {
@@ -376,8 +393,8 @@ def get_admin_algo_orders(
         "order_type": order_type,
         "status": status,
         "order_tag": order_tag,
-        "start_t": start_t,
-        "end_t": end_t,
+        "created_time_start": created_time_start,
+        "created_time_end": created_time_end,
         "page": page,
         "size": size,
         "algo_type": algo_type,
@@ -526,6 +543,7 @@ def get_admin_volume_user_stats(
     self,
     user_account: str = None,
     user_address: str = None,
+    broker_id: str = None,
 ):
     """[Admin] Get User Volume Statistics
 
@@ -539,8 +557,13 @@ def get_admin_volume_user_stats(
     Optional Args:
         user_account(string): Target user account to query for admin usage.
         user_address(string): Target user address to query for admin usage.
+        broker_id(string): Filter by builder ID.
     """
-    payload = {"user_account": user_account, "user_address": user_address}
+    payload = {
+        "user_account": user_account,
+        "user_address": user_address,
+        "broker_id": broker_id,
+    }
     return self._sign_request(
         "GET", "/v1/admin/volume/user/stats", payload=payload
     )
