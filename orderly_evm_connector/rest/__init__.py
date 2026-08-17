@@ -278,6 +278,7 @@ class Rest(API):
     from orderly_evm_connector.rest._admin import get_admin_client_holding
     from orderly_evm_connector.rest._admin import get_admin_internal_transfer_history
     from orderly_evm_connector.rest._admin import get_admin_asset_history
+    from orderly_evm_connector.rest._admin import get_admin_asset_convert_history
     from orderly_evm_connector.rest._admin import get_admin_client_leverage
     from orderly_evm_connector.rest._admin import get_admin_orders
     from orderly_evm_connector.rest._admin import get_admin_position
@@ -598,6 +599,7 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._admin import get_admin_client_holding
     from orderly_evm_connector.rest._admin import get_admin_internal_transfer_history
     from orderly_evm_connector.rest._admin import get_admin_asset_history
+    from orderly_evm_connector.rest._admin import get_admin_asset_convert_history
     from orderly_evm_connector.rest._admin import get_admin_client_leverage
     from orderly_evm_connector.rest._admin import get_admin_orders
     from orderly_evm_connector.rest._admin import get_admin_position
@@ -637,4 +639,3 @@ class RestAsync(AsyncAPI):
     from orderly_evm_connector.rest._delegate_signer import delegate_add_orderly_key
     from orderly_evm_connector.rest._delegate_signer import delegate_withdraw_request
     from orderly_evm_connector.rest._delegate_signer import delegate_request_pnl_settlement
-

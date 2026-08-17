@@ -38,6 +38,23 @@ get_asset_hist_exp_data = {
     "end_t": 1699160400000
 }
 
+get_admin_asset_convert_hist_mock_data = {
+    "start_t": 1772706491837,
+    "end_t": 1778747916938,
+    "page": 1,
+    "size": 20,
+    "cursor": 617574,
+    "user_address": "0xa772873e31f088A88C3Fc77E624AE5f4fd1E296B",
+}
+get_admin_asset_convert_hist_exp_data = {
+    "start_t": 1772706491837,
+    "end_t": 1778747916938,
+    "page": 1,
+    "size": 20,
+    "cursor": 617574,
+    "user_address": "0xa772873e31f088A88C3Fc77E624AE5f4fd1E296B",
+}
+
 orderly_key = random_str()
 orderly_secret = "ed25519:" + random_str()
 
@@ -141,6 +158,21 @@ def test_get_asset_history():
     )
     response = client.get_asset_history(**get_asset_hist_mock_data)
     response.should.equal(mock_data)
+
+
+@mock_http_response(
+    responses.GET,
+    f"/v1/admin/asset/convert_history\\?{urlencode(get_admin_asset_convert_hist_exp_data)}",
+    mock_data,
+    200
+)
+def test_get_admin_asset_convert_history():
+    client = Client(
+        orderly_key=orderly_key,
+        orderly_secret=orderly_secret,
+    )
+    response = client.get_admin_asset_convert_history(**get_admin_asset_convert_hist_mock_data)
+    assert response == mock_data
 
 
 @mock_http_response(

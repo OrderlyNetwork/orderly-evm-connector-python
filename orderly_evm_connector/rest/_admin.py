@@ -149,6 +149,48 @@ def get_admin_asset_history(
     return self._sign_request("GET", "/v1/admin/asset/history", payload=payload)
 
 
+def get_admin_asset_convert_history(
+    self,
+    start_t: int,
+    end_t: int,
+    page: int = None,
+    size: int = None,
+    cursor: int = None,
+    user_account: str = None,
+    user_address: str = None,
+):
+    """[Admin] Get Asset Conversion History
+
+    GET /v1/admin/asset/convert_history
+
+    Get asset conversion history records for builder admin usage.
+
+    Args:
+        start_t(number): Start time (13-digit timestamp).
+        end_t(number): End time (13-digit timestamp).
+
+    Optional Args:
+        page(number): Page number (start from 1). Ignored when cursor is provided.
+        size(number): Page size.
+        cursor(number): Keyset cursor from previous response.
+        user_account(string): Target user account to query for admin usage.
+        user_address(string): Target user address to query for admin usage.
+    """
+    check_required_parameters([[start_t, "start_t"], [end_t, "end_t"]])
+    payload = {
+        "start_t": start_t,
+        "end_t": end_t,
+        "page": page,
+        "size": size,
+        "cursor": cursor,
+        "user_account": user_account,
+        "user_address": user_address,
+    }
+    return self._sign_request(
+        "GET", "/v1/admin/asset/convert_history", payload=payload
+    )
+
+
 def get_admin_client_leverage(
     self,
     symbol: str,
